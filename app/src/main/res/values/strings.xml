@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HyakuninReader</string>
+    <string name="app_name">百人一首 簡単に読上</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
