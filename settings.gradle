@@ -1,3 +1,4 @@
 rootProject.name='HyakuninReader'
 include ':app'
 include ':feature:corecomponent'
+include ':domain'
