@@ -25,5 +25,5 @@ interface KarutaRepository {
     /**
      * 歌セットを初期化する.
      */
-    fun initialize()
+    suspend fun initialize()
 }

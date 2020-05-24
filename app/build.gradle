@@ -43,14 +43,27 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
+    dataBinding {
+        enabled = true
+    }
 }
+
+apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation project(':infrastructure:database')
+
+    implementation project(':domain')
+
+    implementation project(':viewstate:core')
+    implementation project(':viewstate:application')
+
     implementation project(':feature:corecomponent')
+    implementation project(':feature:splash')
+    implementation project(':feature:trainingmenu')
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 

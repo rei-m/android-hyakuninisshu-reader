@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2020. Rei Matsushita.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,4 +15,26 @@
   ~
   -->
 
-<resources></resources>
+<resources>
+    <dimen name="text_xxl">52sp</dimen>
+    <dimen name="text_xl">34sp</dimen>
+    <dimen name="text_ll">24sp</dimen>
+    <dimen name="text_l">20sp</dimen>
+    <dimen name="text_ml">18sp</dimen>
+    <dimen name="text_m">16sp</dimen>
+    <dimen name="text_s">14sp</dimen>
+    <dimen name="text_xs">12sp</dimen>
+    <dimen name="text_xxs">10sp</dimen>
+
+    <dimen name="spacing_12">96dp</dimen>
+    <dimen name="spacing_8">64dp</dimen>
+    <dimen name="spacing_5">40dp</dimen>
+    <dimen name="spacing_4">32dp</dimen>
+    <dimen name="spacing_3">24dp</dimen>
+    <dimen name="spacing_2">16dp</dimen>
+    <dimen name="spacing_1">8dp</dimen>
+    <dimen name="spacing_0_5">4dp</dimen>
+    <dimen name="spacing_0_25">2dp</dimen>
+
+    <dimen name="height_ad_banner">98dp</dimen>
+</resources>
