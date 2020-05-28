@@ -27,7 +27,7 @@ import androidx.navigation.fragment.findNavController
 import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
 import net.hyakuninanki.reader.feature.splash.R
 import net.hyakuninanki.reader.feature.splash.databinding.SplashFragmentBinding
-import net.hyakuninanki.reader.feature.splash.di.SplashComponentProvider
+import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 import javax.inject.Inject
 
 class SplashFragment : Fragment() {
@@ -40,7 +40,10 @@ class SplashFragment : Fragment() {
     private val viewModel by activityViewModels<SplashViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as SplashComponentProvider).splashComponent().inject(this)
+        (requireActivity() as SplashComponent.Provider)
+            .splashComponent()
+            .create()
+            .inject(this)
         super.onCreate(savedInstanceState)
     }
 

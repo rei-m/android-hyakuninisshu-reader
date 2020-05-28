@@ -22,7 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUp
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUpDropDown
 import net.hyakuninanki.reader.feature.trainingmenu.databinding.TrainingMenuFragmentBinding
@@ -33,7 +33,7 @@ class TrainingMenuFragment : Fragment() {
     private var _binding: TrainingMenuFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: TrainingMenuViewModel
+    private val viewModel by activityViewModels<TrainingMenuViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,7 +75,6 @@ class TrainingMenuFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(TrainingMenuViewModel::class.java)
         binding.dropdownRangeFrom.setUp(viewModel.rangeFrom.label(resources)) {
             viewModel.rangeFrom = RangeFromCondition.values()[it]
         }

@@ -24,7 +24,7 @@ import com.squareup.moshi.Json
 
 @Entity(tableName = "karuta_table")
 class KarutaData(
-    @PrimaryKey(autoGenerate = false) @ColumnInfo(index = true) @Json(name = "no") var no: String,
+    @PrimaryKey(autoGenerate = false) @ColumnInfo(index = true) @Json(name = "no") var no: Int,
     @Json(name = "creator") var creator: String,
     @ColumnInfo(name = "first_kana") @Json(name = "first_kana") var firstKana: String,
     @ColumnInfo(name = "first_kanji") @Json(name = "first_kanji") var firstKanji: String,
@@ -36,7 +36,8 @@ class KarutaData(
     @ColumnInfo(name = "fourth_kanji") @Json(name = "fourth_kanji") var fourthKanji: String,
     @ColumnInfo(name = "fifth_kana") @Json(name = "fifth_kana") var fifthKana: String,
     @ColumnInfo(name = "fifth_kanji") @Json(name = "fifth_kanji") var fifthKanji: String,
-    @Json(name = "kimariji") var kimariji: String,
+    @Json(name = "kimariji") var kimariji: Int,
+    @ColumnInfo(name = "image_no") @Json(name = "image_no") var imageNo: String,
     @Json(name = "translation") var translation: String,
     @Json(name = "color") var color: String,
     @ColumnInfo(name = "color_no") @Json(name = "color_no") var colorNo: Int,

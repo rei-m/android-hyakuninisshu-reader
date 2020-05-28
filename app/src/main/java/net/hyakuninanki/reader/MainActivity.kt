@@ -9,17 +9,22 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
+import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
-import net.hyakuninanki.reader.feature.splash.di.SplashComponentProvider
 
-class MainActivity : AppCompatActivity(), SplashComponentProvider {
+class MainActivity : AppCompatActivity(), SplashComponent.Provider, MaterialListComponent.Provider {
 
-    private lateinit var _splashComponent: SplashComponent
-    override fun splashComponent(): SplashComponent = _splashComponent
+    private lateinit var _splashComponent: SplashComponent.Factory
+    override fun splashComponent(): SplashComponent.Factory = _splashComponent
+
+    private lateinit var _materialListComponent: MaterialListComponent.Factory
+    override fun materialListComponent(): MaterialListComponent.Factory = _materialListComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val mainComponent = (application as App).appComponent.mainComponent().create()
-        _splashComponent = mainComponent.splashComponent().create()
+        val mainComponent = (application as App).appComponent.mainComponent().create(this)
+        _splashComponent = mainComponent.splashComponent()
+        _materialListComponent = mainComponent.materialListComponent()
+
         mainComponent.inject(this)
 
         super.onCreate(savedInstanceState)
@@ -34,7 +39,9 @@ class MainActivity : AppCompatActivity(), SplashComponentProvider {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_training_menu,
+                R.id.navigation_material_list,
+                R.id.navigation_notifications
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -42,6 +49,7 @@ class MainActivity : AppCompatActivity(), SplashComponentProvider {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.splash_fragment) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 navView.visibility = View.GONE
             } else {
                 navView.visibility = View.VISIBLE

@@ -17,21 +17,24 @@
 
 package net.hyakuninanki.reader
 
+import androidx.savedstate.SavedStateRegistryOwner
+import dagger.BindsInstance
 import dagger.Subcomponent
 import net.hyakuninanki.reader.feature.corecomponent.di.ActivityScope
+import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 
 @ActivityScope
 @Subcomponent
 interface MainComponent {
-    // Factory to create instances of LoginComponent
     @Subcomponent.Factory
     interface Factory {
-        fun create(): MainComponent
+        fun create(@BindsInstance owner: SavedStateRegistryOwner): MainComponent
     }
 
-    // Classes that can be injected by this Component
     fun inject(activity: MainActivity)
 
     fun splashComponent(): SplashComponent.Factory
+
+    fun materialListComponent(): MaterialListComponent.Factory
 }

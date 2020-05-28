@@ -8,4 +8,5 @@ include ':viewstate:question'
 include ':feature:corecomponent'
 include ':feature:splash'
 include ':feature:trainingmenu'
-
+include ':feature:materiallist'
+include ':viewstate:material'
