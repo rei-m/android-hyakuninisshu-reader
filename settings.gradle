@@ -1,2 +1,11 @@
 rootProject.name='HyakuninReader'
 include ':app'
+include ':domain'
+include ':infrastructure:database'
+include ':viewstate:core'
+include ':viewstate:application'
+include ':viewstate:question'
+include ':feature:corecomponent'
+include ':feature:splash'
+include ':feature:trainingmenu'
+
