@@ -17,7 +17,6 @@
 
 package net.hyakuninanki.reader.infrastructure.database.karuta
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -26,7 +25,10 @@ import androidx.room.Query
 @Dao
 interface KarutaDao {
     @Query("SELECT * from karuta_table ORDER BY `no` ASC")
-    fun findAll(): LiveData<List<KarutaData>>
+    fun findAll(): List<KarutaData>
+
+    @Query("SELECT * from karuta_table WHERE color = :color ORDER BY `no` ASC")
+    fun findAllWithColor(color: String): List<KarutaData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertKarutas(karutas: List<KarutaData>)

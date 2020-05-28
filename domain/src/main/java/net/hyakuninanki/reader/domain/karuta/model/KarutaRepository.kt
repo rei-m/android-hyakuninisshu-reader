@@ -26,4 +26,9 @@ interface KarutaRepository {
      * 歌セットを初期化する.
      */
     suspend fun initialize()
+
+    /**
+     * 歌のリストを取得する
+     */
+    suspend fun findAll(color: KarutaColor? = null): List<Karuta>
 }

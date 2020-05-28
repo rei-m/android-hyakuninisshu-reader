@@ -60,10 +60,12 @@ dependencies {
 
     implementation project(':viewstate:core')
     implementation project(':viewstate:application')
+    implementation project(':viewstate:material')
 
     implementation project(':feature:corecomponent')
     implementation project(':feature:splash')
     implementation project(':feature:trainingmenu')
+    implementation project(':feature:materiallist')
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 

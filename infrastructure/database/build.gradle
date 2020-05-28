@@ -49,6 +49,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.androidx_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.androidx_lifecycle_version"
 
     implementation "com.squareup.moshi:moshi:$rootProject.moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$rootProject.moshi_version"

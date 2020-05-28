@@ -21,7 +21,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
+import net.hyakuninanki.reader.domain.karuta.model.*
 import net.hyakuninanki.reader.infrastructure.database.AppDatabase
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -68,4 +68,40 @@ class KarutaRepositoryImpl(
             }
         }
     }
+
+    override suspend fun findAll(color: KarutaColor?): List<Karuta> = if (color == null) {
+        withContext(ioContext) { database.karutaDao().findAll() }
+    } else {
+        withContext(ioContext) {
+            database.karutaDao()
+                .findAllWithColor(color.value)
+        }
+    }.map { it.toModel() }
+}
+
+fun KarutaData.toModel(): Karuta {
+    val karutaNo = KarutaNo(no)
+    val shoku = Verse(kana = firstKana, kanji = firstKanji)
+    val niku = Verse(kana = secondKana, kanji = secondKanji)
+    val sanku = Verse(kana = thirdKana, kanji = thirdKanji)
+    val shiku = Verse(kana = fourthKana, kanji = fourthKanji)
+    val goku = Verse(kana = fifthKana, kanji = fifthKanji)
+
+    return Karuta(
+        id = KarutaId(no),
+        no = karutaNo,
+        creator = creator,
+        kamiNoKu = KamiNoKu(karutaNo = karutaNo, shoku = shoku, niku = niku, sanku = sanku),
+        shimoNoKu = ShimoNoKu(karutaNo = karutaNo, shiku = shiku, goku = goku),
+        kimariji = Kimariji.forValue(kimariji),
+        imageNo = KarutaImageNo(imageNo),
+        translation = translation,
+        color = KarutaColor.forValue(color),
+        toriFuda = ToriFuda(
+            karutaNo = karutaNo,
+            firstLine = torifuda.substring(0..4),
+            secondLine = torifuda.substring(5..9),
+            thirdLine = torifuda.substring(10..torifuda.lastIndex)
+        )
+    )
 }

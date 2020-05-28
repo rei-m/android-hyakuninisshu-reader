@@ -30,7 +30,8 @@ apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencie
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
     implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid_version"
-    implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
+    api "androidx.lifecycle:lifecycle-reactivestreams:$rootProject.androidx_lifecycle_version"
+    api "io.reactivex.rxjava2:rxjava:$rootProject.rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid_version"
+    api "com.jakewharton.timber:timber:$rootProject.timber_version"
 }
