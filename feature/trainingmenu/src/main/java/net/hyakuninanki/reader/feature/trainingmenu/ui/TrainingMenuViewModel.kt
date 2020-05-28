@@ -21,51 +21,51 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import net.hyakuninanki.reader.viewstate.question.model.*
 
-class TrainingMenuViewModel(private val state: SavedStateHandle) : ViewModel() {
+class TrainingMenuViewModel(private val handle: SavedStateHandle) : ViewModel() {
     var rangeFrom: RangeFromCondition
         get() {
-            val ordinal: Int = state.get<Int>(KEY_RANGE_FROM) ?: RangeFromCondition.ONE.ordinal
+            val ordinal: Int = handle.get<Int>(KEY_RANGE_FROM) ?: RangeFromCondition.ONE.ordinal
             return RangeFromCondition[ordinal]
         }
         set(value) {
-            state.set<Int>(KEY_RANGE_FROM, value.ordinal)
+            handle.set<Int>(KEY_RANGE_FROM, value.ordinal)
         }
 
     var rangeTo: RangeToCondition
         get() {
-            val ordinal: Int = state.get<Int>(KEY_RANGE_TO) ?: RangeToCondition.ONE_HUNDRED.ordinal
+            val ordinal: Int = handle.get<Int>(KEY_RANGE_TO) ?: RangeToCondition.ONE_HUNDRED.ordinal
             return RangeToCondition[ordinal]
         }
         set(value) {
-            state.set<Int>(KEY_RANGE_TO, value.ordinal)
+            handle.set<Int>(KEY_RANGE_TO, value.ordinal)
         }
 
     var kimariji: KimarijiCondition
         get() {
-            val ordinal: Int = state.get<Int>(KEY_KIMARIJI) ?: KimarijiCondition.ALL.ordinal
+            val ordinal: Int = handle.get<Int>(KEY_KIMARIJI) ?: KimarijiCondition.ALL.ordinal
             return KimarijiCondition[ordinal]
         }
         set(value) {
-            state.set<Int>(KEY_KIMARIJI, value.ordinal)
+            handle.set<Int>(KEY_KIMARIJI, value.ordinal)
         }
 
     var color: ColorCondition
         get() {
-            val ordinal: Int = state.get<Int>(KEY_COLOR) ?: ColorCondition.ALL.ordinal
+            val ordinal: Int = handle.get<Int>(KEY_COLOR) ?: ColorCondition.ALL.ordinal
             return ColorCondition[ordinal]
         }
         set(value) {
-            state.set<Int>(KEY_COLOR, value.ordinal)
+            handle.set<Int>(KEY_COLOR, value.ordinal)
         }
 
     var inputSecond: InputSecondCondition
         get() {
             val ordinal: Int =
-                state.get<Int>(KEY_INPUT_SPEED) ?: InputSecondCondition.NORMAL.ordinal
+                handle.get<Int>(KEY_INPUT_SPEED) ?: InputSecondCondition.NORMAL.ordinal
             return InputSecondCondition[ordinal]
         }
         set(value) {
-            state.set<Int>(KEY_INPUT_SPEED, value.ordinal)
+            handle.set<Int>(KEY_INPUT_SPEED, value.ordinal)
         }
 
     companion object {

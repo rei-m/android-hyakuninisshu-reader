@@ -18,15 +18,14 @@
 package net.hyakuninanki.reader.feature.materiallist.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import net.hyakuninanki.reader.feature.materiallist.databinding.MaterialListFragmentBinding
-import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponentProvider
+import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
+import net.hyakuninanki.reader.viewstate.material.model.ColorFilter
 import javax.inject.Inject
 
 class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionListener {
@@ -39,7 +38,10 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
     private val viewModel by activityViewModels<MaterialListViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as MaterialListComponentProvider).materialListComponent().inject(this)
+        (requireActivity() as MaterialListComponent.Provider)
+            .materialListComponent()
+            .create()
+            .inject(this)
         super.onCreate(savedInstanceState)
     }
 
@@ -61,6 +63,8 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
             )
         }
 
+        setHasOptionsMenu(true)
+
         return binding.root
     }
 
@@ -74,6 +78,19 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
         viewModel.materialList.observe(viewLifecycleOwner, Observer {
             (binding.recyclerMaterialList.adapter as MaterialListAdapter).replaceData(it)
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        for (colorFilter in ColorFilter.values()) {
+            val menuItem =
+                menu.add(Menu.NONE, colorFilter.ordinal, Menu.NONE, colorFilter.label(resources))
+            menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+            menuItem.setOnMenuItemClickListener {
+                viewModel.colorFilter = colorFilter
+                false
+            }
+        }
     }
 
     override fun onItemClicked(position: Int) {

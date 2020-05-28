@@ -30,4 +30,8 @@ interface SplashComponent {
 
     // Classes that can be injected by this Component
     fun inject(fragment: SplashFragment)
+
+    interface Provider {
+        fun splashComponent(): Factory
+    }
 }

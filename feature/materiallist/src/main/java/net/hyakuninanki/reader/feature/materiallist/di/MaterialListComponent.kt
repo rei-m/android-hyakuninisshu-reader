@@ -28,6 +28,9 @@ interface MaterialListComponent {
         fun create(): MaterialListComponent
     }
 
-    // Classes that can be injected by this Component
     fun inject(fragment: MaterialListFragment)
+
+    interface Provider {
+        fun materialListComponent(): Factory
+    }
 }

@@ -17,8 +17,10 @@
 
 package net.hyakuninanki.reader.feature.materiallist.ui
 
+import androidx.lifecycle.AbstractSavedStateViewModelFactory
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.savedstate.SavedStateRegistryOwner
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.viewstate.core.Dispatcher
 import net.hyakuninanki.reader.viewstate.material.action.MaterialActionCreator
@@ -28,14 +30,25 @@ import javax.inject.Inject
 
 class MaterialListViewModel(
     dispatcher: Dispatcher,
-    actionCreator: MaterialActionCreator,
-    private val store: MaterialStore
+    private val actionCreator: MaterialActionCreator,
+    private val store: MaterialStore,
+    private val handle: SavedStateHandle
 ) : AbstractViewModel(dispatcher) {
 
     val materialList = store.materialList
 
+    var colorFilter: ColorFilter
+        get() {
+            val ordinal: Int = handle.get<Int>(KEY_COLOR_FILTER) ?: ColorFilter.ALL.ordinal
+            return ColorFilter[ordinal]
+        }
+        set(value) {
+            dispatchAction { actionCreator.fetchMaterialList(value) }
+            handle.set<Int>(KEY_COLOR_FILTER, value.ordinal)
+        }
+
     init {
-        dispatchAction { actionCreator.fetchMaterialList(ColorFilter.ALL) }
+        dispatchAction { actionCreator.fetchMaterialList(colorFilter) }
     }
 
     override fun onCleared() {
@@ -44,15 +57,25 @@ class MaterialListViewModel(
     }
 
     class Factory @Inject constructor(
+        owner: SavedStateRegistryOwner,
         private val dispatcher: Dispatcher,
         private val actionCreator: MaterialActionCreator,
         private val store: MaterialStore
-    ) : ViewModelProvider.Factory {
+    ) : AbstractSavedStateViewModelFactory(owner, null) {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = MaterialListViewModel(
+        override fun <T : ViewModel?> create(
+            key: String,
+            modelClass: Class<T>,
+            handle: SavedStateHandle
+        ): T = MaterialListViewModel(
             dispatcher,
             actionCreator,
-            store
+            store,
+            handle
         ) as T
+    }
+
+    companion object {
+        private const val KEY_COLOR_FILTER = "colorFilter"
     }
 }
