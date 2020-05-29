@@ -18,8 +18,8 @@
 package net.hyakuninanki.reader.feature.splash.di
 
 import dagger.Subcomponent
+import net.hyakuninanki.reader.ducks.application.di.ApplicationModule
 import net.hyakuninanki.reader.feature.splash.ui.SplashFragment
-import net.hyakuninanki.reader.viewstate.application.di.ApplicationModule
 
 @Subcomponent(modules = [ApplicationModule::class])
 interface SplashComponent {

@@ -36,5 +36,17 @@
     <dimen name="spacing_0_5">4dp</dimen>
     <dimen name="spacing_0_25">2dp</dimen>
 
+    <dimen name="elevation_level_xxxl">24dp</dimen>
+    <dimen name="elevation_level_xxl">16dp</dimen>
+    <dimen name="elevation_level_xl">12dp</dimen>
+    <dimen name="elevation_level_ll">9dp</dimen>
+    <dimen name="elevation_level_l">8dp</dimen>
+    <dimen name="elevation_level_m">6dp</dimen>
+    <dimen name="elevation_level_ms">4dp</dimen>
+    <dimen name="elevation_level_w">3dp</dimen>
+    <dimen name="elevation_level_xs">2dp</dimen>
+    <dimen name="elevation_level_xxs">1dp</dimen>
+    <dimen name="elevation_level_none">0dp</dimen>
+    
     <dimen name="height_ad_banner">98dp</dimen>
 </resources>

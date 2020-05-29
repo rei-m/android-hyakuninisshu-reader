@@ -18,8 +18,8 @@
 package net.hyakuninanki.reader.feature.materiallist.di
 
 import dagger.Subcomponent
+import net.hyakuninanki.reader.ducks.material.di.MaterialModule
 import net.hyakuninanki.reader.feature.materiallist.ui.MaterialListFragment
-import net.hyakuninanki.reader.viewstate.material.di.MaterialModule
 
 @Subcomponent(modules = [MaterialModule::class])
 interface MaterialListComponent {

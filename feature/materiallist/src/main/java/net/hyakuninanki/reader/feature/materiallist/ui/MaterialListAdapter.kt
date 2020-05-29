@@ -21,9 +21,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import net.hyakuninanki.reader.ducks.material.model.Material
 import net.hyakuninanki.reader.feature.materiallist.R
 import net.hyakuninanki.reader.feature.materiallist.databinding.AdapterItemMaterialKarutaBinding
-import net.hyakuninanki.reader.viewstate.material.model.Material
 
 class MaterialListAdapter(
     context: Context,

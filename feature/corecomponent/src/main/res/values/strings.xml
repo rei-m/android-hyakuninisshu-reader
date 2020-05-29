@@ -30,6 +30,9 @@
     <string name="start_training">練習をはじめる</string>
 
     <string name="karuta">かるた</string>
+    <string name="creator">歌人</string>
+    <string name="translation">訳</string>
+    <string name="original_text">原文</string>
 
     <string name="app_url">https://play.google.com/store/apps/details?id=net.hyakuninanki.reader</string>
 </resources>

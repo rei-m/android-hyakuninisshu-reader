@@ -18,4 +18,5 @@
 <resources>
     <dimen name="width_karuta_thumbnail_small">44dp</dimen>
     <dimen name="height_karuta_thumbnail_small">53dp</dimen>
+    <dimen name="width_karuta_thumbnail">200dp</dimen>
 </resources>
