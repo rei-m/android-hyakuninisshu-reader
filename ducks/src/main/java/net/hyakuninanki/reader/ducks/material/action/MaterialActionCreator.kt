@@ -39,6 +39,11 @@ class MaterialActionCreator @Inject constructor(
     suspend fun fetchMaterialList(color: ColorFilter?) = try {
         val karutaList = karutaRepository.findAll(color = color?.value)
         FetchMaterialListAction.createSuccess(karutaList.map { karuta ->
+            val imageResId = context.resources.getIdentifier(
+                "karuta_${karuta.imageNo.value}",
+                "drawable",
+                context.packageName
+            )
             Material(
                 no = karuta.no.value,
                 noTxt = karuta.no.value.toKarutaNoStr(context),
@@ -48,7 +53,7 @@ class MaterialActionCreator @Inject constructor(
                 shimoNoKuKana = karuta.shimoNoKu.kana,
                 shimoNoKuKanji = karuta.shimoNoKu.kanji,
                 kimariji = karuta.kimariji.value,
-                imageNo = karuta.imageNo.value,
+                imageResId = imageResId,
                 translation = karuta.translation,
                 color = karuta.color.value
             )

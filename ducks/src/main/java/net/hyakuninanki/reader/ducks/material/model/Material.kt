@@ -19,6 +19,8 @@ package net.hyakuninanki.reader.ducks.material.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
 
 data class Material(
     val no: Int,
@@ -29,7 +31,7 @@ data class Material(
     val shimoNoKuKanji: String,
     val shimoNoKuKana: String,
     val kimariji: Int,
-    val imageNo: String,
+    @DrawableRes val imageResId: Int,
     val translation: String,
     val color: String
 ) : Parcelable {
@@ -42,7 +44,7 @@ data class Material(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readString()!!,
+        parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!
     ) {
@@ -57,7 +59,7 @@ data class Material(
         parcel.writeString(shimoNoKuKanji)
         parcel.writeString(shimoNoKuKana)
         parcel.writeInt(kimariji)
-        parcel.writeString(imageNo)
+        parcel.writeInt(imageResId)
         parcel.writeString(translation)
         parcel.writeString(color)
     }

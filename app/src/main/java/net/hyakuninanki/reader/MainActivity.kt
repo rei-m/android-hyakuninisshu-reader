@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(),
             setOf(
                 R.id.navigation_training_menu,
                 R.id.navigation_material_list,
-                R.id.navigation_notifications
+                R.id.navigation_support
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

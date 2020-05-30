@@ -15,19 +15,20 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.corecomponent.helper.bindingadapters
+package net.hyakuninanki.reader.feature.support
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import net.hyakuninanki.reader.feature.corecomponent.helper.GlideApp
+import org.junit.Test
 
-@BindingAdapter("karutaSrc")
-fun setKarutaSrc(view: ImageView, resId: Int?) {
-    resId ?: return
+import org.junit.Assert.*
 
-    GlideApp.with(view.context)
-        .load(resId)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(view)
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
 }

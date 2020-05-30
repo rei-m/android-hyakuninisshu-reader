@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/feature/materialdetail" />
             <option value="$PROJECT_DIR$/feature/materiallist" />
             <option value="$PROJECT_DIR$/feature/splash" />
+            <option value="$PROJECT_DIR$/feature/support" />
             <option value="$PROJECT_DIR$/feature/trainingmenu" />
             <option value="$PROJECT_DIR$/infrastructure" />
             <option value="$PROJECT_DIR$/infrastructure/database" />

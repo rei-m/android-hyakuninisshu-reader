@@ -46,11 +46,10 @@
                 android:layout_marginTop="@dimen/spacing_2"
                 android:contentDescription="@string/karuta"
                 android:elevation="@dimen/elevation_level_m"
-                app:karutaSrc="@{material.imageNo}"
+                app:karutaSrc="@{material.imageResId}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/karuta_001" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_creator_title"

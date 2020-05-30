@@ -60,6 +60,7 @@ dependencies {
     implementation project(':feature:trainingmenu')
     implementation project(':feature:materiallist')
     implementation project(':feature:materialdetail')
+    implementation project(':feature:support')
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 
