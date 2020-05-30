@@ -23,14 +23,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import net.hyakuninanki.reader.feature.corecomponent.helper.GlideApp
 
 @BindingAdapter("karutaSrc")
-fun setKarutaSrc(view: ImageView, resIdString: String?) {
-    resIdString ?: return
-    val context = view.context.applicationContext
-    val resId = context.resources.getIdentifier(
-        "karuta_$resIdString",
-        "drawable",
-        context.packageName
-    )
+fun setKarutaSrc(view: ImageView, resId: Int?) {
+    resId ?: return
 
     GlideApp.with(view.context)
         .load(resId)

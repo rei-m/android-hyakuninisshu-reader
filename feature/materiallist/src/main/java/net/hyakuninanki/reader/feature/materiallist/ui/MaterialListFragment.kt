@@ -22,10 +22,11 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import net.hyakuninanki.reader.ducks.material.model.ColorFilter
 import net.hyakuninanki.reader.feature.materiallist.databinding.MaterialListFragmentBinding
 import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
-import net.hyakuninanki.reader.viewstate.material.model.ColorFilter
 import javax.inject.Inject
 
 class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionListener {
@@ -84,7 +85,7 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
         super.onCreateOptionsMenu(menu, inflater)
         for (colorFilter in ColorFilter.values()) {
             val menuItem =
-                menu.add(Menu.NONE, colorFilter.ordinal, Menu.NONE, colorFilter.label(resources))
+                menu.add(Menu.NONE, colorFilter.ordinal, Menu.NONE, colorFilter.resId)
             menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
             menuItem.setOnMenuItemClickListener {
                 viewModel.colorFilter = colorFilter
@@ -94,7 +95,10 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
     }
 
     override fun onItemClicked(position: Int) {
-//            findNavController().navigate(R.id.action_splash_to_trainingMenu)
-//        navigator.navigateToMaterialDetail(position, viewModel.colorFilter)
+        val action = MaterialListFragmentDirections.actionMaterialListToMaterialDetail(
+            position = position,
+            color = viewModel.colorFilter
+        )
+        findNavController().navigate(action)
     }
 }

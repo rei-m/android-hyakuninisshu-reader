@@ -21,11 +21,11 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import net.hyakuninanki.reader.ducks.core.Dispatcher
+import net.hyakuninanki.reader.ducks.material.action.MaterialActionCreator
+import net.hyakuninanki.reader.ducks.material.model.ColorFilter
+import net.hyakuninanki.reader.ducks.material.store.MaterialStore
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
-import net.hyakuninanki.reader.viewstate.core.Dispatcher
-import net.hyakuninanki.reader.viewstate.material.action.MaterialActionCreator
-import net.hyakuninanki.reader.viewstate.material.model.ColorFilter
-import net.hyakuninanki.reader.viewstate.material.store.MaterialStore
 import javax.inject.Inject
 
 class MaterialListViewModel(

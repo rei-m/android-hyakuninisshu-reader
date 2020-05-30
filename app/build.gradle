@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -56,16 +55,12 @@ dependencies {
 
     implementation project(':infrastructure:database')
 
-    implementation project(':domain')
-
-    implementation project(':viewstate:core')
-    implementation project(':viewstate:application')
-    implementation project(':viewstate:material')
-
     implementation project(':feature:corecomponent')
     implementation project(':feature:splash')
     implementation project(':feature:trainingmenu')
     implementation project(':feature:materiallist')
+    implementation project(':feature:materialdetail')
+    implementation project(':feature:support')
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 

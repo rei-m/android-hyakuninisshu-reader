@@ -18,7 +18,9 @@
 <resources>
     <string name="navigation_label_splash">起動</string>
     <string name="navigation_label_training_menu">練習</string>
+    <string name="navigation_label_exam">力試し</string>
     <string name="navigation_label_material_list">資料</string>
+    <string name="navigation_label_support">その他</string>
 
     <string name="training_setting">出題設定</string>
     <string name="range_start">出題開始</string>
@@ -30,6 +32,11 @@
     <string name="start_training">練習をはじめる</string>
 
     <string name="karuta">かるた</string>
+    <string name="creator">歌人</string>
+    <string name="translation">訳</string>
+    <string name="original_text">原文</string>
+
+    <string name="action_back">戻る</string>
 
     <string name="app_url">https://play.google.com/store/apps/details?id=net.hyakuninanki.reader</string>
 </resources>

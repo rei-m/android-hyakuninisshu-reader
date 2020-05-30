@@ -19,10 +19,10 @@ package net.hyakuninanki.reader.feature.splash.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import net.hyakuninanki.reader.ducks.application.action.ApplicationActionCreator
+import net.hyakuninanki.reader.ducks.application.store.ApplicationStore
+import net.hyakuninanki.reader.ducks.core.Dispatcher
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
-import net.hyakuninanki.reader.viewstate.application.action.ApplicationActionCreator
-import net.hyakuninanki.reader.viewstate.application.store.ApplicationStore
-import net.hyakuninanki.reader.viewstate.core.Dispatcher
 import javax.inject.Inject
 
 class SplashViewModel(

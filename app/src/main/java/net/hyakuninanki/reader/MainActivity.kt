@@ -1,6 +1,7 @@
 package net.hyakuninanki.reader
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,22 +10,24 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
+import net.hyakuninanki.reader.feature.materialdetail.di.MaterialDetailComponent
 import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 
-class MainActivity : AppCompatActivity(), SplashComponent.Provider, MaterialListComponent.Provider {
 
-    private lateinit var _splashComponent: SplashComponent.Factory
-    override fun splashComponent(): SplashComponent.Factory = _splashComponent
+class MainActivity : AppCompatActivity(),
+    SplashComponent.Provider,
+    MaterialListComponent.Provider,
+    MaterialDetailComponent.Provider {
 
-    private lateinit var _materialListComponent: MaterialListComponent.Factory
-    override fun materialListComponent(): MaterialListComponent.Factory = _materialListComponent
+    private lateinit var mainComponent: MainComponent
+
+    override fun splashComponent() = mainComponent.splashComponent()
+    override fun materialListComponent() = mainComponent.materialListComponent()
+    override fun materialDetailComponent() = mainComponent.materialDetailComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val mainComponent = (application as App).appComponent.mainComponent().create(this)
-        _splashComponent = mainComponent.splashComponent()
-        _materialListComponent = mainComponent.materialListComponent()
-
+        mainComponent = (application as App).appComponent.mainComponent().create(this)
         mainComponent.inject(this)
 
         super.onCreate(savedInstanceState)
@@ -41,19 +44,33 @@ class MainActivity : AppCompatActivity(), SplashComponent.Provider, MaterialList
             setOf(
                 R.id.navigation_training_menu,
                 R.id.navigation_material_list,
-                R.id.navigation_notifications
+                R.id.navigation_support
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.splash_fragment) {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                navView.visibility = View.GONE
-            } else {
-                navView.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.splash_fragment -> {
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    navView.visibility = View.GONE
+                }
+                R.id.navigation_material_detail -> {
+                    navView.visibility = View.GONE
+                }
+                else -> {
+                    navView.visibility = View.VISIBLE
+                }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        if (menuItem.itemId == android.R.id.home) {
+            findNavController(R.id.nav_host_fragment).popBackStack()
+            return false
+        }
+        return super.onOptionsItemSelected(menuItem)
     }
 }

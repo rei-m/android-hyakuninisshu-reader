@@ -19,7 +19,7 @@ package net.hyakuninanki.reader.feature.trainingmenu.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import net.hyakuninanki.reader.viewstate.question.model.*
+import net.hyakuninanki.reader.ducks.question.model.*
 
 class TrainingMenuViewModel(private val handle: SavedStateHandle) : ViewModel() {
     var rangeFrom: RangeFromCondition

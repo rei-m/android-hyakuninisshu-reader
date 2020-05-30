@@ -25,7 +25,7 @@
 
         <variable
             name="material"
-            type="net.hyakuninanki.reader.viewstate.material.model.Material" />
+            type="net.hyakuninanki.reader.ducks.material.model.Material" />
 
         <variable
             name="position"
@@ -70,12 +70,11 @@
             android:layout_marginTop="@dimen/spacing_0_5"
             android:layout_marginEnd="16dp"
             android:contentDescription="@string/karuta"
-            app:karutaSrc="@{material.imageNo}"
+            app:karutaSrc="@{material.imageResId}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/karuta_kami_no_ku"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/karuta_no"
-            tools:src="@drawable/karuta_001" />
+            app:layout_constraintTop_toBottomOf="@id/karuta_no" />
 
         <TextView
             android:id="@+id/karuta_kami_no_ku"
