@@ -15,26 +15,23 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.karuta.model
+package net.hyakuninanki.reader.domain.question
 
-import net.hyakuninanki.reader.domain.ValueObject
+import net.hyakuninanki.reader.domain.AbstractEntity
+import java.util.*
 
 /**
- * 歌の画像番号.
+ * 百人一首の力試し.
  */
-data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
-    val value: Int
-) : ValueObject {
+class KarutaExam(
+    id: KarutaExamId,
+    val tookDate: Date,
+    val result: KarutaExamResult
+) : AbstractEntity<KarutaExamId>(id) {
 
-    init {
-        if (value < MIN_VALUE || MAX_VALUE < value) {
-            throw IllegalArgumentException("KarutaNo is Invalid, value is $value")
-        }
-    }
+    override fun toString() = "KarutaExam(tookDate=$tookDate, result=$result)"
 
     companion object {
-        const val MIN_VALUE = 1
-        const val MAX_VALUE = 100
-        val LIST = (MIN_VALUE..KarutaNo.MAX_VALUE).map { KarutaNo(it) }
+        const val MAX_HISTORY_COUNT = 10
     }
 }

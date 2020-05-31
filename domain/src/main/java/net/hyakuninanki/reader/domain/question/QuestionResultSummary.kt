@@ -15,26 +15,17 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.karuta.model
+package net.hyakuninanki.reader.domain.question
 
 import net.hyakuninanki.reader.domain.ValueObject
 
 /**
- * 歌の画像番号.
+ * 問題全体の解答結果集計.
  */
-data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
-    val value: Int
+data class QuestionResultSummary(
+    val totalQuestionCount: Int,
+    val correctCount: Int,
+    val averageAnswerSec: Float
 ) : ValueObject {
-
-    init {
-        if (value < MIN_VALUE || MAX_VALUE < value) {
-            throw IllegalArgumentException("KarutaNo is Invalid, value is $value")
-        }
-    }
-
-    companion object {
-        const val MIN_VALUE = 1
-        const val MAX_VALUE = 100
-        val LIST = (MIN_VALUE..KarutaNo.MAX_VALUE).map { KarutaNo(it) }
-    }
+    val score = "$correctCount/$totalQuestionCount"
 }

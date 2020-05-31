@@ -15,26 +15,19 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.karuta.model
+package net.hyakuninanki.reader.infrastructure.database
 
-import net.hyakuninanki.reader.domain.ValueObject
+import androidx.room.TypeConverter
+import java.util.*
 
-/**
- * 歌の画像番号.
- */
-data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
-    val value: Int
-) : ValueObject {
-
-    init {
-        if (value < MIN_VALUE || MAX_VALUE < value) {
-            throw IllegalArgumentException("KarutaNo is Invalid, value is $value")
-        }
+class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
     }
 
-    companion object {
-        const val MIN_VALUE = 1
-        const val MAX_VALUE = 100
-        val LIST = (MIN_VALUE..KarutaNo.MAX_VALUE).map { KarutaNo(it) }
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time?.toLong()
     }
 }

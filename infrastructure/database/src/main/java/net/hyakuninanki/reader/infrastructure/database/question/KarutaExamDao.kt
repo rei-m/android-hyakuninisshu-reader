@@ -15,26 +15,22 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.karuta.model
+package net.hyakuninanki.reader.infrastructure.database.question
 
-import net.hyakuninanki.reader.domain.ValueObject
+import androidx.room.Dao
+import androidx.room.Insert
 
-/**
- * 歌の画像番号.
- */
-data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
-    val value: Int
-) : ValueObject {
+@Dao
+interface KarutaExamDao {
+    //    @Query("SELECT * from karuta_table ORDER BY `no` ASC")
+//    fun findAll(): List<KarutaData>
+//
+//    @Query("SELECT * from karuta_table WHERE color = :color ORDER BY `no` ASC")
+//    fun findAllWithColor(color: String): List<KarutaData>
+//
+    @Insert
+    suspend fun insert(karutaExam: KarutaExamData): Long
 
-    init {
-        if (value < MIN_VALUE || MAX_VALUE < value) {
-            throw IllegalArgumentException("KarutaNo is Invalid, value is $value")
-        }
-    }
-
-    companion object {
-        const val MIN_VALUE = 1
-        const val MAX_VALUE = 100
-        val LIST = (MIN_VALUE..KarutaNo.MAX_VALUE).map { KarutaNo(it) }
-    }
+//    @Query("DELETE FROM karuta_table")
+//    suspend fun deleteAll()
 }

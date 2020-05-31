@@ -19,12 +19,24 @@ package net.hyakuninanki.reader.infrastructure.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaDao
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaData
+import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamDao
+import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamData
+import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamWrongKarutaNoDao
+import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamWrongKarutaNoData
 
-@Database(entities = [KarutaData::class], version = 1, exportSchema = false)
+@Database(
+    entities = [KarutaData::class, KarutaExamData::class, KarutaExamWrongKarutaNoData::class],
+    version = 1,
+    exportSchema = false
+)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun karutaDao(): KarutaDao
+    abstract fun karutaExamDao(): KarutaExamDao
+    abstract fun karutaExamWrongKarutaNoDao(): KarutaExamWrongKarutaNoDao
 
     companion object {
         const val DB_NAME = "hyakuninanki_reader_database"

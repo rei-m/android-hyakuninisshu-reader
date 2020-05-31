@@ -15,26 +15,17 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.karuta.model
+package net.hyakuninanki.reader.infrastructure.database.question
 
-import net.hyakuninanki.reader.domain.ValueObject
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.*
 
-/**
- * 歌の画像番号.
- */
-data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
-    val value: Int
-) : ValueObject {
-
-    init {
-        if (value < MIN_VALUE || MAX_VALUE < value) {
-            throw IllegalArgumentException("KarutaNo is Invalid, value is $value")
-        }
-    }
-
-    companion object {
-        const val MIN_VALUE = 1
-        const val MAX_VALUE = 100
-        val LIST = (MIN_VALUE..KarutaNo.MAX_VALUE).map { KarutaNo(it) }
-    }
-}
+@Entity
+data class KarutaExamData(
+    @PrimaryKey(autoGenerate = true) val id: Long?,
+    @ColumnInfo(name = "took_exam_date") val tookExamDate: Date,
+    @ColumnInfo(name = "total_question_count") val totalQuestionCount: Int,
+    @ColumnInfo(name = "average_answer_time") val averageAnswerTime: Float
+)
