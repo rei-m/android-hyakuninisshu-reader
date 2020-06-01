@@ -22,7 +22,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity
+@Entity(tableName = "karuta_exam_table")
 data class KarutaExamData(
     @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "took_exam_date") val tookExamDate: Date,

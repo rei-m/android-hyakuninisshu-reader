@@ -71,4 +71,5 @@
     <string name="hundred">百</string>
 
     <string name="karuta_number">%1$s番</string>
+    <string name="seconds">%1$s秒</string>
 </resources>

@@ -22,6 +22,9 @@
     <string name="navigation_label_material_list">資料</string>
     <string name="navigation_label_support">その他</string>
 
+    <string name="number_of_correct_answers">正解数</string>
+    <string name="average_response_time">平均回答時間</string>
+
     <string name="training_setting">出題設定</string>
     <string name="range_start">出題開始</string>
     <string name="range_end">出題終了</string>

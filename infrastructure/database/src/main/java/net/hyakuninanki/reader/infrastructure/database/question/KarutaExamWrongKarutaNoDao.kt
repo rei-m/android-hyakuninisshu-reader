@@ -17,19 +17,15 @@
 
 package net.hyakuninanki.reader.infrastructure.database.question
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface KarutaExamWrongKarutaNoDao {
-    //    @Query("SELECT * from karuta_table ORDER BY `no` ASC")
-//    fun findAll(): List<KarutaData>
-//
-//    @Query("SELECT * from karuta_table WHERE color = :color ORDER BY `no` ASC")
-//    fun findAllWithColor(color: String): List<KarutaData>
-//
+    @Query("SELECT * from karuta_exam_wrong_karuta_no_table WHERE karuta_exam_id = :karutaExamId ORDER BY `karuta_no` ASC")
+    fun findAllWithExamId(karutaExamId: Long): List<KarutaExamWrongKarutaNoData>
+
     @Insert
     suspend fun insert(karutaExamWrongKarutaNoList: List<KarutaExamWrongKarutaNoData>): List<Long>
-
-//    @Query("DELETE FROM karuta_table")
-//    suspend fun deleteAll()
 }

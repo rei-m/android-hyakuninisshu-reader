@@ -19,15 +19,16 @@ package net.hyakuninanki.reader.infrastructure.database.question
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
 interface KarutaExamDao {
-    //    @Query("SELECT * from karuta_table ORDER BY `no` ASC")
-//    fun findAll(): List<KarutaData>
-//
+    @Query("SELECT * from karuta_exam_table ORDER BY `id` DESC LIMIT 1")
+    fun last(): KarutaExamData?
+
 //    @Query("SELECT * from karuta_table WHERE color = :color ORDER BY `no` ASC")
 //    fun findAllWithColor(color: String): List<KarutaData>
-//
+
     @Insert
     suspend fun insert(karutaExam: KarutaExamData): Long
 

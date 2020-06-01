@@ -38,6 +38,13 @@ interface KarutaExamRepository {
     suspend fun findById(karutaExamId: KarutaExamId): KarutaExam?
 
     /**
+     * 最新の力試しを取得する.
+     *
+     * @return 力試し
+     */
+    suspend fun last(): KarutaExam?
+
+    /**
      * 力試しコレクションを取得する.
      *
      * @return 力試しコレクション

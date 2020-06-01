@@ -42,8 +42,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -58,6 +58,7 @@ dependencies {
     implementation project(':feature:corecomponent')
     implementation project(':feature:splash')
     implementation project(':feature:trainingmenu')
+    implementation project(':feature:exammenu')
     implementation project(':feature:materiallist')
     implementation project(':feature:materialdetail')
     implementation project(':feature:support')

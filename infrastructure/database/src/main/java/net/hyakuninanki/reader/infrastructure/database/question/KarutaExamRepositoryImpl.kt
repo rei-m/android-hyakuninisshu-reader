@@ -21,6 +21,8 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNos
 import net.hyakuninanki.reader.domain.question.*
 import net.hyakuninanki.reader.infrastructure.database.AppDatabase
 import java.util.*
@@ -60,6 +62,27 @@ class KarutaExamRepositoryImpl(
 
     override suspend fun findById(karutaExamId: KarutaExamId): KarutaExam? {
         TODO("Not yet implemented")
+    }
+
+    override suspend fun last(): KarutaExam? {
+        return withContext(ioContext) {
+            val karutaExamData = database.karutaExamDao().last() ?: return@withContext null
+            val wrongKarutaNoDataList = database.karutaExamWrongKarutaNoDao().findAllWithExamId(
+                karutaExamId = karutaExamData.id!!
+            )
+            return@withContext KarutaExam(
+                id = KarutaExamId(karutaExamData.id),
+                tookDate = karutaExamData.tookExamDate,
+                result = KarutaExamResult(
+                    resultSummary = QuestionResultSummary(
+                        totalQuestionCount = karutaExamData.totalQuestionCount,
+                        correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
+                        averageAnswerSec = karutaExamData.averageAnswerTime
+                    ),
+                    wrongKarutaNos = KarutaNos(wrongKarutaNoDataList.map { KarutaNo(it.karutaNo) })
+                )
+            )
+        }
     }
 
     override suspend fun findCollection(): KarutaExams {
