@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
+import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.materialdetail.di.MaterialDetailComponent
 import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
@@ -18,13 +19,15 @@ import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 class MainActivity : AppCompatActivity(),
     SplashComponent.Provider,
     MaterialListComponent.Provider,
-    MaterialDetailComponent.Provider {
+    MaterialDetailComponent.Provider,
+    ExamMenuComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
 
     override fun splashComponent() = mainComponent.splashComponent()
     override fun materialListComponent() = mainComponent.materialListComponent()
     override fun materialDetailComponent() = mainComponent.materialDetailComponent()
+    override fun examMenuComponent() = mainComponent.examMenuComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = (application as App).appComponent.mainComponent().create(this)
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity(),
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_training_menu,
+                R.id.navigation_exam_menu,
                 R.id.navigation_material_list,
                 R.id.navigation_support
             )

@@ -21,6 +21,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import dagger.BindsInstance
 import dagger.Subcomponent
 import net.hyakuninanki.reader.feature.corecomponent.di.ActivityScope
+import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.materialdetail.di.MaterialDetailComponent
 import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
@@ -40,4 +41,6 @@ interface MainComponent {
     fun materialListComponent(): MaterialListComponent.Factory
 
     fun materialDetailComponent(): MaterialDetailComponent.Factory
+
+    fun examMenuComponent(): ExamMenuComponent.Factory
 }

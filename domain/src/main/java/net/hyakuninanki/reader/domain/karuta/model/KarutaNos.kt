@@ -20,9 +20,9 @@ package net.hyakuninanki.reader.domain.karuta.model
 import net.hyakuninanki.reader.domain.util.generateRandomIndexArray
 
 /**
- * 歌IDのコレクション.
+ * 歌番号のコレクション.
  */
-data class KarutaIds(val values: List<KarutaId>) {
+data class KarutaNos(val values: List<KarutaNo>) {
 
     /**
      * @return 保持している歌IDの数
@@ -30,16 +30,16 @@ data class KarutaIds(val values: List<KarutaId>) {
     val size: Int = values.size
 
     /**
-     * @return ランダムにソートされた歌IDのリスト
+     * @return ランダムにソートされた歌番号のリスト
      */
-    val asRandomized: List<KarutaId>
+    val asRandomized: List<KarutaNo>
         get() = generateRandomIndexArray(values.size, values.size).map { values[it] }
 
     /**
      * 指定の歌IDを含んでいるか確認する.
      *
-     * @param karutaId 確認対象の歌ID
+     * @param karutaNo 確認対象の歌番号
      * @return `true` 含んでいる場合, `false` 含んでいない場合
      */
-    operator fun contains(karutaId: KarutaId): Boolean = values.contains(karutaId)
+    operator fun contains(karutaNo: KarutaNo): Boolean = values.contains(karutaNo)
 }

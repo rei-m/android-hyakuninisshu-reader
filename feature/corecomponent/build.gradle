@@ -21,8 +21,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply from: rootProject.file('gradle/android.gradle')
-
-android.dataBinding.enabled = true
+apply from: rootProject.file('gradle/android-feature.gradle')
 
 apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
 apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies

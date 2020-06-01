@@ -20,9 +20,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('gradle/android.gradle')
-
-android.dataBinding.enabled = true
-android.testOptions.unitTests.includeAndroidResources = true
+apply from: rootProject.file('gradle/android-feature.gradle')
 
 apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
 apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies

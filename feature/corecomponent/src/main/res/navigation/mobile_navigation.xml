@@ -41,6 +41,12 @@
         android:title="@string/navigation_label_training_menu" />
 
     <fragment
+        android:id="@+id/navigation_exam_menu"
+        android:name="net.hyakuninanki.reader.feature.exammenu.ui.ExamMenuFragment"
+        android:label="@string/navigation_label_exam"
+        android:title="@string/navigation_label_exam" />
+
+    <fragment
         android:id="@+id/navigation_material_list"
         android:name="net.hyakuninanki.reader.feature.materiallist.ui.MaterialListFragment"
         android:label="@string/navigation_label_material_list"
