@@ -58,6 +58,7 @@ dependencies {
     implementation project(':feature:corecomponent')
     implementation project(':feature:splash')
     implementation project(':feature:trainingmenu')
+    implementation project(':feature:trainingstarter')
     implementation project(':feature:exammenu')
     implementation project(':feature:materiallist')
     implementation project(':feature:materialdetail')

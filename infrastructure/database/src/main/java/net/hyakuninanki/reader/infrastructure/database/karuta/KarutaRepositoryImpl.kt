@@ -69,14 +69,17 @@ class KarutaRepositoryImpl(
         }
     }
 
-    override suspend fun findAll(color: KarutaColor?): List<Karuta> = if (color == null) {
-        withContext(ioContext) { database.karutaDao().findAll() }
-    } else {
-        withContext(ioContext) {
-            database.karutaDao()
-                .findAllWithColor(color.value)
-        }
-    }.map { it.toModel() }
+    override suspend fun findAllWithCondition(
+        fromNo: KarutaNo,
+        toNo: KarutaNo,
+        kimarijis: List<Kimariji>,
+        colors: List<KarutaColor>
+    ): List<Karuta> = withContext(ioContext) {
+        database.karutaDao().findAllWithCondition(fromNo = fromNo.value,
+            toNo = toNo.value,
+            kimarijis = kimarijis.map { it.value },
+            colors = colors.map { it.value }).map { it.toModel() }
+    }
 }
 
 fun KarutaData.toModel(): Karuta {

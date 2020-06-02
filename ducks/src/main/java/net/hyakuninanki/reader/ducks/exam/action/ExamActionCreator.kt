@@ -18,7 +18,7 @@
 package net.hyakuninanki.reader.ducks.exam.action
 
 import android.content.Context
-import net.hyakuninanki.reader.domain.question.KarutaExamRepository
+import net.hyakuninanki.reader.domain.question.model.KarutaExamRepository
 import net.hyakuninanki.reader.ducks.R
 import net.hyakuninanki.reader.ducks.exam.model.KarutaExamResult
 import java.util.*

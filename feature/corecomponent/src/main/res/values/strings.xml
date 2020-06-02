@@ -18,6 +18,7 @@
 <resources>
     <string name="navigation_label_splash">起動</string>
     <string name="navigation_label_training_menu">練習</string>
+    <string name="navigation_label_training_starter">練習準備中</string>
     <string name="navigation_label_exam">力試し</string>
     <string name="navigation_label_material_list">資料</string>
     <string name="navigation_label_support">その他</string>

@@ -33,8 +33,10 @@ data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
     }
 
     companion object {
-        const val MIN_VALUE = 1
-        const val MAX_VALUE = 100
-        val LIST = (MIN_VALUE..KarutaNo.MAX_VALUE).map { KarutaNo(it) }
+        private const val MIN_VALUE = 1
+        private const val MAX_VALUE = 100
+        val MIN = KarutaNo(MIN_VALUE)
+        val MAX = KarutaNo(MAX_VALUE)
+        val LIST = (MIN.value..MAX.value).map { KarutaNo(it) }
     }
 }

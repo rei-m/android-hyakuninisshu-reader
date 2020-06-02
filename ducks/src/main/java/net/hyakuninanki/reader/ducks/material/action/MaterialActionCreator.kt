@@ -18,7 +18,10 @@
 package net.hyakuninanki.reader.ducks.material.action
 
 import android.content.Context
+import net.hyakuninanki.reader.domain.karuta.model.KarutaColor
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
+import net.hyakuninanki.reader.domain.karuta.model.Kimariji
 import net.hyakuninanki.reader.ducks.core.ext.toKarutaNoStr
 import net.hyakuninanki.reader.ducks.material.model.ColorFilter
 import net.hyakuninanki.reader.ducks.material.model.Material
@@ -37,7 +40,15 @@ class MaterialActionCreator @Inject constructor(
      *  @return FetchMaterialAction
      */
     suspend fun fetchMaterialList(color: ColorFilter?) = try {
-        val karutaList = karutaRepository.findAll(color = color?.value)
+        val colors =
+            if (color?.value == null) KarutaColor.values().toList() else listOf(color.value)
+        val karutaList = karutaRepository.findAllWithCondition(
+            fromNo = KarutaNo.MIN,
+            toNo = KarutaNo.MAX,
+            kimarijis = Kimariji.values().toList(),
+            colors = colors
+        )
+
         FetchMaterialListAction.createSuccess(karutaList.map { karuta ->
             val imageResId = context.resources.getIdentifier(
                 "karuta_${karuta.imageNo.value}",

@@ -38,7 +38,39 @@
         android:id="@+id/navigation_training_menu"
         android:name="net.hyakuninanki.reader.feature.trainingmenu.ui.TrainingMenuFragment"
         android:label="@string/navigation_label_training_menu"
-        android:title="@string/navigation_label_training_menu" />
+        android:title="@string/navigation_label_training_menu">
+        <action
+            android:id="@+id/action_trainingMenu_to_trainingStarter"
+            app:destination="@id/navigation_training_starter" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_training_starter"
+        android:name="net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingStarterFragment"
+        android:label="@string/navigation_label_training_starter"
+        android:title="@string/navigation_label_training_starter">
+        <argument
+            android:name="rangeFrom"
+            android:defaultValue="ONE"
+            app:argType="net.hyakuninanki.reader.ducks.training.model.RangeFromCondition" />
+        <argument
+            android:name="rangeTo"
+            android:defaultValue="ONE_HUNDRED"
+            app:argType="net.hyakuninanki.reader.ducks.training.model.RangeToCondition" />
+        <argument
+            android:name="kimariji"
+            android:defaultValue="ALL"
+            app:argType="net.hyakuninanki.reader.ducks.training.model.KimarijiCondition" />
+        <argument
+            android:name="color"
+            android:defaultValue="ALL"
+            app:argType="net.hyakuninanki.reader.ducks.training.model.ColorCondition" />
+        <argument
+            android:name="inputSecond"
+            android:defaultValue="NORMAL"
+            app:argType="net.hyakuninanki.reader.ducks.training.model.InputSecondCondition" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_exam_menu"
@@ -78,10 +110,10 @@
         android:title="@string/navigation_label_support">
         <action
             android:id="@+id/action_support_to_privacyPolicyDialog"
-            app:destination="@+id/privacy_policy_dialog_fragment"/>
+            app:destination="@+id/privacy_policy_dialog_fragment" />
         <action
             android:id="@+id/action_support_to_licenceDialog"
-            app:destination="@+id/privacy_policy_dialog_fragment"/>
+            app:destination="@+id/privacy_policy_dialog_fragment" />
     </fragment>
 
     <dialog

@@ -14,13 +14,15 @@ import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.materialdetail.di.MaterialDetailComponent
 import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
+import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
 
 
 class MainActivity : AppCompatActivity(),
     SplashComponent.Provider,
     MaterialListComponent.Provider,
     MaterialDetailComponent.Provider,
-    ExamMenuComponent.Provider {
+    ExamMenuComponent.Provider,
+    TrainingStarterComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
 
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity(),
     override fun materialListComponent() = mainComponent.materialListComponent()
     override fun materialDetailComponent() = mainComponent.materialDetailComponent()
     override fun examMenuComponent() = mainComponent.examMenuComponent()
+    override fun trainingStarterComponent() = mainComponent.trainingStarterComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = (application as App).appComponent.mainComponent().create(this)
@@ -60,7 +63,8 @@ class MainActivity : AppCompatActivity(),
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     navView.visibility = View.GONE
                 }
-                R.id.navigation_material_detail -> {
+                R.id.navigation_material_detail,
+                R.id.navigation_training_starter -> {
                     navView.visibility = View.GONE
                 }
                 else -> {

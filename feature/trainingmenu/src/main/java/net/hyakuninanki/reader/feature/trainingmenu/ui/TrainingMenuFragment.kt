@@ -23,7 +23,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import net.hyakuninanki.reader.ducks.question.model.*
+import androidx.navigation.fragment.findNavController
+import net.hyakuninanki.reader.ducks.training.model.*
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUp
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUpDropDown
 import net.hyakuninanki.reader.feature.trainingmenu.databinding.TrainingMenuFragmentBinding
@@ -63,14 +64,23 @@ class TrainingMenuFragment : Fragment() {
         binding.dropdownKimariji.setUpDropDown(
             KimarijiCondition.values().map { it.label(resources) }
         )
-
         binding.dropdownColor.setUpDropDown(
             ColorCondition.values().map { it.label(resources) }
         )
-
         binding.dropdownInputSecond.setUpDropDown(
             InputSecondCondition.values().map { it.label(resources) }
         )
+
+        binding.buttonStartTraining.setOnClickListener {
+            val action = TrainingMenuFragmentDirections.actionTrainingMenuToTrainingStarter(
+                rangeFrom = viewModel.rangeFrom,
+                rangeTo = viewModel.rangeTo,
+                kimariji = viewModel.kimariji,
+                color = viewModel.color,
+                inputSecond = viewModel.inputSecond
+            )
+            findNavController().navigate(action)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
