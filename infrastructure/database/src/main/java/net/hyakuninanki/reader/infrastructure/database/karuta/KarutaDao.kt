@@ -24,11 +24,21 @@ import androidx.room.Query
 
 @Dao
 interface KarutaDao {
-    @Query("SELECT * from karuta_table ORDER BY `no` ASC")
-    fun findAll(): List<KarutaData>
-
-    @Query("SELECT * from karuta_table WHERE color = :color ORDER BY `no` ASC")
-    fun findAllWithColor(color: String): List<KarutaData>
+    @Query(
+        "SELECT * from karuta_table " +
+                "WHERE " +
+                "    `no` BETWEEN :fromNo AND :toNo " +
+                "AND kimariji IN (:kimarijis) " +
+                "AND color IN (:colors) " +
+                "ORDER BY " +
+                "    `no` ASC"
+    )
+    fun findAllWithCondition(
+        fromNo: Int,
+        toNo: Int,
+        kimarijis: List<Int>,
+        colors: List<String>
+    ): List<KarutaData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertKarutas(karutas: List<KarutaData>)

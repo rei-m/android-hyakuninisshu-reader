@@ -22,19 +22,24 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaDao
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaData
-import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamDao
-import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamData
-import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamWrongKarutaNoDao
-import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamWrongKarutaNoData
+import net.hyakuninanki.reader.infrastructure.database.question.*
 
 @Database(
-    entities = [KarutaData::class, KarutaExamData::class, KarutaExamWrongKarutaNoData::class],
+    entities = [
+        KarutaData::class,
+        KarutaExamData::class,
+        KarutaExamWrongKarutaNoData::class,
+        KarutaQuestionData::class,
+        KarutaQuestionChoiceData::class
+    ],
     version = 1,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun karutaDao(): KarutaDao
+    abstract fun karutaQuestionDao(): KarutaQuestionDao
+    abstract fun karutaQuestionChoiceDao(): KarutaQuestionChoiceDao
     abstract fun karutaExamDao(): KarutaExamDao
     abstract fun karutaExamWrongKarutaNoDao(): KarutaExamWrongKarutaNoDao
 

@@ -25,6 +25,7 @@ import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.materialdetail.di.MaterialDetailComponent
 import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
+import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
 
 @ActivityScope
 @Subcomponent
@@ -43,4 +44,6 @@ interface MainComponent {
     fun materialDetailComponent(): MaterialDetailComponent.Factory
 
     fun examMenuComponent(): ExamMenuComponent.Factory
+
+    fun trainingStarterComponent(): TrainingStarterComponent.Factory
 }

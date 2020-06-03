@@ -22,11 +22,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
-import net.hyakuninanki.reader.domain.karuta.model.KarutaNos
-import net.hyakuninanki.reader.domain.question.*
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
+import net.hyakuninanki.reader.domain.question.model.*
 import net.hyakuninanki.reader.infrastructure.database.AppDatabase
 import java.util.*
-import java.util.concurrent.Callable
 import kotlin.coroutines.CoroutineContext
 
 class KarutaExamRepositoryImpl(
@@ -35,30 +34,29 @@ class KarutaExamRepositoryImpl(
 ) : KarutaExamRepository {
     override suspend fun add(karutaExamResult: KarutaExamResult, tookExamDate: Date): KarutaExamId =
         withContext(ioContext) {
-            return@withContext database.runInTransaction(object : Callable<Deferred<KarutaExamId>> {
-                override fun call(): Deferred<KarutaExamId> {
-                    return async(ioContext) {
-                        val karutaExamData = KarutaExamData(
-                            id = null,
-                            tookExamDate = tookExamDate,
-                            totalQuestionCount = karutaExamResult.resultSummary.totalQuestionCount,
-                            averageAnswerTime = karutaExamResult.resultSummary.averageAnswerSec
-                        )
-                        val karutaExamDataId = database.karutaExamDao().insert(karutaExamData)
-                        database.karutaExamWrongKarutaNoDao()
-                            .insert(karutaExamResult.wrongKarutaNos.values.map {
-                                KarutaExamWrongKarutaNoData(
-                                    id = null,
-                                    karutaExamId = karutaExamDataId,
-                                    karutaNo = it.value
-                                )
-                            })
-                        return@async KarutaExamId(karutaExamDataId)
-                    }
+            return@withContext database.runInTransaction<Deferred<KarutaExamId>> {
+                return@runInTransaction async {
+                    val karutaExamData = KarutaExamData(
+                        id = null,
+                        tookExamDate = tookExamDate,
+                        totalQuestionCount = karutaExamResult.resultSummary.totalQuestionCount,
+                        averageAnswerTime = karutaExamResult.resultSummary.averageAnswerSec
+                    )
+                    val karutaExamDataId = database.karutaExamDao().insert(karutaExamData)
+                    database.karutaExamWrongKarutaNoDao()
+                        .insert(karutaExamResult.wrongKarutaNoCollection.values.map {
+                            KarutaExamWrongKarutaNoData(
+                                id = null,
+                                karutaExamId = karutaExamDataId,
+                                karutaNo = it.value
+                            )
+                        })
+                    return@async KarutaExamId(
+                        karutaExamDataId
+                    )
                 }
-            }).await()
-        }
-
+            }
+        }.await()
 
     override suspend fun findById(karutaExamId: KarutaExamId): KarutaExam? {
         TODO("Not yet implemented")
@@ -71,7 +69,9 @@ class KarutaExamRepositoryImpl(
                 karutaExamId = karutaExamData.id!!
             )
             return@withContext KarutaExam(
-                id = KarutaExamId(karutaExamData.id),
+                id = KarutaExamId(
+                    karutaExamData.id
+                ),
                 tookDate = karutaExamData.tookExamDate,
                 result = KarutaExamResult(
                     resultSummary = QuestionResultSummary(
@@ -79,7 +79,7 @@ class KarutaExamRepositoryImpl(
                         correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
                         averageAnswerSec = karutaExamData.averageAnswerTime
                     ),
-                    wrongKarutaNos = KarutaNos(wrongKarutaNoDataList.map { KarutaNo(it.karutaNo) })
+                    wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataList.map { KarutaNo(it.karutaNo) })
                 )
             )
         }
