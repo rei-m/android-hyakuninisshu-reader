@@ -18,11 +18,10 @@
 package net.hyakuninanki.reader.domain.question.model
 
 import net.hyakuninanki.reader.domain.ValueObject
-import net.hyakuninanki.reader.domain.question.model.ChoiceNo
-import net.hyakuninanki.reader.domain.question.model.QuestionJudgement
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 
 data class QuestionResult(
-    val choiceNo: ChoiceNo,
+    val selectedKarutaNo: KarutaNo,
     val answerMillSec: Long,
     val judgement: QuestionJudgement
 ) : ValueObject

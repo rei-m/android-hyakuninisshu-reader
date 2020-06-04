@@ -24,10 +24,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import net.hyakuninanki.reader.ducks.training.model.*
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUp
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUpDropDown
 import net.hyakuninanki.reader.feature.trainingmenu.databinding.TrainingMenuFragmentBinding
+import net.hyakuninanki.reader.state.training.model.*
 
 class TrainingMenuFragment : Fragment() {
 

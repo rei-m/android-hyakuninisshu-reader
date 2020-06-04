@@ -46,30 +46,43 @@
 
     <fragment
         android:id="@+id/navigation_training_starter"
-        android:name="net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingStarterFragment"
-        android:label="@string/navigation_label_training_starter"
-        android:title="@string/navigation_label_training_starter">
+        android:name="net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingStarterFragment">
         <argument
             android:name="rangeFrom"
             android:defaultValue="ONE"
-            app:argType="net.hyakuninanki.reader.ducks.training.model.RangeFromCondition" />
+            app:argType="net.hyakuninanki.reader.state.training.model.RangeFromCondition" />
         <argument
             android:name="rangeTo"
             android:defaultValue="ONE_HUNDRED"
-            app:argType="net.hyakuninanki.reader.ducks.training.model.RangeToCondition" />
+            app:argType="net.hyakuninanki.reader.state.training.model.RangeToCondition" />
         <argument
             android:name="kimariji"
             android:defaultValue="ALL"
-            app:argType="net.hyakuninanki.reader.ducks.training.model.KimarijiCondition" />
+            app:argType="net.hyakuninanki.reader.state.training.model.KimarijiCondition" />
         <argument
             android:name="color"
             android:defaultValue="ALL"
-            app:argType="net.hyakuninanki.reader.ducks.training.model.ColorCondition" />
+            app:argType="net.hyakuninanki.reader.state.training.model.ColorCondition" />
         <argument
             android:name="inputSecond"
             android:defaultValue="NORMAL"
-            app:argType="net.hyakuninanki.reader.ducks.training.model.InputSecondCondition" />
+            app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
+        <action
+            android:id="@+id/action_trainingStarter_to_question"
+            app:destination="@id/navigation_question"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_training_starter"
+            app:popUpToInclusive="true" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/navigation_question"
+        android:name="net.hyakuninanki.reader.feature.question.ui.QuestionFragment"
+        android:label="@string/navigation_label_question"
+        android:title="@string/navigation_label_question">
+        <argument
+            android:name="questionId"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -80,7 +93,7 @@
 
     <fragment
         android:id="@+id/navigation_material_list"
-        android:name="net.hyakuninanki.reader.feature.materiallist.ui.MaterialListFragment"
+        android:name="net.hyakuninanki.reader.feature.material.ui.MaterialListFragment"
         android:label="@string/navigation_label_material_list"
         android:title="@string/navigation_label_material_list">
         <action
@@ -90,17 +103,13 @@
 
     <fragment
         android:id="@+id/navigation_material_detail"
-        android:name="net.hyakuninanki.reader.feature.materialdetail.ui.MaterialDetailFragment"
+        android:name="net.hyakuninanki.reader.feature.material.ui.MaterialDetailFragment"
         android:label="@string/navigation_label_material_list"
         android:title="@string/navigation_label_material_list">
         <argument
             android:name="position"
             android:defaultValue="0"
             app:argType="integer" />
-        <argument
-            android:name="color"
-            android:defaultValue="ALL"
-            app:argType="net.hyakuninanki.reader.ducks.material.model.ColorFilter" />
     </fragment>
 
     <fragment

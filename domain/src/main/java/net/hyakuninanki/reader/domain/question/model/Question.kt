@@ -24,8 +24,9 @@ import java.util.*
 /**
  * 百人一首の問題.
  */
-class Question private constructor(
+class Question constructor(
     id: QuestionId,
+    val no: Int,
     val choiceList: List<KarutaNo>,
     val correctNo: KarutaNo,
     startDate: Date? = null,
@@ -61,29 +62,24 @@ class Question private constructor(
     /**
      * 選択肢が正解か判定する.
      *
-     * @param choiceNo 選択肢番号
+     * @param selectedNo 選択した歌の番号
      * @param answerDate 解答した時間
      * @return 解答後の問題
      * @throws IllegalStateException 解答開始していない場合
      */
     @Throws(IllegalStateException::class)
-    fun verify(choiceNo: ChoiceNo, answerDate: Date): Question {
+    fun verify(selectedNo: KarutaNo, answerDate: Date): Question {
         val startTime = startDate?.time ?: let {
             throw IllegalStateException("Quiz is not started. Call start.")
         }
         val answerTime = answerDate.time - startTime
-        val selectedNo = choiceList[choiceNo.asIndex]
         val judgement =
             QuestionJudgement(
                 correctNo,
                 correctNo == selectedNo
             )
         this.result =
-            QuestionResult(
-                choiceNo,
-                answerTime,
-                judgement
-            )
+            QuestionResult(selectedNo, answerTime, judgement)
         return this
     }
 
@@ -95,23 +91,29 @@ class Question private constructor(
     }
 
     companion object {
+        const val CHOICE_SIZE = 9
+
         fun createReady(
             id: QuestionId,
+            no: Int,
             choiceList: List<KarutaNo>,
             correctNo: KarutaNo
         ) = Question(
             id,
+            no,
             choiceList,
             correctNo
         )
 
         fun createInAnswer(
             id: QuestionId,
+            no: Int,
             choiceList: List<KarutaNo>,
             correctNo: KarutaNo,
             startDate: Date
         ) = Question(
             id,
+            no,
             choiceList,
             correctNo,
             startDate
@@ -119,11 +121,12 @@ class Question private constructor(
 
         fun createAnswered(
             id: QuestionId,
+            no: Int,
             choiceList: List<KarutaNo>,
             correctNo: KarutaNo,
             startDate: Date,
+            selectedNo: KarutaNo,
             answerMillSec: Long,
-            choiceNo: ChoiceNo,
             isCorrect: Boolean
         ): Question {
 
@@ -134,13 +137,14 @@ class Question private constructor(
                 )
             val result =
                 QuestionResult(
-                    choiceNo,
+                    selectedNo,
                     answerMillSec,
                     judgement
                 )
 
             return Question(
                 id,
+                no,
                 choiceList,
                 correctNo,
                 startDate,

@@ -47,6 +47,6 @@
     <dimen name="elevation_level_xs">2dp</dimen>
     <dimen name="elevation_level_xxs">1dp</dimen>
     <dimen name="elevation_level_none">0dp</dimen>
-    
+
     <dimen name="height_ad_banner">98dp</dimen>
 </resources>

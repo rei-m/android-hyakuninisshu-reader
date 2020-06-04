@@ -26,7 +26,7 @@ data class ShimoNoKu(
     val karutaNo: KarutaNo,
     val shiku: Verse,
     val goku: Verse
-): ValueObject {
+) : ValueObject {
     val kanji: String = "${shiku.kanji}　${goku.kanji}"
 
     val kana: String = "${shiku.kana}　${goku.kana}"

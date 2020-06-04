@@ -11,26 +11,26 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
-import net.hyakuninanki.reader.feature.materialdetail.di.MaterialDetailComponent
-import net.hyakuninanki.reader.feature.materiallist.di.MaterialListComponent
+import net.hyakuninanki.reader.feature.material.di.MaterialComponent
+import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
 
 
 class MainActivity : AppCompatActivity(),
     SplashComponent.Provider,
-    MaterialListComponent.Provider,
-    MaterialDetailComponent.Provider,
+    MaterialComponent.Provider,
     ExamMenuComponent.Provider,
-    TrainingStarterComponent.Provider {
+    TrainingStarterComponent.Provider,
+    QuestionComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
 
     override fun splashComponent() = mainComponent.splashComponent()
-    override fun materialListComponent() = mainComponent.materialListComponent()
-    override fun materialDetailComponent() = mainComponent.materialDetailComponent()
+    override fun materialComponent() = mainComponent.materialListComponent()
     override fun examMenuComponent() = mainComponent.examMenuComponent()
     override fun trainingStarterComponent() = mainComponent.trainingStarterComponent()
+    override fun questionFragment() = mainComponent.questionComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = (application as App).appComponent.mainComponent().create(this)
@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity(),
                     navView.visibility = View.GONE
                 }
                 R.id.navigation_material_detail,
-                R.id.navigation_training_starter -> {
+                R.id.navigation_training_starter,
+                R.id.navigation_question -> {
                     navView.visibility = View.GONE
                 }
                 else -> {

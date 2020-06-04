@@ -19,7 +19,6 @@ package net.hyakuninanki.reader.domain.question.service
 
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
-import net.hyakuninanki.reader.domain.question.model.ChoiceNo
 import net.hyakuninanki.reader.domain.question.model.Question
 import net.hyakuninanki.reader.domain.question.model.QuestionId
 import net.hyakuninanki.reader.domain.util.generateRandomIndexArray
@@ -27,7 +26,8 @@ import net.hyakuninanki.reader.domain.util.generateRandomIndexArray
 class CreateQuestionListService {
     operator fun invoke(
         allKarutaNoCollection: KarutaNoCollection,
-        targetKarutaNoCollection: KarutaNoCollection
+        targetKarutaNoCollection: KarutaNoCollection,
+        choiceSize: Int
     ): List<Question> {
         if (allKarutaNoCollection.size != KarutaNo.MAX.value) {
             throw IllegalArgumentException("allKarutaList is invalid");
@@ -37,22 +37,22 @@ class CreateQuestionListService {
             throw IllegalArgumentException("targetKarutaNoList is empty");
         }
 
-        return targetKarutaNoCollection.asRandomized.map { targetKarutaNo ->
+        return targetKarutaNoCollection.asRandomized.mapIndexed { index, targetKarutaNo ->
 
             val dupNos =
                 allKarutaNoCollection.values.toMutableList().apply { remove(targetKarutaNo) }
 
             val choices = generateRandomIndexArray(
                 dupNos.size,
-                ChoiceNo.values().size - 1
+                choiceSize - 1
             ).map { choiceIndex ->
                 dupNos[choiceIndex]
             }.toMutableList()
 
-            val correctPosition = generateRandomIndexArray(ChoiceNo.values().size, 1)[0]
+            val correctPosition = generateRandomIndexArray(choiceSize, 1)[0]
             choices.add(correctPosition, targetKarutaNo)
 
-            Question.createReady(QuestionId(), choices, targetKarutaNo)
+            Question.createReady(QuestionId(), index + 1, choices, targetKarutaNo)
         };
     }
 }

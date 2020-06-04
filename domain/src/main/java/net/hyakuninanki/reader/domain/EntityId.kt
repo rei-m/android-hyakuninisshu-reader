@@ -17,6 +17,4 @@
 
 package net.hyakuninanki.reader.domain
 
-import net.hyakuninanki.reader.domain.ValueObject
-
 interface EntityId : ValueObject

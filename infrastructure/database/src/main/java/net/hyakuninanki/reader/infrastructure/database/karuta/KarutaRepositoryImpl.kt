@@ -69,6 +69,10 @@ class KarutaRepositoryImpl(
         }
     }
 
+    override suspend fun findByNo(karutaNo: KarutaNo): Karuta = withContext(ioContext) {
+        database.karutaDao().findByNo(no = karutaNo.value).let { it.toModel() }
+    }
+
     override suspend fun findAllWithCondition(
         fromNo: KarutaNo,
         toNo: KarutaNo,
@@ -80,6 +84,13 @@ class KarutaRepositoryImpl(
             kimarijis = kimarijis.map { it.value },
             colors = colors.map { it.value }).map { it.toModel() }
     }
+
+    override suspend fun findAllWithNo(karutaNoList: List<KarutaNo>): List<Karuta> =
+        withContext(ioContext) {
+            database.karutaDao().findAllWithNo(
+                nos = karutaNoList.map { it.value }
+            ).map { it.toModel() }
+        }
 }
 
 fun KarutaData.toModel(): Karuta {

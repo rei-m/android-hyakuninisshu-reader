@@ -15,5 +15,4 @@
   ~
   -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.hyakuninanki.reader.feature.trainingmenu" />
+<manifest package="net.hyakuninanki.reader.feature.trainingmenu" />

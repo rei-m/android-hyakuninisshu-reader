@@ -17,8 +17,6 @@
 
 package net.hyakuninanki.reader.domain.question.model
 
-import net.hyakuninanki.reader.domain.question.model.Question
-
 interface QuestionRepository {
     /**
      * 問題を初期化する.トレーニングまたは力試しを開始する毎に初期化する.
@@ -26,4 +24,10 @@ interface QuestionRepository {
      * @param questionList 問題リスト
      */
     suspend fun initialize(questionList: List<Question>)
+
+    suspend fun count(): Int
+
+    suspend fun findById(questionId: QuestionId): Question?
+
+    suspend fun save(question: Question)
 }

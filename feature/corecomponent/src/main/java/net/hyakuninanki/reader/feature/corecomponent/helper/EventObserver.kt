@@ -18,7 +18,7 @@
 package net.hyakuninanki.reader.feature.corecomponent.helper
 
 import androidx.lifecycle.Observer
-import net.hyakuninanki.reader.ducks.core.Event
+import net.hyakuninanki.reader.state.core.Event
 
 class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<Event<T>> {
     override fun onChanged(event: Event<T>?) {

@@ -20,10 +20,10 @@ package net.hyakuninanki.reader.feature.exammenu.ui
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.ducks.core.Dispatcher
-import net.hyakuninanki.reader.ducks.exam.action.ExamActionCreator
-import net.hyakuninanki.reader.ducks.exam.store.ExamMenuStore
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
+import net.hyakuninanki.reader.state.core.Dispatcher
+import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
+import net.hyakuninanki.reader.state.exam.store.ExamMenuStore
 import javax.inject.Inject
 
 class ExamMenuViewModel(

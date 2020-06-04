@@ -27,6 +27,13 @@ interface KarutaDao {
     @Query(
         "SELECT * from karuta_table " +
                 "WHERE " +
+                "    `no` = :no"
+    )
+    fun findByNo(no: Int): KarutaData
+
+    @Query(
+        "SELECT * from karuta_table " +
+                "WHERE " +
                 "    `no` BETWEEN :fromNo AND :toNo " +
                 "AND kimariji IN (:kimarijis) " +
                 "AND color IN (:colors) " +
@@ -38,6 +45,17 @@ interface KarutaDao {
         toNo: Int,
         kimarijis: List<Int>,
         colors: List<String>
+    ): List<KarutaData>
+
+    @Query(
+        "SELECT * from karuta_table " +
+                "WHERE " +
+                "    `no` IN (:nos)" +
+                "ORDER BY " +
+                "    `no` ASC"
+    )
+    fun findAllWithNo(
+        nos: List<Int>
     ): List<KarutaData>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

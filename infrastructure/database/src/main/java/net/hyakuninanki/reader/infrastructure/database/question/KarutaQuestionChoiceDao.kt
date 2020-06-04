@@ -23,7 +23,7 @@ import androidx.room.Query
 
 @Dao
 interface KarutaQuestionChoiceDao {
-    @Query("SELECT * from karuta_question_choice_table WHERE karuta_question_id = :karutaQuestionId")
+    @Query("SELECT * from karuta_question_choice_table WHERE karuta_question_id = :karutaQuestionId ORDER BY `order` ASC")
     fun findAllByKarutaQuestionId(karutaQuestionId: String): List<KarutaQuestionChoiceData>
 
     @Insert

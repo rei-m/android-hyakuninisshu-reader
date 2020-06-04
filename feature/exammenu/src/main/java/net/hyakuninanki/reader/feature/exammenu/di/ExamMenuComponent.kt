@@ -18,10 +18,9 @@
 package net.hyakuninanki.reader.feature.exammenu.di
 
 import dagger.Subcomponent
-import net.hyakuninanki.reader.ducks.exam.di.ExamModule
 import net.hyakuninanki.reader.feature.exammenu.ui.ExamMenuFragment
 
-@Subcomponent(modules = [ExamModule::class])
+@Subcomponent
 interface ExamMenuComponent {
     @Subcomponent.Factory
     interface Factory {
