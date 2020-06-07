@@ -24,25 +24,20 @@ import java.util.*
 
 @Entity(
     tableName = "karuta_question_table",
-    indices = [Index("correct_karuta_no"), Index("selected_karuta_no")],
+    indices = [Index("correct_karuta_no")],
     foreignKeys = [ForeignKey(
         entity = KarutaData::class,
         parentColumns = arrayOf("no"),
         childColumns = arrayOf("correct_karuta_no"),
         onDelete = ForeignKey.CASCADE
-    ), ForeignKey(
-        entity = KarutaData::class,
-        parentColumns = arrayOf("no"),
-        childColumns = arrayOf("selected_karuta_no"),
-        onDelete = ForeignKey.CASCADE
     )]
 )
 data class KarutaQuestionData(
     @PrimaryKey(autoGenerate = false) val id: String,
+    @ColumnInfo(name = "no") val no: Int,
     @ColumnInfo(name = "correct_karuta_no") val correctKarutaNo: Int,
     @ColumnInfo(name = "start_date") val startDate: Date?,
     @ColumnInfo(name = "selected_karuta_no") val selectedKarutaNo: Int?,
     @ColumnInfo(name = "is_correct") val isCorrect: Boolean?,
-    @ColumnInfo(name = "answer_time") val answerTime: Long?,
-    @ColumnInfo(name = "order") val order: Int
+    @ColumnInfo(name = "answer_time") val answerTime: Long?
 )

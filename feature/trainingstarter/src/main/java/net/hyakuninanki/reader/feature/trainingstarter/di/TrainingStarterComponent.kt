@@ -18,17 +18,15 @@
 package net.hyakuninanki.reader.feature.trainingstarter.di
 
 import dagger.Subcomponent
-import net.hyakuninanki.reader.ducks.training.di.TrainingModule
 import net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingStarterFragment
 
-@Subcomponent(modules = [TrainingModule::class])
+@Subcomponent
 interface TrainingStarterComponent {
     @Subcomponent.Factory
     interface Factory {
         fun create(): TrainingStarterComponent
     }
 
-    // Classes that can be injected by this Component
     fun inject(fragment: TrainingStarterFragment)
 
     interface Provider {

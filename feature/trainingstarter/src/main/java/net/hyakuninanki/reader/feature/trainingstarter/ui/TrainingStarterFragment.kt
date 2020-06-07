@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
 import net.hyakuninanki.reader.feature.trainingstarter.databinding.TrainingStarterFragmentBinding
@@ -77,7 +78,8 @@ class TrainingStarterFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.onReadyEvent.observe(viewLifecycleOwner, EventObserver {
-//            findNavController().navigate(R.id.action_splash_to_trainingMenu)
+            val action = TrainingStarterFragmentDirections.actionTrainingStarterToQuestion(it)
+            findNavController().navigate(action)
         })
     }
 }

@@ -79,7 +79,11 @@ class KarutaExamRepositoryImpl(
                         correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
                         averageAnswerSec = karutaExamData.averageAnswerTime
                     ),
-                    wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataList.map { KarutaNo(it.karutaNo) })
+                    wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataList.map {
+                        KarutaNo(
+                            it.karutaNo
+                        )
+                    })
                 )
             )
         }

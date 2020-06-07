@@ -21,8 +21,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import net.hyakuninanki.reader.ducks.core.Action
-import net.hyakuninanki.reader.ducks.core.Dispatcher
+import net.hyakuninanki.reader.state.core.Action
+import net.hyakuninanki.reader.state.core.Dispatcher
 
 abstract class AbstractViewModel(
     private val dispatcher: Dispatcher

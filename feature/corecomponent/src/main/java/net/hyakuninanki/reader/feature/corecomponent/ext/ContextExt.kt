@@ -17,7 +17,6 @@
 
 package net.hyakuninanki.reader.feature.corecomponent.ext
 
-import android.content.Context
 //import com.google.android.gms.ads.AdSize
 
 //val Context.adHeight

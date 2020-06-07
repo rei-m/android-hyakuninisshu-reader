@@ -20,14 +20,21 @@ package net.hyakuninanki.reader.infrastructure.database.question
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface KarutaQuestionDao {
     @Query("SELECT * from karuta_question_table WHERE `id` = :id")
     fun findById(id: String): KarutaQuestionData?
 
+    @Query("SELECT COUNT(*) from karuta_question_table")
+    suspend fun count(): Int
+
     @Insert
     suspend fun insertKarutaQuestions(karutaQuestions: List<KarutaQuestionData>)
+
+    @Update
+    suspend fun updateKarutaQuestion(karutaQuestion: KarutaQuestionData)
 
     @Query("DELETE FROM karuta_question_table")
     suspend fun deleteAll()

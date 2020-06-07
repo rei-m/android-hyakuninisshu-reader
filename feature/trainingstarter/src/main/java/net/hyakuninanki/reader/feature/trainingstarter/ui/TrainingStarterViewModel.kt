@@ -19,16 +19,16 @@ package net.hyakuninanki.reader.feature.trainingstarter.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.ducks.core.Dispatcher
-import net.hyakuninanki.reader.ducks.training.action.TrainingActionCreator
-import net.hyakuninanki.reader.ducks.training.model.ColorCondition
-import net.hyakuninanki.reader.ducks.training.model.KimarijiCondition
-import net.hyakuninanki.reader.ducks.training.model.RangeFromCondition
-import net.hyakuninanki.reader.ducks.training.model.RangeToCondition
-import net.hyakuninanki.reader.ducks.training.store.TrainingStore
 import net.hyakuninanki.reader.feature.corecomponent.ext.combineLatest
 import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
+import net.hyakuninanki.reader.state.core.Dispatcher
+import net.hyakuninanki.reader.state.training.action.TrainingActionCreator
+import net.hyakuninanki.reader.state.training.model.ColorCondition
+import net.hyakuninanki.reader.state.training.model.KimarijiCondition
+import net.hyakuninanki.reader.state.training.model.RangeFromCondition
+import net.hyakuninanki.reader.state.training.model.RangeToCondition
+import net.hyakuninanki.reader.state.training.store.TrainingStore
 import javax.inject.Inject
 
 class TrainingStarterViewModel(

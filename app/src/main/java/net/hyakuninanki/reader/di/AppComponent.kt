@@ -21,9 +21,9 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import net.hyakuninanki.reader.MainComponent
-import net.hyakuninanki.reader.ducks.core.di.ViewStateCoreModule
 import net.hyakuninanki.reader.feature.corecomponent.di.ViewModelModule
 import net.hyakuninanki.reader.infrastructure.database.di.InfrastructureModule
+import net.hyakuninanki.reader.state.core.di.ViewStateCoreModule
 import javax.inject.Singleton
 
 @Singleton
