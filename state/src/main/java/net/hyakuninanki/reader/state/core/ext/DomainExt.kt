@@ -18,18 +18,22 @@
 package net.hyakuninanki.reader.state.core.ext
 
 import android.content.Context
+import net.hyakuninanki.reader.domain.karuta.model.Karuta
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
+import net.hyakuninanki.reader.domain.karuta.model.Kimariji
+import net.hyakuninanki.reader.state.BuildConfig
 import net.hyakuninanki.reader.state.R
 
-fun Int.toKarutaNoStr(context: Context): String {
-    if (this == 100) {
+fun KarutaNo.toText(context: Context): String {
+    if (this.value == 100) {
         return context.getString(R.string.karuta_number, context.getString(R.string.hundred))
     }
 
     val resources = context.resources
     val numArray = resources.getStringArray(R.array.number)
 
-    val doubleDigits = this / 10
-    val singleDigits = this % 10
+    val doubleDigits = this.value / 10
+    val singleDigits = this.value % 10
 
     val sb = StringBuilder()
     if (0 < doubleDigits) {
@@ -44,4 +48,27 @@ fun Int.toKarutaNoStr(context: Context): String {
     }
 
     return context.getString(R.string.karuta_number, sb.toString())
+}
+
+fun Kimariji.toText(context: Context): String {
+    val resources = context.resources
+    val kimarijiArray = resources.getStringArray(R.array.kimariji)
+    return kimarijiArray[this.value - 1]
+}
+
+fun Karuta.rawResId(context: Context): Int {
+    val rawResName = if (BuildConfig.DEBUG) "000" else this.imageNo.value
+    return context.resources.getIdentifier(
+        "karuta_${rawResName}",
+        "raw",
+        context.packageName
+    )
+}
+
+fun Karuta.imageResId(context: Context): Int {
+    return context.resources.getIdentifier(
+        "karuta_${imageNo.value}",
+        "drawable",
+        context.packageName
+    )
 }

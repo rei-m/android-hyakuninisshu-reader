@@ -21,48 +21,76 @@ import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
+import androidx.annotation.RawRes
 import net.hyakuninanki.reader.domain.karuta.model.Karuta
-import net.hyakuninanki.reader.state.core.ext.toKarutaNoStr
+import net.hyakuninanki.reader.state.core.ext.imageResId
+import net.hyakuninanki.reader.state.core.ext.rawResId
+import net.hyakuninanki.reader.state.core.ext.toText
 
 data class Material(
-    val no: Int,
     val noTxt: String,
-    val creator: String,
-    val kamiNoKuKanji: String,
-    val kamiNoKuKana: String,
-    val shimoNoKuKanji: String,
-    val shimoNoKuKana: String,
     val kimariji: Int,
-    @DrawableRes val imageResId: Int,
+    val kimarijiTxt: String,
+    val creator: String,
+    val shokuKanji: String,
+    val shokuKana: String,
+    val nikuKanji: String,
+    val nikuKana: String,
+    val sankuKanji: String,
+    val sankuKana: String,
+    val shikuKanji: String,
+    val shikuKana: String,
+    val gokuKanji: String,
+    val gokuKana: String,
     val translation: String,
-    val color: String
+    @DrawableRes val imageResId: Int,
+    @RawRes val rawResId: Int
 ) : Parcelable {
+
+    val kamiNoKuKanji: String = "$shokuKanji　$nikuKanji　$sankuKanji"
+    val kamiNoKuKana: String = "$shokuKana　$nikuKana　$sankuKana"
+    val shimoNoKuKanji: String = "$nikuKanji　$sankuKanji"
+    val shimoNoKuKana: String = "$nikuKana　$sankuKana"
+
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readString()!!,
-        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readInt(),
         parcel.readString()!!,
-        parcel.readString()!!
-    )
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readInt(),
+        parcel.readInt()
+    ) {
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(no)
         parcel.writeString(noTxt)
-        parcel.writeString(creator)
-        parcel.writeString(kamiNoKuKanji)
-        parcel.writeString(kamiNoKuKana)
-        parcel.writeString(shimoNoKuKanji)
-        parcel.writeString(shimoNoKuKana)
         parcel.writeInt(kimariji)
-        parcel.writeInt(imageResId)
+        parcel.writeString(kimarijiTxt)
+        parcel.writeString(creator)
+        parcel.writeString(shokuKanji)
+        parcel.writeString(shokuKana)
+        parcel.writeString(nikuKanji)
+        parcel.writeString(nikuKana)
+        parcel.writeString(sankuKanji)
+        parcel.writeString(sankuKana)
+        parcel.writeString(shikuKanji)
+        parcel.writeString(shikuKana)
+        parcel.writeString(gokuKanji)
+        parcel.writeString(gokuKana)
         parcel.writeString(translation)
-        parcel.writeString(color)
+        parcel.writeInt(imageResId)
+        parcel.writeInt(rawResId)
     }
 
     override fun describeContents(): Int {
@@ -79,23 +107,24 @@ data class Material(
         }
 
         fun createFromKaruta(karuta: Karuta, context: Context): Material {
-            val imageResId = context.resources.getIdentifier(
-                "karuta_${karuta.imageNo.value}",
-                "drawable",
-                context.packageName
-            )
             return Material(
-                no = karuta.no.value,
-                noTxt = karuta.no.value.toKarutaNoStr(context),
-                creator = karuta.creator,
-                kamiNoKuKana = karuta.kamiNoKu.kana,
-                kamiNoKuKanji = karuta.kamiNoKu.kanji,
-                shimoNoKuKana = karuta.shimoNoKu.kana,
-                shimoNoKuKanji = karuta.shimoNoKu.kanji,
+                noTxt = karuta.no.toText(context),
                 kimariji = karuta.kimariji.value,
-                imageResId = imageResId,
+                kimarijiTxt = karuta.kimariji.toText(context),
+                creator = karuta.creator,
+                shokuKanji = karuta.kamiNoKu.shoku.kanji,
+                shokuKana = karuta.kamiNoKu.shoku.kana,
+                nikuKanji = karuta.kamiNoKu.niku.kanji,
+                nikuKana = karuta.kamiNoKu.niku.kana,
+                sankuKanji = karuta.kamiNoKu.sanku.kanji,
+                sankuKana = karuta.kamiNoKu.sanku.kana,
+                shikuKanji = karuta.shimoNoKu.shiku.kanji,
+                shikuKana = karuta.shimoNoKu.shiku.kana,
+                gokuKanji = karuta.shimoNoKu.goku.kanji,
+                gokuKana = karuta.shimoNoKu.goku.kana,
                 translation = karuta.translation,
-                color = karuta.color.value
+                imageResId = karuta.imageResId(context),
+                rawResId = karuta.rawResId(context)
             )
         }
     }

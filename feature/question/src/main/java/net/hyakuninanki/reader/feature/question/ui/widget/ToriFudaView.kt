@@ -43,19 +43,24 @@ class ToriFudaView @JvmOverloads constructor(
 
         val padding = resources.getDimensionPixelOffset(R.dimen.spacing_0_5)
         setPadding(padding, padding, padding, padding)
-        background = getDrawable(resources, R.drawable.bg_torifuda, null)
+        background = getDrawable(resources, R.drawable.bg_fuda, null)
         foregroundGravity = Gravity.CENTER
 
         firstLineView = findViewById(R.id.text_torifuda_1)
         secondLineView = findViewById(R.id.text_torifuda_2)
         thirdLineView = findViewById(R.id.text_torifuda_3)
 
-        context.withStyledAttributes(attrs, R.styleable.ToriFudaView) {
-            val testSize = getResourceId(R.styleable.ToriFudaView_textSize, R.dimen.text_m)
+        context.withStyledAttributes(attrs, R.styleable.FudaView) {
+            val testSize = getResourceId(R.styleable.FudaView_textSize, R.dimen.text_m)
             firstLineView.setTextSize(testSize)
             secondLineView.setTextSize(testSize)
             thirdLineView.setTextSize(testSize)
         }
+
+        val pad = context.getString(R.string.torifuda_pad)
+        firstLineView.drawText(pad)
+        secondLineView.drawText(pad)
+        thirdLineView.drawText(pad)
     }
 
     var toriFuda: ToriFuda? = null

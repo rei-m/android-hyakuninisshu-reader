@@ -56,7 +56,7 @@
     </style>
 
     <!--    <style name="KarutaChoicePhrase">-->
-    <!--        <item name="android:background">@drawable/bg_torifuda</item>-->
+    <!--        <item name="android:background">@drawable/bg_fuda</item>-->
     <!--        <item name="android:gravity">center_horizontal</item>-->
     <!--        <item name="android:paddingBottom">@dimen/padding_m</item>-->
     <!--        <item name="android:paddingTop">@dimen/padding_m</item>-->
