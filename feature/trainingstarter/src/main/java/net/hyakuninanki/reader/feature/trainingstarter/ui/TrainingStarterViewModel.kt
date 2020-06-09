@@ -39,17 +39,18 @@ class TrainingStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
     private val store: TrainingStore
-) : AbstractViewModel(dispatcher) {
+) : AbstractViewModel(dispatcher), TrainingStarterViewModelProperties {
 
-    val onReadyEvent = store.onReadyEvent
+    override val onReadyEvent = store.onReadyEvent
 
-    val isEmpty = store.isEmpty
+    override val isEmpty = store.isEmpty
 
-    val isFailure = store.isFailure
+    override val isFailure = store.isFailure
 
-    val isVisibleProgress = isEmpty.combineLatest(isFailure).map { (_isEmpty, _isFailure) ->
-        return@map !_isEmpty && !_isFailure
-    }
+    override val isVisibleProgress =
+        isEmpty.combineLatest(isFailure).map { (_isEmpty, _isFailure) ->
+            return@map !_isEmpty && !_isFailure
+        }
 
     init {
         dispatchAction {

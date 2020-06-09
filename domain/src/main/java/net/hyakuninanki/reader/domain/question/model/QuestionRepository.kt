@@ -31,5 +31,7 @@ interface QuestionRepository {
 
     suspend fun findIdByNo(no: Int): QuestionId?
 
+    suspend fun findCollection(): QuestionCollection
+
     suspend fun save(question: Question)
 }

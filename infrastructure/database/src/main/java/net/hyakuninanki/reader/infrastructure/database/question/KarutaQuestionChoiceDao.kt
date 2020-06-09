@@ -26,6 +26,9 @@ interface KarutaQuestionChoiceDao {
     @Query("SELECT * from karuta_question_choice_table WHERE karuta_question_id = :karutaQuestionId ORDER BY `order` ASC")
     fun findAllByKarutaQuestionId(karutaQuestionId: String): List<KarutaQuestionChoiceData>
 
+    @Query("SELECT * from karuta_question_choice_table ORDER BY `order` ASC")
+    fun findAll(): List<KarutaQuestionChoiceData>
+
     @Insert
     suspend fun insertKarutaQuestionChoices(karutaQuestionChoices: List<KarutaQuestionChoiceData>)
 }

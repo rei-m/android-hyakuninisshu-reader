@@ -100,5 +100,22 @@
             app:layout_constraintTop_toBottomOf="@id/view_fuda"
             app:visibleOrGone="@{existNextQuiz}" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_go_to_result"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_3"
+            android:text="@string/go_to_result"
+            android:textSize="@dimen/text_m"
+            app:backgroundTint="@color/colorSecondary"
+            app:icon="@drawable/ic_note_white_24dp"
+            app:iconGravity="textStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_fuda"
+            app:visibleOrGone="@{!existNextQuiz}" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

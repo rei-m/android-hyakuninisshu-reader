@@ -42,6 +42,7 @@ class QuestionFragment : Fragment() {
     private val viewModel by viewModels<QuestionViewModel> {
         viewModelFactory.apply {
             questionId = args.questionId
+            inputSecond = args.inputSecond
         }
     }
 
@@ -78,7 +79,8 @@ class QuestionFragment : Fragment() {
             if (state is QuestionState.Answered) {
                 val action = QuestionFragmentDirections.actionQuestionToAnswer(
                     nextQuestionId = state.nextQuestionId,
-                    correctKaruta = state.correctMaterial
+                    correctKaruta = state.correctMaterial,
+                    inputSecond = args.inputSecond
                 )
                 findNavController().navigate(action)
             }

@@ -59,6 +59,7 @@ dependencies {
     implementation project(':feature:splash')
     implementation project(':feature:trainingmenu')
     implementation project(':feature:trainingstarter')
+    implementation project(':feature:trainingresult')
     implementation project(':feature:question')
     implementation project(':feature:exammenu')
     implementation project(':feature:material')

@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.feature.trainingstarter.di
 
 import dagger.Subcomponent
+import net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingReStarterFragment
 import net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingStarterFragment
 
 @Subcomponent
@@ -28,6 +29,7 @@ interface TrainingStarterComponent {
     }
 
     fun inject(fragment: TrainingStarterFragment)
+    fun inject(fragment: TrainingReStarterFragment)
 
     interface Provider {
         fun trainingStarterComponent(): Factory

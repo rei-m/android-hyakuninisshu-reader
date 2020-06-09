@@ -76,6 +76,42 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_training_re_starter"
+        android:name="net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingReStarterFragment">
+        <argument
+            android:name="inputSecond"
+            android:defaultValue="NORMAL"
+            app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
+        <action
+            android:id="@+id/action_trainingReStarter_to_question"
+            app:destination="@id/navigation_question"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_training_re_starter"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_training_result"
+        android:name="net.hyakuninanki.reader.feature.trainingresult.ui.TrainingResultFragment"
+        android:label="@string/navigation_label_training_result"
+        android:title="@string/navigation_label_training_result">
+        <argument
+            android:name="inputSecond"
+            android:defaultValue="NORMAL"
+            app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
+        <action
+            android:id="@+id/action_trainingResult_to_trainingReStarter"
+            app:destination="@id/navigation_training_re_starter"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_training_result"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_trainingResult_pop"
+            app:popUpTo="@+id/navigation_training_menu" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_question"
         android:name="net.hyakuninanki.reader.feature.question.ui.QuestionFragment"
         android:label="@string/navigation_label_question"
@@ -83,6 +119,10 @@
         <argument
             android:name="questionId"
             app:argType="string" />
+        <argument
+            android:name="inputSecond"
+            android:defaultValue="NORMAL"
+            app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
         <action
             android:id="@+id/action_question_to_answer"
             app:destination="@id/navigation_question_answer"
@@ -103,6 +143,10 @@
         <argument
             android:name="correctKaruta"
             app:argType="net.hyakuninanki.reader.state.material.model.Material" />
+        <argument
+            android:name="inputSecond"
+            android:defaultValue="NORMAL"
+            app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
         <action
             android:id="@+id/action_answer_to_question"
             app:destination="@id/navigation_question"
@@ -113,6 +157,13 @@
         <action
             android:id="@+id/action_answer_to_material_detail_page"
             app:destination="@id/navigation_material_detail_page" />
+
+        <action
+            android:id="@+id/action_answer_to_training_result"
+            app:destination="@id/navigation_training_result"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_question_answer"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

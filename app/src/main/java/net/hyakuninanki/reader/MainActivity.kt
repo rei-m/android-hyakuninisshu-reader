@@ -14,6 +14,7 @@ import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.material.di.MaterialComponent
 import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
+import net.hyakuninanki.reader.feature.trainingresult.di.TrainingResultComponent
 import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
 
 
@@ -22,6 +23,7 @@ class MainActivity : AppCompatActivity(),
     MaterialComponent.Provider,
     ExamMenuComponent.Provider,
     TrainingStarterComponent.Provider,
+    TrainingResultComponent.Provider,
     QuestionComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity(),
     override fun materialComponent() = mainComponent.materialListComponent()
     override fun examMenuComponent() = mainComponent.examMenuComponent()
     override fun trainingStarterComponent() = mainComponent.trainingStarterComponent()
+    override fun trainingResultComponent() = mainComponent.trainingResultComponent()
     override fun questionFragment() = mainComponent.questionComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +68,7 @@ class MainActivity : AppCompatActivity(),
                 }
                 R.id.navigation_material_detail,
                 R.id.navigation_training_starter,
+                R.id.navigation_training_result,
                 R.id.navigation_question,
                 R.id.navigation_question_answer,
                 R.id.navigation_material_detail_page -> {
