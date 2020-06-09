@@ -24,15 +24,18 @@ import androidx.room.Update
 
 @Dao
 interface KarutaQuestionDao {
+    @Query("SELECT COUNT(*) from karuta_question_table")
+    suspend fun count(): Int
+
     @Query("SELECT * from karuta_question_table WHERE `id` = :id")
     fun findById(id: String): KarutaQuestionData?
 
     @Query("SELECT id from karuta_question_table WHERE `no` = :no")
     fun findIdByNo(no: Int): String?
 
-    @Query("SELECT COUNT(*) from karuta_question_table")
-    suspend fun count(): Int
-
+    @Query("SELECT * from karuta_question_table ORDER BY `no` ASC")
+    fun findAll(): List<KarutaQuestionData>
+    
     @Insert
     suspend fun insertKarutaQuestions(karutaQuestions: List<KarutaQuestionData>)
 

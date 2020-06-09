@@ -22,10 +22,10 @@ import androidx.annotation.StringRes
 import net.hyakuninanki.reader.state.R
 
 enum class InputSecondCondition(
-    val value: Int?,
+    val value: Int,
     @param:StringRes private val resId: Int
 ) : SelectableItem {
-    NONE(null, R.string.input_second_none),
+    NONE(0, R.string.input_second_none),
     SHORT(3, R.string.input_second_short),
     NORMAL(6, R.string.input_second_normal),
     LONG(9, R.string.input_second_long);

@@ -6,7 +6,7 @@
         android:drawable="@android:color/white" />
     <item>
         <shape>
-            <solid android:color="#fffff0" />
+            <solid android:color="@color/whitePaper" />
             <corners android:radius="@dimen/spacing_0_25" />
         </shape>
     </item>

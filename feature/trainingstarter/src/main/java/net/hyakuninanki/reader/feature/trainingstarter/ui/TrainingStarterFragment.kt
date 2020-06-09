@@ -78,7 +78,10 @@ class TrainingStarterFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.onReadyEvent.observe(viewLifecycleOwner, EventObserver {
-            val action = TrainingStarterFragmentDirections.actionTrainingStarterToQuestion(it)
+            val action = TrainingStarterFragmentDirections.actionTrainingStarterToQuestion(
+                questionId = it,
+                inputSecond = args.inputSecond
+            )
             findNavController().navigate(action)
         })
     }

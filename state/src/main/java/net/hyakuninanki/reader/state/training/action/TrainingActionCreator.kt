@@ -17,19 +17,20 @@
 
 package net.hyakuninanki.reader.state.training.action
 
+import android.content.Context
 import net.hyakuninanki.reader.domain.karuta.model.*
 import net.hyakuninanki.reader.domain.question.model.Question
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
-import net.hyakuninanki.reader.state.training.model.ColorCondition
-import net.hyakuninanki.reader.state.training.model.KimarijiCondition
-import net.hyakuninanki.reader.state.training.model.RangeFromCondition
-import net.hyakuninanki.reader.state.training.model.RangeToCondition
+import net.hyakuninanki.reader.state.R
+import net.hyakuninanki.reader.state.training.model.*
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class TrainingActionCreator @Inject constructor(
+    private val context: Context,
     private val karutaRepository: KarutaRepository,
     private val questionRepository: QuestionRepository
 ) {
@@ -71,5 +72,51 @@ class TrainingActionCreator @Inject constructor(
         }
     } catch (e: Exception) {
         StartTrainingAction.Failure(e)
+    }
+
+    suspend fun restart(): StartTrainingAction = try {
+        val questionCollection = questionRepository.findCollection()
+        val targetKarutaNoList = questionCollection.wrongKarutaNoCollection.asRandomized
+        if (targetKarutaNoList.isEmpty()) {
+            StartTrainingAction.Empty()
+        } else {
+            val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
+            val targetKarutaNoCollection = KarutaNoCollection(targetKarutaNoList)
+            val questionList =
+                CreateQuestionListService()(
+                    allKarutaNoCollection,
+                    targetKarutaNoCollection,
+                    Question.CHOICE_SIZE
+                )
+
+            questionRepository.initialize(questionList)
+
+            StartTrainingAction.Success(questionList.first().id.value)
+        }
+    } catch (e: Exception) {
+        StartTrainingAction.Failure(e)
+    }
+
+    /**
+     * 練習の回答結果を集計する
+     */
+    suspend fun aggregateResults(): AggregateResultsAction {
+        try {
+            val questionCollection = questionRepository.findCollection()
+            val resultSummary = questionCollection.resultSummary
+            val averageAnswerTimeString = String.format(
+                Locale.JAPAN,
+                "%.2f",
+                resultSummary.averageAnswerSec
+            )
+            val trainingResult = TrainingResult(
+                score = resultSummary.score,
+                averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
+                wrongQuestionKarutaNoList = questionCollection.wrongKarutaNoCollection.asRandomized.map { it.value }
+            )
+            return AggregateResultsAction.Success(trainingResult)
+        } catch (e: Exception) {
+            return AggregateResultsAction.Failure(e)
+        }
     }
 }

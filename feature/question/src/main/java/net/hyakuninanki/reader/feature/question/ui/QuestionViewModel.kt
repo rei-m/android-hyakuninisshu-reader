@@ -30,11 +30,13 @@ import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.question.action.QuestionActionCreator
 import net.hyakuninanki.reader.state.question.model.QuestionState
 import net.hyakuninanki.reader.state.question.store.QuestionStore
+import net.hyakuninanki.reader.state.training.model.InputSecondCondition
 import java.util.*
 import javax.inject.Inject
 
 class QuestionViewModel(
     private val questionId: String,
+    inputSecond: InputSecondCondition,
     dispatcher: Dispatcher,
     private val actionCreator: QuestionActionCreator,
     private val store: QuestionStore,
@@ -70,7 +72,7 @@ class QuestionViewModel(
     private val timer = Timer()
 
     private val timerTask = object : TimerTask() {
-        private var count = 6   // 引数でもらう
+        private var count = inputSecond.value
         override fun run() {
             if (count == 0) {
                 timer.cancel()
@@ -132,10 +134,12 @@ class QuestionViewModel(
         private val context: Context
     ) : ViewModelProvider.Factory {
         lateinit var questionId: String
+        lateinit var inputSecond: InputSecondCondition
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = QuestionViewModel(
             questionId,
+            inputSecond,
             dispatcher,
             actionCreator,
             store,

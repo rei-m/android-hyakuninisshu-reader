@@ -63,18 +63,25 @@ class AnswerFragment : Fragment() {
         binding.existNextQuiz = args.nextQuestionId != null
         binding.buttonGoToNext.setOnClickListener {
             args.nextQuestionId?.let {
-                val action = AnswerFragmentDirections.actionAnswerToQuestion(it)
+                val action = AnswerFragmentDirections.actionAnswerToQuestion(
+                    questionId = it,
+                    inputSecond = args.inputSecond
+                )
                 findNavController().navigate(action)
             }
         }
-        binding.textMaterial.setOnClickListener {
-            val action =
-                AnswerFragmentDirections.actionAnswerToMaterialDetailPage(args.correctKaruta)
+        binding.buttonGoToResult.setOnClickListener {
+            // TODO: exam resultと分岐が必要
+            val action = AnswerFragmentDirections.actionAnswerToTrainingResult(
+                inputSecond = args.inputSecond
+            )
             findNavController().navigate(action)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        binding.textMaterial.setOnClickListener {
+            val action = AnswerFragmentDirections.actionAnswerToMaterialDetailPage(
+                material = args.correctKaruta
+            )
+            findNavController().navigate(action)
+        }
     }
 }

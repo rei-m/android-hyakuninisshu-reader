@@ -69,6 +69,12 @@ class QuestionRepositoryImpl(
         }
     }
 
+    override suspend fun count(): Int {
+        return withContext(ioContext) {
+            database.karutaQuestionDao().count()
+        }
+    }
+
     override suspend fun findById(questionId: QuestionId): Question? {
         return withContext(ioContext) {
             val questionData = database.karutaQuestionDao().findById(questionId.value)
@@ -100,9 +106,39 @@ class QuestionRepositoryImpl(
         }
     }
 
-    override suspend fun count(): Int {
+    override suspend fun findCollection(): QuestionCollection {
         return withContext(ioContext) {
-            database.karutaQuestionDao().count()
+            val choiceMap: HashMap<String, MutableList<KarutaNo>> = hashMapOf()
+            database.karutaQuestionChoiceDao().findAll().toHashSet().forEach {
+                if (choiceMap.containsKey(it.karutaQuestionId)) {
+                    choiceMap[it.karutaQuestionId]!!.add(KarutaNo(it.karutaNo))
+                } else {
+                    choiceMap[it.karutaQuestionId] = mutableListOf(KarutaNo(it.karutaNo))
+                }
+            }
+
+            return@withContext database.karutaQuestionDao().findAll().map {
+                val choiceList = choiceMap[it.id]
+                    ?: throw IllegalStateException("Question doesn't have choice list")
+                val correctNo = KarutaNo(it.correctKarutaNo)
+                val result =
+                    if (it.selectedKarutaNo != null && it.answerTime != null && it.isCorrect != null) QuestionResult(
+                        selectedKarutaNo = KarutaNo(it.selectedKarutaNo),
+                        answerMillSec = it.answerTime,
+                        judgement = QuestionJudgement(correctNo, isCorrect = it.isCorrect)
+                    ) else null
+
+                return@map Question(
+                    id = QuestionId(it.id),
+                    no = it.no,
+                    choiceList = choiceList,
+                    correctNo = correctNo,
+                    startDate = it.startDate,
+                    result = result
+                )
+            }.let {
+                QuestionCollection(it)
+            }
         }
     }
 

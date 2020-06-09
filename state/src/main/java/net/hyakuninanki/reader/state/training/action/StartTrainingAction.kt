@@ -19,7 +19,7 @@ package net.hyakuninanki.reader.state.training.action
 
 import net.hyakuninanki.reader.state.core.Action
 
-sealed class StartTrainingAction private constructor(
+sealed class StartTrainingAction(
     override val error: Throwable? = null
 ) : Action {
 
