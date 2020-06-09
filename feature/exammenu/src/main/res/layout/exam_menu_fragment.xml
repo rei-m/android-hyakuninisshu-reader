@@ -55,7 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_2"
-                app:cardBackgroundColor="#f6fff8"
+                app:cardBackgroundColor="@color/whitePaper"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_about_exam"
@@ -138,7 +138,8 @@
                         android:layout_margin="@dimen/spacing_1"
                         android:text="@string/show_all_exam_results"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/average_response_time" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,11 +161,12 @@
                 app:layout_constraintTop_toBottomOf="@id/card_exam_history" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_start_training_failed_quiz"
+                android:id="@+id/button_start_training_failed_question"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
+                android:layout_marginTop="@dimen/spacing_2"
                 android:layout_marginEnd="@dimen/spacing_2"
                 android:paddingLeft="@dimen/spacing_2"
                 android:paddingRight="@dimen/spacing_2"

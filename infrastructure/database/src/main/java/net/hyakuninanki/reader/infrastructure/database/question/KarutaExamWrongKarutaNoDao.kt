@@ -23,6 +23,9 @@ import androidx.room.Query
 
 @Dao
 interface KarutaExamWrongKarutaNoDao {
+    @Query("SELECT * from karuta_exam_wrong_karuta_no_table ORDER BY `karuta_exam_id` DESC, `karuta_no` ASC")
+    fun findAll(): List<KarutaExamWrongKarutaNoData>
+
     @Query("SELECT * from karuta_exam_wrong_karuta_no_table WHERE karuta_exam_id = :karutaExamId ORDER BY `karuta_no` ASC")
     fun findAllWithExamId(karutaExamId: Long): List<KarutaExamWrongKarutaNoData>
 

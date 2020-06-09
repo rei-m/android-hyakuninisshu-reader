@@ -1,3 +1,5 @@
+include ':feature:examresult'
+include ':feature:examstarter'
 include ':feature:trainingresult'
 rootProject.name = 'HyakuninReader'
 include ':app'

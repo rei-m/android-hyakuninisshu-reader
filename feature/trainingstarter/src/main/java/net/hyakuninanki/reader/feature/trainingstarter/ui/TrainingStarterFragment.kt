@@ -28,6 +28,7 @@ import androidx.navigation.fragment.navArgs
 import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
 import net.hyakuninanki.reader.feature.trainingstarter.databinding.TrainingStarterFragmentBinding
 import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
+import net.hyakuninanki.reader.state.question.model.Referer
 import javax.inject.Inject
 
 class TrainingStarterFragment : Fragment() {
@@ -80,7 +81,8 @@ class TrainingStarterFragment : Fragment() {
         viewModel.onReadyEvent.observe(viewLifecycleOwner, EventObserver {
             val action = TrainingStarterFragmentDirections.actionTrainingStarterToQuestion(
                 questionId = it,
-                inputSecond = args.inputSecond
+                inputSecond = args.inputSecond,
+                referer = Referer.Training
             )
             findNavController().navigate(action)
         })

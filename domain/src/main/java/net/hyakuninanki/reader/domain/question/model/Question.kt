@@ -70,7 +70,7 @@ class Question constructor(
     @Throws(IllegalStateException::class)
     fun verify(selectedNo: KarutaNo, answerDate: Date): Question {
         val startTime = startDate?.time ?: let {
-            throw IllegalStateException("Quiz is not started. Call start.")
+            throw IllegalStateException("Question is not started. Call start.")
         }
         val answerTime = answerDate.time - startTime
         val judgement =
@@ -84,7 +84,7 @@ class Question constructor(
     }
 
     override fun toString() =
-        "KarutaQuiz(choiceList=$choiceList, correctNo=$correctNo, startDate=$startDate, result=$result)"
+        "Question(choiceList=$choiceList, correctNo=$correctNo, startDate=$startDate, result=$result)"
 
     enum class State {
         READY, IN_ANSWER, ANSWERED,

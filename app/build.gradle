@@ -62,6 +62,8 @@ dependencies {
     implementation project(':feature:trainingresult')
     implementation project(':feature:question')
     implementation project(':feature:exammenu')
+    implementation project(':feature:examstarter')
+    implementation project(':feature:examresult')
     implementation project(':feature:material')
     implementation project(':feature:support')
 

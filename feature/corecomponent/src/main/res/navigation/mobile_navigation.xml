@@ -112,6 +112,41 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_exam_starter"
+        android:name="net.hyakuninanki.reader.feature.examstarter.ui.ExamStarterFragment">
+        <action
+            android:id="@+id/action_examStarter_to_question"
+            app:destination="@id/navigation_question"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_exam_starter"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_exam_finisher"
+        android:name="net.hyakuninanki.reader.feature.examresult.ui.ExamFinisherFragment">
+        <action
+            android:id="@+id/action_examFinisher_to_examResult"
+            app:destination="@id/navigation_exam_result"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_exam_finisher"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_exam_result"
+        android:name="net.hyakuninanki.reader.feature.examresult.ui.ExamResultFragment"
+        android:label="@string/navigation_label_exam_result"
+        android:title="@string/navigation_label_exam_result">
+        <argument
+            android:name="examId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_examResult_pop"
+            app:popUpTo="@+id/navigation_exam_menu" />
+    </fragment>
+
+    <fragment
         android:id="@+id/navigation_question"
         android:name="net.hyakuninanki.reader.feature.question.ui.QuestionFragment"
         android:label="@string/navigation_label_question"
@@ -123,6 +158,10 @@
             android:name="inputSecond"
             android:defaultValue="NORMAL"
             app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
+        <argument
+            android:name="referer"
+            android:defaultValue="Training"
+            app:argType="net.hyakuninanki.reader.state.question.model.Referer" />
         <action
             android:id="@+id/action_question_to_answer"
             app:destination="@id/navigation_question_answer"
@@ -147,6 +186,10 @@
             android:name="inputSecond"
             android:defaultValue="NORMAL"
             app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
+        <argument
+            android:name="referer"
+            android:defaultValue="Training"
+            app:argType="net.hyakuninanki.reader.state.question.model.Referer" />
         <action
             android:id="@+id/action_answer_to_question"
             app:destination="@id/navigation_question"
@@ -161,6 +204,13 @@
         <action
             android:id="@+id/action_answer_to_training_result"
             app:destination="@id/navigation_training_result"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_question_answer"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_answer_to_exam_finisher"
+            app:destination="@id/navigation_exam_finisher"
             app:launchSingleTop="true"
             app:popUpTo="@+id/navigation_question_answer"
             app:popUpToInclusive="true" />
@@ -180,7 +230,11 @@
         android:id="@+id/navigation_exam_menu"
         android:name="net.hyakuninanki.reader.feature.exammenu.ui.ExamMenuFragment"
         android:label="@string/navigation_label_exam"
-        android:title="@string/navigation_label_exam" />
+        android:title="@string/navigation_label_exam">
+        <action
+            android:id="@+id/action_examMenu_to_examStarter"
+            app:destination="@id/navigation_exam_starter" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_material_list"

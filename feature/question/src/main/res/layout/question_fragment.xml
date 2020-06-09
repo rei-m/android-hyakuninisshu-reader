@@ -211,7 +211,7 @@
             app:visibleOrGone="@{viewModel.isVisibleWaitingMask}" />
 
         <FrameLayout
-            android:id="@+id/layout_quiz_result"
+            android:id="@+id/layout_question_result"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:elevation="@dimen/elevation_level_l"
@@ -223,9 +223,9 @@
             tools:visibility="gone">
 
             <ImageView
-                android:id="@+id/image_quiz_result"
-                android:layout_width="@dimen/size_karuta_quiz_result_mark"
-                android:layout_height="@dimen/size_karuta_quiz_result_mark"
+                android:id="@+id/image_question_result"
+                android:layout_width="@dimen/size_karuta_question_result_mark"
+                android:layout_height="@dimen/size_karuta_question_result_mark"
                 android:layout_gravity="center"
                 android:src="@{viewModel.isCorrectResId}"
                 app:visibleOrGone="@{viewModel.isVisibleResult}" />

@@ -19,9 +19,6 @@ package net.hyakuninanki.reader.feature.trainingstarter.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.feature.corecomponent.ext.combineLatest
-import net.hyakuninanki.reader.feature.corecomponent.ext.map
-import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.training.action.TrainingActionCreator
 import net.hyakuninanki.reader.state.training.model.ColorCondition
@@ -38,19 +35,8 @@ class TrainingStarterViewModel(
     color: ColorCondition,
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
-    private val store: TrainingStore
-) : AbstractViewModel(dispatcher), TrainingStarterViewModelProperties {
-
-    override val onReadyEvent = store.onReadyEvent
-
-    override val isEmpty = store.isEmpty
-
-    override val isFailure = store.isFailure
-
-    override val isVisibleProgress =
-        isEmpty.combineLatest(isFailure).map { (_isEmpty, _isFailure) ->
-            return@map !_isEmpty && !_isFailure
-        }
+    store: TrainingStore
+) : BaseTrainingStarterVIewModel(store, dispatcher) {
 
     init {
         dispatchAction {
@@ -61,11 +47,6 @@ class TrainingStarterViewModel(
                 color = color
             )
         }
-    }
-
-    override fun onCleared() {
-        store.dispose()
-        super.onCleared()
     }
 
     class Factory @Inject constructor(

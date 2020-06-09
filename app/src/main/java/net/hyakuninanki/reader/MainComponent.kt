@@ -22,6 +22,8 @@ import dagger.BindsInstance
 import dagger.Subcomponent
 import net.hyakuninanki.reader.feature.corecomponent.di.ActivityScope
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
+import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
+import net.hyakuninanki.reader.feature.examstarter.di.ExamStarterComponent
 import net.hyakuninanki.reader.feature.material.di.MaterialComponent
 import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
@@ -49,4 +51,8 @@ interface MainComponent {
     fun trainingResultComponent(): TrainingResultComponent.Factory
 
     fun questionComponent(): QuestionComponent.Factory
+
+    fun examStarterComponent(): ExamStarterComponent.Factory
+
+    fun examResultComponent(): ExamResultComponent.Factory
 }

@@ -23,11 +23,11 @@ import dagger.Component
 import net.hyakuninanki.reader.MainComponent
 import net.hyakuninanki.reader.feature.corecomponent.di.ViewModelModule
 import net.hyakuninanki.reader.infrastructure.database.di.InfrastructureModule
-import net.hyakuninanki.reader.state.core.di.ViewStateCoreModule
+import net.hyakuninanki.reader.state.core.di.StateCoreModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [InfrastructureModule::class, ViewStateCoreModule::class, ViewModelModule::class])
+@Component(modules = [InfrastructureModule::class, StateCoreModule::class, ViewModelModule::class])
 interface AppComponent {
     // Factory to create instances of the AppComponent
     @Component.Factory

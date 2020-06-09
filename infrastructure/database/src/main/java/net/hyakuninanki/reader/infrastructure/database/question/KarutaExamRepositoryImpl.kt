@@ -58,38 +58,88 @@ class KarutaExamRepositoryImpl(
             }
         }.await()
 
+    override suspend fun deleteList(list: List<KarutaExam>) {
+        withContext(ioContext) {
+            list.map {
+                KarutaExamData(
+                    id = it.id.value,
+                    tookExamDate = it.tookDate,
+                    totalQuestionCount = it.result.resultSummary.totalQuestionCount,
+                    averageAnswerTime = it.result.resultSummary.averageAnswerSec
+                )
+            }.let {
+                database.karutaExamDao().deleteExams(it)
+            }
+        }
+    }
+
     override suspend fun findById(karutaExamId: KarutaExamId): KarutaExam? {
-        TODO("Not yet implemented")
+        return withContext(ioContext) {
+            val karutaExamData =
+                database.karutaExamDao().findById(karutaExamId.value) ?: return@withContext null
+            return@withContext dataToModel(karutaExamData)
+        }
     }
 
     override suspend fun last(): KarutaExam? {
         return withContext(ioContext) {
             val karutaExamData = database.karutaExamDao().last() ?: return@withContext null
-            val wrongKarutaNoDataList = database.karutaExamWrongKarutaNoDao().findAllWithExamId(
-                karutaExamId = karutaExamData.id!!
-            )
-            return@withContext KarutaExam(
-                id = KarutaExamId(
-                    karutaExamData.id
-                ),
-                tookDate = karutaExamData.tookExamDate,
-                result = KarutaExamResult(
-                    resultSummary = QuestionResultSummary(
-                        totalQuestionCount = karutaExamData.totalQuestionCount,
-                        correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
-                        averageAnswerSec = karutaExamData.averageAnswerTime
-                    ),
-                    wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataList.map {
-                        KarutaNo(
-                            it.karutaNo
-                        )
-                    })
-                )
-            )
+            return@withContext dataToModel(karutaExamData)
         }
     }
 
-    override suspend fun findCollection(): KarutaExams {
-        TODO("Not yet implemented")
+    override suspend fun findCollection(): KarutaExamCollection {
+        return withContext(ioContext) {
+            val karutaExamDataList = database.karutaExamDao().findAll()
+            val wrongKarutaNoDataList = database.karutaExamWrongKarutaNoDao().findAll()
+            val wrongKarutaNoDataMap: HashMap<Long, MutableList<KarutaNo>> = hashMapOf()
+            wrongKarutaNoDataList.forEach {
+                if (wrongKarutaNoDataMap.containsKey(it.karutaExamId)) {
+                    wrongKarutaNoDataMap[it.karutaExamId]!!.add(KarutaNo(it.karutaNo))
+                } else {
+                    wrongKarutaNoDataMap[it.karutaExamId] = mutableListOf(KarutaNo(it.karutaNo))
+                }
+            }
+            return@withContext karutaExamDataList.map { karutaExamData ->
+                return@map KarutaExam(
+                    id = KarutaExamId(karutaExamData.id!!),
+                    tookDate = karutaExamData.tookExamDate,
+                    result = KarutaExamResult(
+                        resultSummary = QuestionResultSummary(
+                            totalQuestionCount = karutaExamData.totalQuestionCount,
+                            correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
+                            averageAnswerSec = karutaExamData.averageAnswerTime
+                        ),
+                        wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataMap[karutaExamData.id]!!)
+                    )
+                )
+            }.let {
+                KarutaExamCollection(it)
+            }
+        }
+    }
+
+    private fun dataToModel(karutaExamData: KarutaExamData): KarutaExam {
+        val wrongKarutaNoDataList = database.karutaExamWrongKarutaNoDao().findAllWithExamId(
+            karutaExamId = karutaExamData.id!!
+        )
+        return KarutaExam(
+            id = KarutaExamId(
+                karutaExamData.id
+            ),
+            tookDate = karutaExamData.tookExamDate,
+            result = KarutaExamResult(
+                resultSummary = QuestionResultSummary(
+                    totalQuestionCount = karutaExamData.totalQuestionCount,
+                    correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
+                    averageAnswerSec = karutaExamData.averageAnswerTime
+                ),
+                wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataList.map {
+                    KarutaNo(
+                        it.karutaNo
+                    )
+                })
+            )
+        )
     }
 }

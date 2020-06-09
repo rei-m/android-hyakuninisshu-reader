@@ -19,9 +19,6 @@ package net.hyakuninanki.reader.feature.trainingstarter.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.feature.corecomponent.ext.combineLatest
-import net.hyakuninanki.reader.feature.corecomponent.ext.map
-import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.training.action.TrainingActionCreator
 import net.hyakuninanki.reader.state.training.store.TrainingStore
@@ -30,29 +27,13 @@ import javax.inject.Inject
 class TrainingReStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
-    private val store: TrainingStore
-) : AbstractViewModel(dispatcher), TrainingStarterViewModelProperties {
-
-    override val onReadyEvent = store.onReadyEvent
-
-    override val isEmpty = store.isEmpty
-
-    override val isFailure = store.isFailure
-
-    override val isVisibleProgress =
-        isEmpty.combineLatest(isFailure).map { (_isEmpty, _isFailure) ->
-            return@map !_isEmpty && !_isFailure
-        }
+    store: TrainingStore
+) : BaseTrainingStarterVIewModel(store, dispatcher) {
 
     init {
         dispatchAction {
             actionCreator.restart()
         }
-    }
-
-    override fun onCleared() {
-        store.dispose()
-        super.onCleared()
     }
 
     class Factory @Inject constructor(
