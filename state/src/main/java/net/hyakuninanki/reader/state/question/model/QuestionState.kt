@@ -28,6 +28,7 @@ sealed class QuestionState {
     class Answered(
         val selectedToriFudaIndex: Int,
         val isCorrect: Boolean,
-        val correctKaruta: Material
+        val correctMaterial: Material,
+        val nextQuestionId: String?
     ) : QuestionState()
 }

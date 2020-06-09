@@ -24,7 +24,7 @@ import java.util.*
 
 @Entity(
     tableName = "karuta_question_table",
-    indices = [Index("correct_karuta_no")],
+    indices = [Index("correct_karuta_no"), Index("no")],
     foreignKeys = [ForeignKey(
         entity = KarutaData::class,
         parentColumns = arrayOf("no"),

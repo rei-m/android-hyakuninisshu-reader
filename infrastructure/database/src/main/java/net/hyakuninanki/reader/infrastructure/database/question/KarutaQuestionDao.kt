@@ -27,6 +27,9 @@ interface KarutaQuestionDao {
     @Query("SELECT * from karuta_question_table WHERE `id` = :id")
     fun findById(id: String): KarutaQuestionData?
 
+    @Query("SELECT id from karuta_question_table WHERE `no` = :no")
+    fun findIdByNo(no: Int): String?
+
     @Query("SELECT COUNT(*) from karuta_question_table")
     suspend fun count(): Int
 

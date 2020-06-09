@@ -22,6 +22,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import net.hyakuninanki.reader.feature.material.databinding.MaterialDetailPageFragmentBinding
 import net.hyakuninanki.reader.state.material.model.Material
 
@@ -30,6 +31,8 @@ class MaterialDetailPageFragment : Fragment() {
     private var _binding: MaterialDetailPageFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private val args: MaterialDetailPageFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,8 +40,13 @@ class MaterialDetailPageFragment : Fragment() {
     ): View? {
         _binding = MaterialDetailPageFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        binding.material = requireArguments().getParcelable(ARG_MATERIAL) as Material?
+        // ここなくてもいいかも
+        val materialFromBundle = requireArguments().getParcelable<Material>(ARG_MATERIAL)
+        if (materialFromBundle == null) {
+            binding.material = args.material
+        } else {
+            binding.material = materialFromBundle
+        }
 
         return binding.root
     }

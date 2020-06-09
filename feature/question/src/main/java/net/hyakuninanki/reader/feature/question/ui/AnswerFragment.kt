@@ -22,28 +22,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import net.hyakuninanki.reader.feature.question.databinding.QuestionFragmentBinding
+import net.hyakuninanki.reader.feature.question.databinding.AnswerFragmentBinding
 import net.hyakuninanki.reader.feature.question.di.QuestionComponent
-import net.hyakuninanki.reader.state.question.model.QuestionState
-import javax.inject.Inject
 
-class QuestionFragment : Fragment() {
-    @Inject
-    lateinit var viewModelFactory: QuestionViewModel.Factory
-
-    private val args: QuestionFragmentArgs by navArgs()
-
-    private var _binding: QuestionFragmentBinding? = null
+class AnswerFragment : Fragment() {
+    private var _binding: AnswerFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModels<QuestionViewModel> {
-        viewModelFactory.apply {
-            questionId = args.questionId
-        }
-    }
+    private val args: AnswerFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity() as QuestionComponent.Provider)
@@ -58,7 +46,7 @@ class QuestionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = QuestionFragmentBinding.inflate(inflater, container, false)
+        _binding = AnswerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
@@ -69,19 +57,24 @@ class QuestionFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        binding.viewModel = viewModel
-        binding.layoutQuizResult.setOnClickListener {
-            val state = viewModel.state.value
-            if (state is QuestionState.Answered) {
-                val action = QuestionFragmentDirections.actionQuestionToAnswer(
-                    nextQuestionId = state.nextQuestionId,
-                    correctKaruta = state.correctMaterial
-                )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.material = args.correctKaruta
+        binding.existNextQuiz = args.nextQuestionId != null
+        binding.buttonGoToNext.setOnClickListener {
+            args.nextQuestionId?.let {
+                val action = AnswerFragmentDirections.actionAnswerToQuestion(it)
                 findNavController().navigate(action)
             }
         }
+        binding.textMaterial.setOnClickListener {
+            val action =
+                AnswerFragmentDirections.actionAnswerToMaterialDetailPage(args.correctKaruta)
+            findNavController().navigate(action)
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 }

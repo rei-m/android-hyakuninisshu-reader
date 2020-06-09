@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_torifuda_inner"
+        android:background="@drawable/bg_fuda_inner"
         android:orientation="horizontal"
         android:paddingStart="@dimen/spacing_0_5"
         android:paddingTop="@dimen/spacing_0_25"

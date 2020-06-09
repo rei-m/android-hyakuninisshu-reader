@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.feature.question.di
 
 import dagger.Subcomponent
+import net.hyakuninanki.reader.feature.question.ui.AnswerFragment
 import net.hyakuninanki.reader.feature.question.ui.QuestionFragment
 
 @Subcomponent
@@ -28,6 +29,7 @@ interface QuestionComponent {
     }
 
     fun inject(fragment: QuestionFragment)
+    fun inject(fragment: AnswerFragment)
 
     interface Provider {
         fun questionFragment(): Factory

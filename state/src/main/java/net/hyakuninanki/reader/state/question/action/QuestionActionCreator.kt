@@ -22,7 +22,7 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
 import net.hyakuninanki.reader.domain.question.model.QuestionId
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
-import net.hyakuninanki.reader.state.BuildConfig
+import net.hyakuninanki.reader.state.core.ext.rawResId
 import net.hyakuninanki.reader.state.material.model.Material
 import net.hyakuninanki.reader.state.question.model.Question
 import net.hyakuninanki.reader.state.question.model.QuestionState
@@ -67,10 +67,11 @@ class QuestionActionCreator @Inject constructor(
                 QuestionState.Answered(
                     selectedToriFudaIndex = question.choiceList.indexOf(question.result!!.selectedKarutaNo),
                     isCorrect = question.result!!.judgement.isCorrect,
-                    correctKaruta = Material.createFromKaruta(
-                        context = context,
-                        karuta = choiceKarutaList.find { it.no == question.correctNo }!!
-                    )
+                    correctMaterial = Material.createFromKaruta(
+                        choiceKarutaList.find { it.no == question.correctNo }!!,
+                        context
+                    ),
+                    nextQuestionId = questionRepository.findIdByNo(question.no)?.value
                 )
         }
         val count = questionRepository.count()
@@ -102,14 +103,13 @@ class QuestionActionCreator @Inject constructor(
         questionRepository.save(question.start(startTime))
 
         val correctKaruta = karutaRepository.findByNo(question.correctNo)
-        val rawResName = if (BuildConfig.DEBUG) "000" else correctKaruta.imageNo.value
-        val rawResId = context.resources.getIdentifier(
-            "karuta_${rawResName}",
-            "raw",
-            context.packageName
+        return StartAnswerQuestionAction.Success(
+            state = QuestionState.InAnswer(
+                correctKaruta.rawResId(
+                    context
+                )
+            )
         )
-
-        return StartAnswerQuestionAction.Success(state = QuestionState.InAnswer(rawResId))
     }
 
     /**
@@ -132,13 +132,14 @@ class QuestionActionCreator @Inject constructor(
         val verified = question.verify(selectedKarutaNo, answerDate)
         questionRepository.save(verified)
 
-        val correctKaruta = karutaRepository.findByNo(question.correctNo)
+        val correctKaruta = karutaRepository.findByNo(verified.correctNo)
 
         return AnswerQuestionAction.Success(
             QuestionState.Answered(
-                selectedToriFudaIndex = question.choiceList.indexOf(selectedKarutaNo),
-                isCorrect = question.result!!.judgement.isCorrect,
-                correctKaruta = Material.createFromKaruta(correctKaruta, context)
+                selectedToriFudaIndex = verified.choiceList.indexOf(selectedKarutaNo),
+                isCorrect = verified.result!!.judgement.isCorrect,
+                correctMaterial = Material.createFromKaruta(correctKaruta, context),
+                nextQuestionId = questionRepository.findIdByNo(verified.no + 1)?.value
             )
         )
     }

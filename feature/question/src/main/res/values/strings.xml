@@ -15,6 +15,9 @@
   ~
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="text_input_second">あと%d秒</string>
+    <string name="char_material">資</string>
+    <string name="go_to_next">次の問題</string>
+    <string name="torifuda_pad" tools:ignore="ExtraTranslation">　　　　　</string>
 </resources>

@@ -65,7 +65,9 @@ class MainActivity : AppCompatActivity(),
                 }
                 R.id.navigation_material_detail,
                 R.id.navigation_training_starter,
-                R.id.navigation_question -> {
+                R.id.navigation_question,
+                R.id.navigation_question_answer,
+                R.id.navigation_material_detail_page -> {
                     navView.visibility = View.GONE
                 }
                 else -> {

@@ -94,6 +94,12 @@ class QuestionRepositoryImpl(
         }
     }
 
+    override suspend fun findIdByNo(no: Int): QuestionId? {
+        return withContext(ioContext) {
+            database.karutaQuestionDao().findIdByNo(no)?.let { QuestionId(it) }
+        }
+    }
+
     override suspend fun count(): Int {
         return withContext(ioContext) {
             database.karutaQuestionDao().count()

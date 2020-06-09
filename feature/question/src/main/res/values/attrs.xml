@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <declare-styleable name="ToriFudaView">
+    <declare-styleable name="FudaView">
         <attr name="textSize" format="dimension" />
     </declare-styleable>
 </resources>
