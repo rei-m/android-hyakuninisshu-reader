@@ -21,6 +21,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import net.hyakuninanki.reader.feature.corecomponent.ext.adHeight
 import net.hyakuninanki.reader.feature.material.R
 import net.hyakuninanki.reader.feature.material.databinding.AdapterItemMaterialKarutaBinding
 import net.hyakuninanki.reader.state.material.model.Material
@@ -33,9 +34,7 @@ class MaterialListAdapter(
 
     private val itemPaddingBottom = context.resources.getDimensionPixelOffset(R.dimen.spacing_1)
 
-    // TODO
-    //    private val lastItemPaddingBottom = context.adHeight + itemPaddingBottom
-    private val lastItemPaddingBottom = itemPaddingBottom
+    private val lastItemPaddingBottom = context.adHeight + itemPaddingBottom
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = AdapterItemMaterialKarutaBinding.inflate(

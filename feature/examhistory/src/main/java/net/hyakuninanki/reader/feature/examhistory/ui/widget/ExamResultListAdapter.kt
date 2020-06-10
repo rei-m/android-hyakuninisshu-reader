@@ -21,6 +21,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import net.hyakuninanki.reader.feature.corecomponent.ext.adHeight
 import net.hyakuninanki.reader.feature.examhistory.databinding.AdapterItemExamResultBinding
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 
@@ -31,9 +32,7 @@ class ExamResultListAdapter(
 
     private val itemPaddingBottom = 0
 
-    // TODO
-//    private val lastItemPaddingBottom = context.adHeight
-    private val lastItemPaddingBottom = itemPaddingBottom
+    private val lastItemPaddingBottom = context.adHeight + itemPaddingBottom
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val binding = AdapterItemExamResultBinding.inflate(

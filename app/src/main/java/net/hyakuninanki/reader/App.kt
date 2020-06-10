@@ -1,19 +1,17 @@
 package net.hyakuninanki.reader
 
 import android.app.Application
+import com.google.android.gms.ads.MobileAds
+import com.google.firebase.analytics.FirebaseAnalytics
 import net.hyakuninanki.reader.di.AppComponent
 import net.hyakuninanki.reader.di.DaggerAppComponent
 import timber.log.Timber
 
 open class App : Application() {
 
-    // Instance of the AppComponent that will be used by all the Activities in the project
-    val appComponent: AppComponent by lazy {
-        // Creates an instance of AppComponent using its Factory constructor
-        // We pass the applicationContext that will be used as Context in the graph
-//        DaggerAppComponent.factory().create(applicationContext)
-        initializeComponent()
-    }
+    val appComponent: AppComponent by lazy { initializeComponent() }
+
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     open fun initializeComponent(): AppComponent {
         return DaggerAppComponent.factory().create(applicationContext)
@@ -22,7 +20,8 @@ open class App : Application() {
     override fun onCreate() {
         super.onCreate()
         initTimber()
-//        initAdMob()
+        initAnalytics()
+        initAdMob()
     }
 
     protected open fun initTimber() {
@@ -33,9 +32,13 @@ open class App : Application() {
         }
     }
 
-//    protected open fun initAdMob() {
-//        MobileAds.initialize(this) {
-//            Timber.i("initialize Ad")
-//        }
-//    }
+    protected open fun initAnalytics() {
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+    }
+
+    protected open fun initAdMob() {
+        MobileAds.initialize(this) {
+            Timber.d("initialize AdMob")
+        }
+    }
 }

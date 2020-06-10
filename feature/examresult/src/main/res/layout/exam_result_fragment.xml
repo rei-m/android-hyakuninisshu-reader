@@ -36,7 +36,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/tatami">
+            android:background="@drawable/tatami"
+            android:paddingBottom="@dimen/height_ad_banner">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_score"
