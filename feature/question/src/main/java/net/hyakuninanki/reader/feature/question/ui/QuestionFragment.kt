@@ -72,15 +72,15 @@ class QuestionFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         binding.viewModel = viewModel
-        binding.layoutQuizResult.setOnClickListener {
+        binding.layoutQuestionResult.setOnClickListener {
             val state = viewModel.state.value
             if (state is QuestionState.Answered) {
                 val action = QuestionFragmentDirections.actionQuestionToAnswer(
                     nextQuestionId = state.nextQuestionId,
                     correctKaruta = state.correctMaterial,
-                    inputSecond = args.inputSecond
+                    inputSecond = args.inputSecond,
+                    referer = args.referer
                 )
                 findNavController().navigate(action)
             }

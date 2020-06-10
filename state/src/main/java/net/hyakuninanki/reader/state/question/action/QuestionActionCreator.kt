@@ -62,7 +62,7 @@ class QuestionActionCreator @Inject constructor(
         val state = when (question.state) {
             DomainQuestion.State.READY,
             DomainQuestion.State.IN_ANSWER ->
-                QuestionState.Ready()
+                QuestionState.Ready
             DomainQuestion.State.ANSWERED ->
                 QuestionState.Answered(
                     selectedToriFudaIndex = question.choiceList.indexOf(question.result!!.selectedKarutaNo),

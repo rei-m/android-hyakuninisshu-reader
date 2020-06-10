@@ -21,8 +21,11 @@ import android.content.Context
 import net.hyakuninanki.reader.domain.karuta.model.Karuta
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.Kimariji
+import net.hyakuninanki.reader.domain.question.model.KarutaExam
 import net.hyakuninanki.reader.state.BuildConfig
 import net.hyakuninanki.reader.state.R
+import net.hyakuninanki.reader.state.exam.model.ExamResult
+import java.util.*
 
 fun KarutaNo.toText(context: Context): String {
     if (this.value == 100) {
@@ -70,5 +73,18 @@ fun Karuta.imageResId(context: Context): Int {
         "karuta_${imageNo.value}",
         "drawable",
         context.packageName
+    )
+}
+
+fun KarutaExam.toResult(context: Context): ExamResult {
+    val averageAnswerTimeString = String.format(
+        Locale.JAPAN,
+        "%.2f",
+        result.resultSummary.averageAnswerSec
+    )
+    return ExamResult(
+        id = id.value,
+        score = result.resultSummary.score,
+        averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString)
     )
 }

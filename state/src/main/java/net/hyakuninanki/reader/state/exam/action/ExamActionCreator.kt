@@ -18,16 +18,24 @@
 package net.hyakuninanki.reader.state.exam.action
 
 import android.content.Context
-import net.hyakuninanki.reader.domain.question.model.KarutaExamRepository
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
+import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
+import net.hyakuninanki.reader.domain.question.model.*
+import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
 import net.hyakuninanki.reader.state.R
-import net.hyakuninanki.reader.state.exam.model.KarutaExamResult
+import net.hyakuninanki.reader.state.core.ext.toResult
+import net.hyakuninanki.reader.state.exam.model.ExamResult
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.NoSuchElementException
 
 @Singleton
 class ExamActionCreator @Inject constructor(
     private val context: Context,
+    private val karutaRepository: KarutaRepository,
+    private val questionRepository: QuestionRepository,
     private val karutaExamRepository: KarutaExamRepository
 ) {
     /**
@@ -35,23 +43,77 @@ class ExamActionCreator @Inject constructor(
      *
      * @return FetchRecentExamAction
      */
-    suspend fun fetchRecent(): FetchRecentExamAction {
+    suspend fun fetchRecent(): FetchRecentExamResultAction {
         try {
             val recentExam =
-                karutaExamRepository.last() ?: return FetchRecentExamAction.Success(null)
-            val averageAnswerTimeString = String.format(
-                Locale.JAPAN,
-                "%.2f",
-                recentExam.result.resultSummary.averageAnswerSec
-            )
-            val karutaExamResult = KarutaExamResult(
-                score = recentExam.result.resultSummary.score,
-                averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString)
-            )
-            return FetchRecentExamAction.Success(karutaExamResult)
+                karutaExamRepository.last() ?: return FetchRecentExamResultAction.Success(null)
+            return FetchRecentExamResultAction.Success(recentExam.toResult(context))
 
         } catch (e: Exception) {
-            return FetchRecentExamAction.Failure(e)
+            return FetchRecentExamResultAction.Failure(e)
         }
+    }
+
+    /**
+     * 力試しを開始する.
+     *
+     * @return StartExamAction
+     */
+    suspend fun start() = try {
+        val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
+        // TODO: あとでtakeを消す
+        val targetKarutaList = karutaRepository.findAll().take(5)
+
+        val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
+
+        val questionList = CreateQuestionListService()(
+            allKarutaNoCollection,
+            targetKarutaNoCollection,
+            Question.CHOICE_SIZE
+        )
+
+        questionRepository.initialize(questionList)
+
+        StartExamAction.Success(questionList.first().id.value)
+    } catch (e: Exception) {
+        StartExamAction.Failure(e)
+    }
+
+    /**
+     * 力試しを終了して結果を登録する.
+     *
+     * @return FinishExamAction
+     */
+    suspend fun finish() = try {
+        val questionCollection = questionRepository.findCollection()
+        val result = KarutaExamResult(
+            questionCollection.resultSummary,
+            questionCollection.wrongKarutaNoCollection
+        )
+        val addedExamId = karutaExamRepository.add(result, Date())
+        val examCollection = karutaExamRepository.findCollection()
+        karutaExamRepository.deleteList(examCollection.overflowed)
+
+        val averageAnswerTimeString = String.format(
+            Locale.JAPAN,
+            "%.2f",
+            result.resultSummary.averageAnswerSec
+        )
+
+        FinishExamAction.Success(
+            ExamResult(
+                id = addedExamId.value,
+                score = result.resultSummary.score,
+                averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString)
+            )
+        )
+    } catch (e: Exception) {
+        FinishExamAction.Failure(e)
+    }
+
+    suspend fun fetch(id: Long): FetchExamResultAction {
+        val exam = karutaExamRepository.findById(KarutaExamId(id))
+            ?: return FetchExamResultAction.Failure(NoSuchElementException())
+        return FetchExamResultAction.Success(exam.toResult(context))
     }
 }

@@ -109,7 +109,7 @@ class QuestionRepositoryImpl(
     override suspend fun findCollection(): QuestionCollection {
         return withContext(ioContext) {
             val choiceMap: HashMap<String, MutableList<KarutaNo>> = hashMapOf()
-            database.karutaQuestionChoiceDao().findAll().toHashSet().forEach {
+            database.karutaQuestionChoiceDao().findAll().forEach {
                 if (choiceMap.containsKey(it.karutaQuestionId)) {
                     choiceMap[it.karutaQuestionId]!!.add(KarutaNo(it.karutaNo))
                 } else {

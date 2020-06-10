@@ -50,4 +50,9 @@ interface KarutaRepository {
     suspend fun findAllWithNo(
         karutaNoList: List<KarutaNo>
     ): List<Karuta>
+
+    /**
+     * すべての歌のリストを取得する
+     */
+    suspend fun findAll(): List<Karuta>
 }

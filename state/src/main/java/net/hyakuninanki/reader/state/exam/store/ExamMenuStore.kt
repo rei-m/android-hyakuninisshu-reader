@@ -21,22 +21,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.core.Store
-import net.hyakuninanki.reader.state.exam.action.FetchRecentExamAction
-import net.hyakuninanki.reader.state.exam.model.KarutaExamResult
+import net.hyakuninanki.reader.state.exam.action.FetchRecentExamResultAction
+import net.hyakuninanki.reader.state.exam.action.FinishExamAction
+import net.hyakuninanki.reader.state.exam.model.ExamResult
 import javax.inject.Inject
 
 class ExamMenuStore @Inject constructor(dispatcher: Dispatcher) : Store() {
-    private val _recentResult = MutableLiveData<KarutaExamResult>()
-    val recentResult: LiveData<KarutaExamResult> = _recentResult
+    private val _recentResult = MutableLiveData<ExamResult>()
+    val recentResult: LiveData<ExamResult?> = _recentResult
 
     init {
-        register(dispatcher.on(FetchRecentExamAction::class.java).subscribe {
+        register(dispatcher.on(FetchRecentExamResultAction::class.java).subscribe {
             when (it) {
-                is FetchRecentExamAction.Success -> {
-                    _recentResult.value = it.karutaExamResult
+                is FetchRecentExamResultAction.Success -> {
+                    _recentResult.value = it.examResult
                 }
-                is FetchRecentExamAction.Failure -> {
+                is FetchRecentExamResultAction.Failure -> {
                     // TODO
+                }
+            }
+        }, dispatcher.on(FinishExamAction::class.java).subscribe {
+            when (it) {
+                is FinishExamAction.Success -> {
+                    _recentResult.value = it.examResult
                 }
             }
         })

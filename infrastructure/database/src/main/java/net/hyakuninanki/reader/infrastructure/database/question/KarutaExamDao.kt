@@ -18,20 +18,24 @@
 package net.hyakuninanki.reader.infrastructure.database.question
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
 interface KarutaExamDao {
-    @Query("SELECT * from karuta_exam_table ORDER BY `id` DESC LIMIT 1")
-    fun last(): KarutaExamData?
+    @Query("SELECT * from karuta_exam_table ORDER BY `took_exam_date` DESC")
+    fun findAll(): List<KarutaExamData>
 
-//    @Query("SELECT * from karuta_table WHERE color = :color ORDER BY `no` ASC")
-//    fun findAllWithColor(color: String): List<KarutaData>
+    @Query("SELECT * from karuta_exam_table WHERE `id` = :id")
+    fun findById(id: Long): KarutaExamData?
+
+    @Query("SELECT * from karuta_exam_table ORDER BY `took_exam_date` DESC LIMIT 1")
+    fun last(): KarutaExamData?
 
     @Insert
     suspend fun insert(karutaExam: KarutaExamData): Long
 
-//    @Query("DELETE FROM karuta_table")
-//    suspend fun deleteAll()
+    @Delete
+    suspend fun deleteExams(karutaExamList: List<KarutaExamData>)
 }

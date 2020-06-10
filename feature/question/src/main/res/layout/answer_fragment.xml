@@ -27,7 +27,7 @@
             type="net.hyakuninanki.reader.state.material.model.Material" />
 
         <variable
-            name="existNextQuiz"
+            name="existNextQuestion"
             type="Boolean" />
     </data>
 
@@ -98,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_fuda"
-            app:visibleOrGone="@{existNextQuiz}" />
+            app:visibleOrGone="@{existNextQuestion}" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_go_to_result"
@@ -114,7 +114,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_fuda"
-            app:visibleOrGone="@{!existNextQuiz}" />
+            app:visibleOrGone="@{!existNextQuestion}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

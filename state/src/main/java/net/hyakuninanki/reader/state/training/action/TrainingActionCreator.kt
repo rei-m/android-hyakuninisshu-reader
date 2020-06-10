@@ -59,12 +59,11 @@ class TrainingActionCreator @Inject constructor(
         } else {
             val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
 
-            val questionList =
-                CreateQuestionListService()(
-                    allKarutaNoCollection,
-                    targetKarutaNoCollection,
-                    Question.CHOICE_SIZE
-                )
+            val questionList = CreateQuestionListService()(
+                allKarutaNoCollection,
+                targetKarutaNoCollection,
+                Question.CHOICE_SIZE
+            )
 
             questionRepository.initialize(questionList)
 
@@ -82,12 +81,11 @@ class TrainingActionCreator @Inject constructor(
         } else {
             val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
             val targetKarutaNoCollection = KarutaNoCollection(targetKarutaNoList)
-            val questionList =
-                CreateQuestionListService()(
-                    allKarutaNoCollection,
-                    targetKarutaNoCollection,
-                    Question.CHOICE_SIZE
-                )
+            val questionList = CreateQuestionListService()(
+                allKarutaNoCollection,
+                targetKarutaNoCollection,
+                Question.CHOICE_SIZE
+            )
 
             questionRepository.initialize(questionList)
 

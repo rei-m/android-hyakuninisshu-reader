@@ -58,6 +58,14 @@ interface KarutaDao {
         nos: List<Int>
     ): List<KarutaData>
 
+    @Query(
+        "SELECT * from karuta_table " +
+                "ORDER BY " +
+                "    `no` ASC"
+    )
+    fun findAll(): List<KarutaData>
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertKarutas(karutas: List<KarutaData>)
 

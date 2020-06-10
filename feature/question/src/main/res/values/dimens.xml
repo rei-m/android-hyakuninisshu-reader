@@ -16,5 +16,5 @@
   -->
 
 <resources>
-    <dimen name="size_karuta_quiz_result_mark">248dp</dimen>
+    <dimen name="size_karuta_question_result_mark">248dp</dimen>
 </resources>

@@ -17,9 +17,9 @@
 
 package net.hyakuninanki.reader.feature.exammenu.ui
 
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
@@ -32,9 +32,9 @@ class ExamMenuViewModel(
     private val store: ExamMenuStore
 ) : AbstractViewModel(dispatcher) {
 
-    val hasResult = Transformations.map(store.recentResult) { it != null }
-    val score = Transformations.map(store.recentResult) { it?.score }
-    val averageAnswerSec = Transformations.map(store.recentResult) { it?.averageAnswerSecText }
+    val hasResult = store.recentResult.map { it != null }
+    val score = store.recentResult.map { it?.score }
+    val averageAnswerSec = store.recentResult.map { it?.averageAnswerSecText }
 
     init {
         dispatchAction { actionCreator.fetchRecent() }

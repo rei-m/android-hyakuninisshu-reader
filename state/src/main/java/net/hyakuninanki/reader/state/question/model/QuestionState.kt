@@ -21,7 +21,7 @@ import androidx.annotation.RawRes
 import net.hyakuninanki.reader.state.material.model.Material
 
 sealed class QuestionState {
-    class Ready : QuestionState()
+    object Ready : QuestionState()
 
     class InAnswer(@RawRes val rawResId: Int) : QuestionState()
 

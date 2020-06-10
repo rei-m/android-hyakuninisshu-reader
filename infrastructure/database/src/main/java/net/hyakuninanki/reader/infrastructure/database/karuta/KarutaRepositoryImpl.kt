@@ -91,6 +91,11 @@ class KarutaRepositoryImpl(
                 nos = karutaNoList.map { it.value }
             ).map { it.toModel() }
         }
+
+    override suspend fun findAll(): List<Karuta> =
+        withContext(ioContext) {
+            database.karutaDao().findAll().map { it.toModel() }
+        }
 }
 
 fun KarutaData.toModel(): Karuta {

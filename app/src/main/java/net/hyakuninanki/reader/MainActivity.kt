@@ -11,6 +11,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
+import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
+import net.hyakuninanki.reader.feature.examstarter.di.ExamStarterComponent
 import net.hyakuninanki.reader.feature.material.di.MaterialComponent
 import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
@@ -20,10 +22,12 @@ import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterCompone
 
 class MainActivity : AppCompatActivity(),
     SplashComponent.Provider,
-    MaterialComponent.Provider,
     ExamMenuComponent.Provider,
+    MaterialComponent.Provider,
     TrainingStarterComponent.Provider,
     TrainingResultComponent.Provider,
+    ExamStarterComponent.Provider,
+    ExamResultComponent.Provider,
     QuestionComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
@@ -34,6 +38,8 @@ class MainActivity : AppCompatActivity(),
     override fun trainingStarterComponent() = mainComponent.trainingStarterComponent()
     override fun trainingResultComponent() = mainComponent.trainingResultComponent()
     override fun questionFragment() = mainComponent.questionComponent()
+    override fun examStarterComponent() = mainComponent.examStarterComponent()
+    override fun examResultComponent() = mainComponent.examResultComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = (application as App).appComponent.mainComponent().create(this)
@@ -66,11 +72,13 @@ class MainActivity : AppCompatActivity(),
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     navView.visibility = View.GONE
                 }
-                R.id.navigation_material_detail,
                 R.id.navigation_training_starter,
                 R.id.navigation_training_result,
+                R.id.navigation_exam_finisher,
+                R.id.navigation_exam_result,
                 R.id.navigation_question,
                 R.id.navigation_question_answer,
+                R.id.navigation_material_detail,
                 R.id.navigation_material_detail_page -> {
                     navView.visibility = View.GONE
                 }

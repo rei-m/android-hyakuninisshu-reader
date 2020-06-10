@@ -24,7 +24,7 @@
 
         <variable
             name="viewModel"
-            type="net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingStarterViewModelProperties" />
+            type="net.hyakuninanki.reader.feature.trainingstarter.ui.BaseTrainingStarterVIewModel" />
     </data>
 
     <FrameLayout

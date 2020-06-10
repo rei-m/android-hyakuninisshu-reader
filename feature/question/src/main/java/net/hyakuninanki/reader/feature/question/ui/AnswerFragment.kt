@@ -26,6 +26,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.hyakuninanki.reader.feature.question.databinding.AnswerFragmentBinding
 import net.hyakuninanki.reader.feature.question.di.QuestionComponent
+import net.hyakuninanki.reader.state.question.model.Referer
 
 class AnswerFragment : Fragment() {
     private var _binding: AnswerFragmentBinding? = null
@@ -60,22 +61,30 @@ class AnswerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.material = args.correctKaruta
-        binding.existNextQuiz = args.nextQuestionId != null
+        binding.existNextQuestion = args.nextQuestionId != null
         binding.buttonGoToNext.setOnClickListener {
             args.nextQuestionId?.let {
                 val action = AnswerFragmentDirections.actionAnswerToQuestion(
                     questionId = it,
-                    inputSecond = args.inputSecond
+                    inputSecond = args.inputSecond,
+                    referer = args.referer
                 )
                 findNavController().navigate(action)
             }
         }
         binding.buttonGoToResult.setOnClickListener {
-            // TODO: exam resultと分岐が必要
-            val action = AnswerFragmentDirections.actionAnswerToTrainingResult(
-                inputSecond = args.inputSecond
-            )
-            findNavController().navigate(action)
+            when (args.referer) {
+                Referer.Training -> {
+                    val action = AnswerFragmentDirections.actionAnswerToTrainingResult(
+                        inputSecond = args.inputSecond
+                    )
+                    findNavController().navigate(action)
+                }
+                Referer.Exam -> {
+                    val action = AnswerFragmentDirections.actionAnswerToExamFinisher()
+                    findNavController().navigate(action)
+                }
+            }
         }
         binding.textMaterial.setOnClickListener {
             val action = AnswerFragmentDirections.actionAnswerToMaterialDetailPage(

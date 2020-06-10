@@ -30,6 +30,11 @@ interface KarutaExamRepository {
     suspend fun add(karutaExamResult: KarutaExamResult, tookExamDate: Date): KarutaExamId
 
     /**
+     * 力試しを削除する.
+     */
+    suspend fun deleteList(list: List<KarutaExam>)
+
+    /**
      * 力試しを取得する.
      *
      * @param karutaExamId 力試しID
@@ -49,5 +54,5 @@ interface KarutaExamRepository {
      *
      * @return 力試しコレクション
      */
-    suspend fun findCollection(): KarutaExams
+    suspend fun findCollection(): KarutaExamCollection
 }
