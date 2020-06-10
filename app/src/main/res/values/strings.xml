@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">百人一首 簡単に読上</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">百人一首 読み上げで暗記</string>
 </resources>

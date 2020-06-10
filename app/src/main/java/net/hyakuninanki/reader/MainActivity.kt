@@ -9,9 +9,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.analytics.FirebaseAnalytics
 import hotchemi.android.rate.AppRate
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
+import net.hyakuninanki.reader.feature.corecomponent.widget.ad.AdViewObserver
 import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
@@ -21,6 +21,7 @@ import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 import net.hyakuninanki.reader.feature.trainingresult.di.TrainingResultComponent
 import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(),
     SplashComponent.Provider,
@@ -34,7 +35,9 @@ class MainActivity : AppCompatActivity(),
     QuestionComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
-    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+    @Inject
+    lateinit var adViewObserver: AdViewObserver
 
     override fun splashComponent() = mainComponent.splashComponent()
     override fun materialComponent() = mainComponent.materialListComponent()
@@ -58,7 +61,7 @@ class MainActivity : AppCompatActivity(),
 
         setupNavController()
 
-        setupAnalytics()
+        setupAd()
 
         setupAppRate()
     }
@@ -95,18 +98,26 @@ class MainActivity : AppCompatActivity(),
                     navView.visibility = View.GONE
                 }
                 R.id.navigation_training_starter,
-                R.id.navigation_training_result,
                 R.id.navigation_exam_finisher,
+                R.id.navigation_question,
+                R.id.navigation_question_answer -> {
+                    navView.visibility = View.GONE
+                    adViewObserver.pauseAd()
+                    adViewObserver.hideAd()
+                }
+                R.id.navigation_training_result,
                 R.id.navigation_exam_result,
                 R.id.navigation_exam_history,
-                R.id.navigation_question,
-                R.id.navigation_question_answer,
                 R.id.navigation_material_detail,
                 R.id.navigation_material_detail_page -> {
                     navView.visibility = View.GONE
+                    adViewObserver.resumeAd()
+                    adViewObserver.showAd()
                 }
                 else -> {
                     navView.visibility = View.VISIBLE
+                    adViewObserver.resumeAd()
+                    adViewObserver.showAd()
                 }
             }
         }
@@ -124,7 +135,8 @@ class MainActivity : AppCompatActivity(),
         AppRate.showRateDialogIfMeetsConditions(this)
     }
 
-    private fun setupAnalytics() {
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+    private fun setupAd() {
+        lifecycle.addObserver(adViewObserver)
+        adViewObserver.loadAd(this, findViewById(R.id.ad_view_container))
     }
 }
