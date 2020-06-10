@@ -12,6 +12,7 @@
 [はんなり明朝フォント](https://ipafont.ipa.go.jp/ipa_font_license_v1.html)
 
 ※ アプリ内の百人一首の音声データは著作権によって保護されます。著作権は rei-m に帰属します。
+
 ※ HyakuninIsshu sounds in apk is protected by copyright. rei-m has the copyright to sounds.
 
 ## Author
