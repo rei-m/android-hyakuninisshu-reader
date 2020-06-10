@@ -68,6 +68,8 @@ dependencies {
     implementation project(':feature:material')
     implementation project(':feature:support')
 
+    implementation 'com.github.hotchemi:android-rate:1.0.1'
+
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 
     testImplementation 'junit:junit:4.12'

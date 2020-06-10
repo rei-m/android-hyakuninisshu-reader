@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hotchemi.android.rate.AppRate
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
 import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
@@ -19,7 +20,6 @@ import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.feature.splash.di.SplashComponent
 import net.hyakuninanki.reader.feature.trainingresult.di.TrainingResultComponent
 import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
-
 
 class MainActivity : AppCompatActivity(),
     SplashComponent.Provider,
@@ -50,9 +50,24 @@ class MainActivity : AppCompatActivity(),
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setupActionBar(findViewById(R.id.toolbar)) {
         }
 
+        setupNavController()
+
+        setupAppRate()
+    }
+
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        if (menuItem.itemId == android.R.id.home) {
+            findNavController(R.id.nav_host_fragment).popBackStack()
+            return false
+        }
+        return super.onOptionsItemSelected(menuItem)
+    }
+
+    private fun setupNavController() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -93,11 +108,15 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == android.R.id.home) {
-            findNavController(R.id.nav_host_fragment).popBackStack()
-            return false
-        }
-        return super.onOptionsItemSelected(menuItem)
+    private fun setupAppRate() {
+        AppRate.with(this)
+            .setInstallDays(1)
+            .setLaunchTimes(3)
+            .setRemindInterval(10)
+            .setShowLaterButton(true)
+            .setDebug(BuildConfig.DEBUG)
+            .monitor()
+
+        AppRate.showRateDialogIfMeetsConditions(this)
     }
 }
