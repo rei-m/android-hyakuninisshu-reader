@@ -20,13 +20,9 @@ package net.hyakuninanki.reader.state.question.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.question.model.QuestionState
 
-sealed class StartAnswerQuestionAction constructor(
-    override val error: Throwable? = null
-) : Action {
+sealed class StartAnswerQuestionAction(override val error: Throwable? = null) : Action {
 
-    class Success(
-        val state: QuestionState.InAnswer
-    ) : StartAnswerQuestionAction() {
+    class Success(val state: QuestionState.InAnswer) : StartAnswerQuestionAction() {
         override fun toString() = "$name(state=$state)"
     }
 
@@ -34,5 +30,5 @@ sealed class StartAnswerQuestionAction constructor(
         override fun toString() = "$name(error=$error)"
     }
 
-    override val name = "FetchQuestionAction"
+    override val name = "StartAnswerQuestionAction"
 }

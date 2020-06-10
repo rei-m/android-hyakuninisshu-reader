@@ -19,9 +19,7 @@ package net.hyakuninanki.reader.state.exam.action
 
 import net.hyakuninanki.reader.state.core.Action
 
-sealed class StartExamAction(
-    override val error: Throwable? = null
-) : Action {
+sealed class StartExamAction(override val error: Throwable? = null) : Action {
 
     class Success(val questionId: String) : StartExamAction() {
         override fun toString() = "$name(questionId=$questionId)"

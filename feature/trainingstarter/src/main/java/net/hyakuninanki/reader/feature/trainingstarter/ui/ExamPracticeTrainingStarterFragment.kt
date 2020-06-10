@@ -15,31 +15,34 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.exammenu.ui
+package net.hyakuninanki.reader.feature.trainingstarter.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import net.hyakuninanki.reader.feature.exammenu.databinding.ExamMenuFragmentBinding
-import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
+import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
+import net.hyakuninanki.reader.feature.trainingstarter.databinding.TrainingStarterFragmentBinding
+import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
+import net.hyakuninanki.reader.state.question.model.Referer
+import net.hyakuninanki.reader.state.training.model.InputSecondCondition
 import javax.inject.Inject
 
-class ExamMenuFragment : Fragment() {
+class ExamPracticeTrainingStarterFragment : Fragment() {
     @Inject
-    lateinit var viewModelFactory: ExamMenuViewModel.Factory
+    lateinit var viewModelFactory: ExamPracticeTrainingStarterViewModel.Factory
 
-    private var _binding: ExamMenuFragmentBinding? = null
+    private var _binding: TrainingStarterFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by activityViewModels<ExamMenuViewModel> { viewModelFactory }
+    private val viewModel by viewModels<ExamPracticeTrainingStarterViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamMenuComponent.Provider)
-            .examMenuComponent()
+        (requireActivity() as TrainingStarterComponent.Provider)
+            .trainingStarterComponent()
             .create()
             .inject(this)
         super.onCreate(savedInstanceState)
@@ -50,22 +53,10 @@ class ExamMenuFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ExamMenuFragmentBinding.inflate(inflater, container, false)
+        _binding = TrainingStarterFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.buttonStartExam.setOnClickListener {
-            val action = ExamMenuFragmentDirections.actionExamMenuToExamStarter()
-            findNavController().navigate(action)
-        }
-        binding.buttonStartTrainingFailedQuestion.setOnClickListener {
-            val action = ExamMenuFragmentDirections.actionExamMenuToExamPracticeTrainingStarter()
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {
@@ -75,6 +66,17 @@ class ExamMenuFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         binding.viewModel = viewModel
+
+        viewModel.onReadyEvent.observe(viewLifecycleOwner, EventObserver {
+            val action = ExamPracticeTrainingStarterFragmentDirections
+                .actionExamPracticeTrainingStarterToQuestion(
+                    questionId = it,
+                    inputSecond = InputSecondCondition.SHORT,
+                    referer = Referer.Training
+                )
+            findNavController().navigate(action)
+        })
     }
 }

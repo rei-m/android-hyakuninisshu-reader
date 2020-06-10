@@ -19,15 +19,13 @@ package net.hyakuninanki.reader.state.training.action
 
 import net.hyakuninanki.reader.state.core.Action
 
-sealed class StartTrainingAction(
-    override val error: Throwable? = null
-) : Action {
+sealed class StartTrainingAction(override val error: Throwable? = null) : Action {
 
     class Success(val questionId: String) : StartTrainingAction() {
         override fun toString() = "$name(questionId=$questionId)"
     }
 
-    class Empty() : StartTrainingAction() {
+    class Empty : StartTrainingAction() {
         override fun toString() = "$name()"
     }
 

@@ -15,20 +15,10 @@
  *
  */
 
-package net.hyakuninanki.reader.state.exam.action
+package net.hyakuninanki.reader.state.question.model
 
-import net.hyakuninanki.reader.state.core.Action
-import net.hyakuninanki.reader.state.exam.model.ExamResult
-
-sealed class FinishExamAction(override val error: Throwable? = null) : Action {
-
-    class Success(val examResult: ExamResult) : FinishExamAction() {
-        override fun toString() = "$name(examResult=$examResult)"
-    }
-
-    class Failure(e: Throwable) : FinishExamAction(e) {
-        override fun toString() = "$name(error=$error)"
-    }
-
-    override val name = "FinishExamAction"
-}
+data class QuestionResult(
+    val karutaNo: Int,
+    val karutaNoText: String,
+    val isCorrect: Boolean
+)

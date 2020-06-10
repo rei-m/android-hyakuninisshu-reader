@@ -20,9 +20,7 @@ package net.hyakuninanki.reader.state.material.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.material.model.Material
 
-sealed class FetchMaterialListAction private constructor(
-    override val error: Throwable? = null
-) : Action {
+sealed class FetchMaterialListAction(override val error: Throwable? = null) : Action {
 
     class Success(val materialList: List<Material>) : FetchMaterialListAction() {
         override fun toString() = "$name(materialList=$materialList)"
@@ -32,5 +30,5 @@ sealed class FetchMaterialListAction private constructor(
         override fun toString() = "$name(error=$error)"
     }
 
-    override val name = "FetchMaterialAction"
+    override val name = "FetchMaterialListAction"
 }

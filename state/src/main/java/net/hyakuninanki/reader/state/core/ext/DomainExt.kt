@@ -25,6 +25,7 @@ import net.hyakuninanki.reader.domain.question.model.KarutaExam
 import net.hyakuninanki.reader.state.BuildConfig
 import net.hyakuninanki.reader.state.R
 import net.hyakuninanki.reader.state.exam.model.ExamResult
+import net.hyakuninanki.reader.state.question.model.QuestionResult
 import java.util.*
 
 fun KarutaNo.toText(context: Context): String {
@@ -85,6 +86,13 @@ fun KarutaExam.toResult(context: Context): ExamResult {
     return ExamResult(
         id = id.value,
         score = result.resultSummary.score,
-        averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString)
+        averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
+        questionResultList = KarutaNo.LIST.map { karutaNo ->
+            QuestionResult(
+                karutaNo = karutaNo.value,
+                karutaNoText = karutaNo.toText(context),
+                isCorrect = !result.wrongKarutaNoCollection.contains(karutaNo)
+            )
+        }
     )
 }

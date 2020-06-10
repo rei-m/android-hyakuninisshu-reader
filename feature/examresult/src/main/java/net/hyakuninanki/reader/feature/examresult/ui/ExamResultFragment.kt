@@ -23,10 +23,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import net.hyakuninanki.reader.feature.examresult.databinding.ExamResultFragmentBinding
 import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
+import net.hyakuninanki.reader.feature.examresult.ui.widget.ExamResultView
 import javax.inject.Inject
 
 class ExamResultFragment : Fragment() {
@@ -64,6 +66,7 @@ class ExamResultFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        binding.viewResult.listener = null
         _binding = null
         super.onDestroyView()
     }
@@ -79,5 +82,15 @@ class ExamResultFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewModel = viewModel
+        viewModel.materialMap.observe(viewLifecycleOwner, Observer {
+            binding.viewResult.listener = object : ExamResultView.OnClickItemListener {
+                override fun onClick(karutaNo: Int) {
+                    val material = it[karutaNo] ?: return
+                    val action =
+                        ExamResultFragmentDirections.actionExamResultToMaterialDetailPage(material)
+                    findNavController().navigate(action)
+                }
+            }
+        })
     }
 }

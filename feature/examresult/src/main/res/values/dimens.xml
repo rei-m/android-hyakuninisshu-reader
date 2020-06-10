@@ -16,6 +16,5 @@
   -->
 
 <resources>
-    <string name="text_finisher_error">力試しの集計に失敗しました。解消しない場合は開発元までお問い合わせください。</string>
-    <string name="text_explain_result">※表示は歌の番号順です。タップで詳細を確認できます</string>
+    <dimen name="size_karuta_exam_result_mark">48dp</dimen>
 </resources>

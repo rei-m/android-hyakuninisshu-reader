@@ -19,12 +19,14 @@ package net.hyakuninanki.reader.state.exam.action
 
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.exam.model.ExamResult
+import net.hyakuninanki.reader.state.material.model.Material
 
-sealed class FetchExamResultAction private constructor(
-    override val error: Throwable? = null
-) : Action {
+sealed class FetchExamResultAction(override val error: Throwable? = null) : Action {
 
-    class Success(val examResult: ExamResult?) : FetchExamResultAction() {
+    class Success(
+        val examResult: ExamResult,
+        val materialList: List<Material>
+    ) : FetchExamResultAction() {
         override fun toString() = "$name(examResult=$examResult)"
     }
 

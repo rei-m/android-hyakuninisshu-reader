@@ -19,10 +19,12 @@ package net.hyakuninanki.reader.feature.examresult.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
 import net.hyakuninanki.reader.state.exam.store.ExamResultStore
+import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 
 class ExamResultViewModel(
@@ -33,6 +35,12 @@ class ExamResultViewModel(
 ) : AbstractViewModel(dispatcher) {
 
     val result = store.result
+
+    val materialMap = store.materialList.map {
+        val temp = hashMapOf<Int, Material>()
+        it?.forEach { material -> temp[material.no] = material }
+        return@map temp
+    }
 
     val isFailure = store.isFailure
 

@@ -23,12 +23,16 @@ import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.core.Store
 import net.hyakuninanki.reader.state.exam.action.FetchExamResultAction
 import net.hyakuninanki.reader.state.exam.model.ExamResult
+import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 
 class ExamResultStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
-    private val _result = MutableLiveData<ExamResult>()
-    val result: LiveData<ExamResult> = _result
+    private val _result = MutableLiveData<ExamResult?>()
+    val result: LiveData<ExamResult?> = _result
+
+    private val _materialList = MutableLiveData<List<Material>?>()
+    val materialList: LiveData<List<Material>?> = _materialList
 
     private val _isFailure = MutableLiveData(false)
     val isFailure: LiveData<Boolean> = _isFailure
@@ -38,6 +42,7 @@ class ExamResultStore @Inject constructor(dispatcher: Dispatcher) : Store() {
             when (it) {
                 is FetchExamResultAction.Success -> {
                     _result.value = it.examResult
+                    _materialList.value = it.materialList
                 }
                 is FetchExamResultAction.Failure -> {
                     _isFailure.value = true

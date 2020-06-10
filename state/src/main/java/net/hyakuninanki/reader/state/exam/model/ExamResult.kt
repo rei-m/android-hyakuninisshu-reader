@@ -17,8 +17,11 @@
 
 package net.hyakuninanki.reader.state.exam.model
 
+import net.hyakuninanki.reader.state.question.model.QuestionResult
+
 data class ExamResult(
     val id: Long,
     val score: String,
-    val averageAnswerSecText: String
+    val averageAnswerSecText: String,
+    val questionResultList: List<QuestionResult>
 )
