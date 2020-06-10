@@ -51,7 +51,9 @@ data class QuestionCollection(val values: List<Question>) {
             }
 
             val averageAnswerTime =
-                totalAnswerTimeMillSec.toFloat() / questionCount.toFloat() / TimeUnit.SECONDS.toMillis(1).toFloat()
+                totalAnswerTimeMillSec.toFloat() / questionCount.toFloat() / TimeUnit.SECONDS.toMillis(
+                    1
+                ).toFloat()
 
             QuestionResultSummary(questionCount, collectCount, averageAnswerTime)
         }

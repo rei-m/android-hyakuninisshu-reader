@@ -35,7 +35,7 @@ interface KarutaQuestionDao {
 
     @Query("SELECT * from karuta_question_table ORDER BY `no` ASC")
     fun findAll(): List<KarutaQuestionData>
-    
+
     @Insert
     suspend fun insertKarutaQuestions(karutaQuestions: List<KarutaQuestionData>)
 
