@@ -72,4 +72,16 @@
 
     <string name="karuta_number">%1$s番</string>
     <string name="seconds">%1$s秒</string>
+
+    <string name="past_second">%1$d秒前</string>
+    <string name="past_minute">%1$d分前</string>
+    <string name="past_hour">%1$d時間前</string>
+    <string name="yesterday">昨日</string>
+    <string name="past_day">%1$d日前</string>
+    <string name="last_week">先週</string>
+    <string name="past_week">%1$d週間前</string>
+    <string name="last_month">先月</string>
+    <string name="past_month">%1$dヶ月前</string>
+    <string name="last_year">昨年</string>
+    <string name="past_year">%1$d年前</string>
 </resources>

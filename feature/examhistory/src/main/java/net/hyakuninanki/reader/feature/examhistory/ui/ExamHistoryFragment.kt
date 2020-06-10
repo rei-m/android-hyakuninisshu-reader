@@ -15,31 +15,32 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.exammenu.ui
+package net.hyakuninanki.reader.feature.examhistory.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
-import net.hyakuninanki.reader.feature.exammenu.databinding.ExamMenuFragmentBinding
-import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import net.hyakuninanki.reader.feature.examhistory.databinding.ExamHistoryFragmentBinding
+import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
+import net.hyakuninanki.reader.feature.examhistory.ui.widget.ExamResultListAdapter
 import javax.inject.Inject
 
-class ExamMenuFragment : Fragment() {
+class ExamHistoryFragment : Fragment() {
     @Inject
-    lateinit var viewModelFactory: ExamMenuViewModel.Factory
+    lateinit var viewModelFactory: ExamHistoryViewModel.Factory
 
-    private var _binding: ExamMenuFragmentBinding? = null
+    private var _binding: ExamHistoryFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by activityViewModels<ExamMenuViewModel> { viewModelFactory }
+    private val viewModel by viewModels<ExamHistoryViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamMenuComponent.Provider)
-            .examMenuComponent()
+        (requireActivity() as ExamHistoryComponent.Provider)
+            .examHistoryComponent()
             .create()
             .inject(this)
         super.onCreate(savedInstanceState)
@@ -50,26 +51,10 @@ class ExamMenuFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ExamMenuFragmentBinding.inflate(inflater, container, false)
+        _binding = ExamHistoryFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.buttonStartExam.setOnClickListener {
-            val action = ExamMenuFragmentDirections.actionExamMenuToExamStarter()
-            findNavController().navigate(action)
-        }
-        binding.buttonStartTrainingFailedQuestion.setOnClickListener {
-            val action = ExamMenuFragmentDirections.actionExamMenuToExamPracticeTrainingStarter()
-            findNavController().navigate(action)
-        }
-        binding.buttonShowAllExamResults.setOnClickListener {
-            val action = ExamMenuFragmentDirections.actionExamMenuToExamHistory()
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {
@@ -77,8 +62,17 @@ class ExamMenuFragment : Fragment() {
         super.onDestroyView()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.recyclerExamResultList.adapter = ExamResultListAdapter(requireContext(), listOf())
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.viewModel = viewModel
+        viewModel.resultList.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
+            (binding.recyclerExamResultList.adapter as ExamResultListAdapter).replaceData(it)
+        })
     }
 }

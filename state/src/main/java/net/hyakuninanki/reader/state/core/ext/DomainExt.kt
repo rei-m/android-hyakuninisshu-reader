@@ -77,12 +77,13 @@ fun Karuta.imageResId(context: Context): Int {
     )
 }
 
-fun KarutaExam.toResult(context: Context): ExamResult {
+fun KarutaExam.toResult(context: Context, now: Date): ExamResult {
     val averageAnswerTimeString = String.format(
         Locale.JAPAN,
         "%.2f",
         result.resultSummary.averageAnswerSec
     )
+
     return ExamResult(
         id = id.value,
         score = result.resultSummary.score,
@@ -93,6 +94,7 @@ fun KarutaExam.toResult(context: Context): ExamResult {
                 karutaNoText = karutaNo.toText(context),
                 isCorrect = !result.wrongKarutaNoCollection.contains(karutaNo)
             )
-        }
+        },
+        fromNowText = tookDate.diffString(context, now)
     )
 }

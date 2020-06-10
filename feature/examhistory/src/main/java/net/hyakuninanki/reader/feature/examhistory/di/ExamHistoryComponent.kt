@@ -15,14 +15,21 @@
  *
  */
 
-package net.hyakuninanki.reader.state.exam.model
+package net.hyakuninanki.reader.feature.examhistory.di
 
-import net.hyakuninanki.reader.state.question.model.QuestionResult
+import dagger.Subcomponent
+import net.hyakuninanki.reader.feature.examhistory.ui.ExamHistoryFragment
 
-data class ExamResult(
-    val id: Long,
-    val score: String,
-    val averageAnswerSecText: String,
-    val questionResultList: List<QuestionResult>,
-    val fromNowText: String
-)
+@Subcomponent
+interface ExamHistoryComponent {
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(): ExamHistoryComponent
+    }
+
+    fun inject(fragment: ExamHistoryFragment)
+
+    interface Provider {
+        fun examHistoryComponent(): Factory
+    }
+}

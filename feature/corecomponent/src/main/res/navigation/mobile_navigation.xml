@@ -253,7 +253,17 @@
         <action
             android:id="@+id/action_examMenu_to_examPracticeTrainingStarter"
             app:destination="@id/navigation_exam_practice_training_starter" />
+
+        <action
+            android:id="@+id/action_examMenu_to_examHistory"
+            app:destination="@id/navigation_exam_history" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_exam_history"
+        android:name="net.hyakuninanki.reader.feature.examhistory.ui.ExamHistoryFragment"
+        android:label="@string/navigation_label_exam_history"
+        android:title="@string/navigation_label_exam_history" />
 
     <fragment
         android:id="@+id/navigation_material_list"

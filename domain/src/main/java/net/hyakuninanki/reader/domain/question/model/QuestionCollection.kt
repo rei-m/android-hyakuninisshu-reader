@@ -21,8 +21,6 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
 import java.util.concurrent.TimeUnit
 
 data class QuestionCollection(val values: List<Question>) {
-    val isEmpty = values.isEmpty()
-
     val wrongKarutaNoCollection: KarutaNoCollection by lazy {
         KarutaNoCollection(
             values
@@ -35,8 +33,8 @@ data class QuestionCollection(val values: List<Question>) {
     }
 
     val resultSummary: QuestionResultSummary by lazy {
-        val quizCount = values.size
-        if (quizCount == 0) {
+        val questionCount = values.size
+        if (questionCount == 0) {
             QuestionResultSummary(0, 0, 0f)
         } else {
             var totalAnswerTimeMillSec: Long = 0
@@ -53,10 +51,9 @@ data class QuestionCollection(val values: List<Question>) {
             }
 
             val averageAnswerTime =
-                totalAnswerTimeMillSec.toFloat() / quizCount.toFloat() / TimeUnit.SECONDS.toMillis(1)
-                    .toFloat()
+                totalAnswerTimeMillSec.toFloat() / questionCount.toFloat() / TimeUnit.SECONDS.toMillis(1).toFloat()
 
-            QuestionResultSummary(quizCount, collectCount, averageAnswerTime)
+            QuestionResultSummary(questionCount, collectCount, averageAnswerTime)
         }
     }
 }
