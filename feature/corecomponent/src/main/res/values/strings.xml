@@ -22,6 +22,7 @@
     <string name="navigation_label_training_result">練習結果</string>
     <string name="navigation_label_exam">力試し</string>
     <string name="navigation_label_exam_result">力試し結果</string>
+    <string name="navigation_label_exam_history">力試しの履歴</string>
     <string name="navigation_label_question">問題</string>
     <string name="navigation_label_question_answer">答え</string>
     <string name="navigation_label_material_list">資料</string>

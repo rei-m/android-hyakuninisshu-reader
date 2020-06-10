@@ -15,7 +15,7 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.examresult.ui
+package net.hyakuninanki.reader.feature.examhistory.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -23,31 +23,21 @@ import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
-import net.hyakuninanki.reader.state.exam.store.ExamResultStore
-import net.hyakuninanki.reader.state.material.model.Material
+import net.hyakuninanki.reader.state.exam.store.ExamHistoryStore
 import javax.inject.Inject
 
-class ExamResultViewModel(
-    private val examId: Long,
+class ExamHistoryViewModel(
     dispatcher: Dispatcher,
-    actionCreator: ExamActionCreator,
-    private val store: ExamResultStore
+    private val actionCreator: ExamActionCreator,
+    private val store: ExamHistoryStore
 ) : AbstractViewModel(dispatcher) {
 
-    val result = store.result
+    val resultList = store.resultList
 
-    val materialMap = store.materialList.map {
-        val temp = hashMapOf<Int, Material>()
-        it?.forEach { material -> temp[material.no] = material }
-        return@map temp
-    }
-
-    val isFailure = store.isFailure
+    val isVisibleProgress = store.resultList.map { it == null }
 
     init {
-        dispatchAction {
-            actionCreator.fetchResult(examId)
-        }
+        dispatchAction { actionCreator.fetchAllResult() }
     }
 
     override fun onCleared() {
@@ -58,13 +48,10 @@ class ExamResultViewModel(
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: ExamActionCreator,
-        private val store: ExamResultStore
+        private val store: ExamHistoryStore
     ) : ViewModelProvider.Factory {
-        var examId: Long = -1
-
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamResultViewModel(
-            examId,
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamHistoryViewModel(
             dispatcher,
             actionCreator,
             store

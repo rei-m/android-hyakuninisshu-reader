@@ -102,18 +102,21 @@ class KarutaExamRepositoryImpl(
             }
 
             return@withContext karutaExamDataList.map { karutaExamData ->
+                val id = KarutaExamId(karutaExamData.id!!)
+                val wrongKarutaNoCollection = KarutaNoCollection(
+                    wrongKarutaNoDataMap[karutaExamData.id] ?: listOf()
+                )
+                val resultSummary = QuestionResultSummary(
+                    totalQuestionCount = karutaExamData.totalQuestionCount,
+                    correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoCollection.size,
+                    averageAnswerSec = karutaExamData.averageAnswerTime
+                )
                 return@map KarutaExam(
-                    id = KarutaExamId(karutaExamData.id!!),
+                    id = id,
                     tookDate = karutaExamData.tookExamDate,
                     result = KarutaExamResult(
-                        resultSummary = QuestionResultSummary(
-                            totalQuestionCount = karutaExamData.totalQuestionCount,
-                            correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
-                            averageAnswerSec = karutaExamData.averageAnswerTime
-                        ),
-                        wrongKarutaNoCollection = KarutaNoCollection(
-                            wrongKarutaNoDataMap[karutaExamData.id] ?: listOf()
-                        )
+                        resultSummary = resultSummary,
+                        wrongKarutaNoCollection = wrongKarutaNoCollection
                     )
                 )
             }.let {
@@ -127,9 +130,7 @@ class KarutaExamRepositoryImpl(
             karutaExamId = karutaExamData.id!!
         )
         return KarutaExam(
-            id = KarutaExamId(
-                karutaExamData.id
-            ),
+            id = KarutaExamId(karutaExamData.id),
             tookDate = karutaExamData.tookExamDate,
             result = KarutaExamResult(
                 resultSummary = QuestionResultSummary(

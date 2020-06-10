@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
+import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
 import net.hyakuninanki.reader.feature.examstarter.di.ExamStarterComponent
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity(),
     TrainingResultComponent.Provider,
     ExamStarterComponent.Provider,
     ExamResultComponent.Provider,
+    ExamHistoryComponent.Provider,
     QuestionComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity(),
     override fun questionFragment() = mainComponent.questionComponent()
     override fun examStarterComponent() = mainComponent.examStarterComponent()
     override fun examResultComponent() = mainComponent.examResultComponent()
+    override fun examHistoryComponent() = mainComponent.examHistoryComponent()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = (application as App).appComponent.mainComponent().create(this)
@@ -76,6 +79,7 @@ class MainActivity : AppCompatActivity(),
                 R.id.navigation_training_result,
                 R.id.navigation_exam_finisher,
                 R.id.navigation_exam_result,
+                R.id.navigation_exam_history,
                 R.id.navigation_question,
                 R.id.navigation_question_answer,
                 R.id.navigation_material_detail,

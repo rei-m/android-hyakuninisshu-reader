@@ -24,6 +24,7 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
 import net.hyakuninanki.reader.domain.question.model.*
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
 import net.hyakuninanki.reader.state.R
+import net.hyakuninanki.reader.state.core.ext.diffString
 import net.hyakuninanki.reader.state.core.ext.toResult
 import net.hyakuninanki.reader.state.core.ext.toText
 import net.hyakuninanki.reader.state.exam.model.ExamResult
@@ -41,22 +42,6 @@ class ExamActionCreator @Inject constructor(
     private val questionRepository: QuestionRepository,
     private val karutaExamRepository: KarutaExamRepository
 ) {
-    /**
-     * 最新の力試しを取得する.
-     *
-     * @return FetchRecentExamAction
-     */
-    suspend fun fetchRecent(): FetchRecentExamResultAction {
-        try {
-            val recentExam =
-                karutaExamRepository.last() ?: return FetchRecentExamResultAction.Success(null)
-            return FetchRecentExamResultAction.Success(recentExam.toResult(context))
-
-        } catch (e: Exception) {
-            return FetchRecentExamResultAction.Failure(e)
-        }
-    }
-
     /**
      * 力試しを開始する.
      *
@@ -87,13 +72,13 @@ class ExamActionCreator @Inject constructor(
      *
      * @return FinishExamAction
      */
-    suspend fun finish() = try {
+    suspend fun finish(now: Date = Date()) = try {
         val questionCollection = questionRepository.findCollection()
         val result = KarutaExamResult(
             questionCollection.resultSummary,
             questionCollection.wrongKarutaNoCollection
         )
-        val addedExamId = karutaExamRepository.add(result, Date())
+        val addedExamId = karutaExamRepository.add(result, now)
         val examCollection = karutaExamRepository.findCollection()
         karutaExamRepository.deleteList(examCollection.overflowed)
 
@@ -114,19 +99,43 @@ class ExamActionCreator @Inject constructor(
                         karutaNoText = karutaNo.toText(context),
                         isCorrect = !result.wrongKarutaNoCollection.contains(karutaNo)
                     )
-                }
+                },
+                fromNowText = now.diffString(context, now)
             )
         )
     } catch (e: Exception) {
         FinishExamAction.Failure(e)
     }
 
-    suspend fun fetch(id: Long): FetchExamResultAction {
+    /**
+     * 最新の力試しを取得する.
+     *
+     * @return FetchRecentExamAction
+     */
+    suspend fun fetchRecentResult(now: Date = Date()): FetchRecentExamResultAction {
+        try {
+            val recentExam =
+                karutaExamRepository.last() ?: return FetchRecentExamResultAction.Success(null)
+            return FetchRecentExamResultAction.Success(recentExam.toResult(context, now))
+
+        } catch (e: Exception) {
+            return FetchRecentExamResultAction.Failure(e)
+        }
+    }
+
+    suspend fun fetchResult(id: Long, now: Date = Date()): FetchExamResultAction {
         val exam = karutaExamRepository.findById(KarutaExamId(id))
             ?: return FetchExamResultAction.Failure(NoSuchElementException())
         return FetchExamResultAction.Success(
-            examResult = exam.toResult(context),
+            examResult = exam.toResult(context, now),
             materialList = karutaRepository.findAll().map { Material.createFromKaruta(it, context) }
+        )
+    }
+
+    suspend fun fetchAllResult(now: Date = Date()): FetchAllExamResultAction {
+        val examCollection = karutaExamRepository.findCollection()
+        return FetchAllExamResultAction.Success(
+            examResultList = examCollection.all.map { it.toResult(context, now) }
         )
     }
 }

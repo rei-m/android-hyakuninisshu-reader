@@ -15,14 +15,20 @@
  *
  */
 
-package net.hyakuninanki.reader.state.exam.model
+package net.hyakuninanki.reader.feature.examhistory
 
-import net.hyakuninanki.reader.state.question.model.QuestionResult
+import org.junit.Test
 
-data class ExamResult(
-    val id: Long,
-    val score: String,
-    val averageAnswerSecText: String,
-    val questionResultList: List<QuestionResult>,
-    val fromNowText: String
-)
+import org.junit.Assert.*
+
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * See [testing documentation](http://d.android.com/tools/testing).
+ */
+class ExampleUnitTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
+}

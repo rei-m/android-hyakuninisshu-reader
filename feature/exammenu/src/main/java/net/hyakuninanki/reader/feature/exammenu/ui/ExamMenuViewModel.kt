@@ -37,7 +37,7 @@ class ExamMenuViewModel(
     val averageAnswerSec = store.recentResult.map { it?.averageAnswerSecText }
 
     init {
-        dispatchAction { actionCreator.fetchRecent() }
+        dispatchAction { actionCreator.fetchRecentResult() }
     }
 
     override fun onCleared() {

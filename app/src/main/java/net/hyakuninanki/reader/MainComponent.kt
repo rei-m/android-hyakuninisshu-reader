@@ -21,6 +21,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import dagger.BindsInstance
 import dagger.Subcomponent
 import net.hyakuninanki.reader.feature.corecomponent.di.ActivityScope
+import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
 import net.hyakuninanki.reader.feature.examstarter.di.ExamStarterComponent
@@ -55,4 +56,6 @@ interface MainComponent {
     fun examStarterComponent(): ExamStarterComponent.Factory
 
     fun examResultComponent(): ExamResultComponent.Factory
+
+    fun examHistoryComponent(): ExamHistoryComponent.Factory
 }

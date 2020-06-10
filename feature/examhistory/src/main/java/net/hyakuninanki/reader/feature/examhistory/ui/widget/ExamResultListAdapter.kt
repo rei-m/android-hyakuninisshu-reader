@@ -15,42 +15,38 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.material.ui
+package net.hyakuninanki.reader.feature.examhistory.ui.widget
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import net.hyakuninanki.reader.feature.material.R
-import net.hyakuninanki.reader.feature.material.databinding.AdapterItemMaterialKarutaBinding
-import net.hyakuninanki.reader.state.material.model.Material
+import net.hyakuninanki.reader.feature.examhistory.databinding.AdapterItemExamResultBinding
+import net.hyakuninanki.reader.state.exam.model.ExamResult
 
-class MaterialListAdapter(
+class ExamResultListAdapter(
     context: Context,
-    private var materialList: List<Material>,
-    private val listener: OnItemInteractionListener
-) : RecyclerView.Adapter<MaterialListAdapter.ItemViewHolder>() {
+    private var examResultList: List<ExamResult>
+) : RecyclerView.Adapter<ExamResultListAdapter.ItemViewHolder>() {
 
-    private val itemPaddingBottom = context.resources.getDimensionPixelOffset(R.dimen.spacing_1)
+    private val itemPaddingBottom = 0
 
     // TODO
-    //    private val lastItemPaddingBottom = context.adHeight + itemPaddingBottom
+//    private val lastItemPaddingBottom = context.adHeight
     private val lastItemPaddingBottom = itemPaddingBottom
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = AdapterItemMaterialKarutaBinding.inflate(
+        val binding = AdapterItemExamResultBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        binding.listener = listener
-
         return ItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         with(holder.binding) {
-            val paddingBottom = if (position == materialList.lastIndex) {
+            val paddingBottom = if (position == examResultList.lastIndex) {
                 lastItemPaddingBottom
             } else {
                 itemPaddingBottom
@@ -61,24 +57,19 @@ class MaterialListAdapter(
                 holder.binding.layoutRoot.paddingRight,
                 paddingBottom
             )
-            this.material = materialList[position]
-            this.position = position
+            examResult = examResultList[position]
             executePendingBindings()
         }
     }
 
-    override fun getItemCount() = materialList.size
+    override fun getItemCount() = examResultList.size
 
-    fun replaceData(materialList: List<Material>) {
-        this.materialList = materialList
+    fun replaceData(examResultList: List<ExamResult>) {
+        this.examResultList = examResultList
         notifyDataSetChanged()
     }
 
-    interface OnItemInteractionListener {
-        fun onItemClicked(position: Int)
-    }
-
-    inner class ItemViewHolder(
-        val binding: AdapterItemMaterialKarutaBinding
+    class ItemViewHolder(
+        val binding: AdapterItemExamResultBinding
     ) : RecyclerView.ViewHolder(binding.root)
 }

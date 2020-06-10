@@ -21,31 +21,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.core.Store
-import net.hyakuninanki.reader.state.exam.action.FetchExamResultAction
+import net.hyakuninanki.reader.state.exam.action.FetchAllExamResultAction
 import net.hyakuninanki.reader.state.exam.model.ExamResult
-import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 
-class ExamResultStore @Inject constructor(dispatcher: Dispatcher) : Store() {
-
-    private val _result = MutableLiveData<ExamResult?>()
-    val result: LiveData<ExamResult?> = _result
-
-    private val _materialList = MutableLiveData<List<Material>?>()
-    val materialList: LiveData<List<Material>?> = _materialList
-
-    private val _isFailure = MutableLiveData(false)
-    val isFailure: LiveData<Boolean> = _isFailure
+class ExamHistoryStore @Inject constructor(dispatcher: Dispatcher) : Store() {
+    private val _resultList = MutableLiveData<List<ExamResult>?>()
+    val resultList: LiveData<List<ExamResult>?> = _resultList
 
     init {
-        register(dispatcher.on(FetchExamResultAction::class.java).subscribe {
+        register(dispatcher.on(FetchAllExamResultAction::class.java).subscribe {
             when (it) {
-                is FetchExamResultAction.Success -> {
-                    _result.value = it.examResult
-                    _materialList.value = it.materialList
+                is FetchAllExamResultAction.Success -> {
+                    _resultList.value = it.examResultList
                 }
-                is FetchExamResultAction.Failure -> {
-                    _isFailure.value = true
+                is FetchAllExamResultAction.Failure -> {
+                    // TODO
                 }
             }
         })

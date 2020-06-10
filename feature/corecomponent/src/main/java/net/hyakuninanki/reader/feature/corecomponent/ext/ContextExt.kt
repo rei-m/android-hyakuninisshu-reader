@@ -18,6 +18,6 @@
 package net.hyakuninanki.reader.feature.corecomponent.ext
 
 //import com.google.android.gms.ads.AdSize
-
+// TODO
 //val Context.adHeight
 //    get() = AdSize.SMART_BANNER.getHeightInPixels(this)
