@@ -19,6 +19,7 @@ package net.hyakuninanki.reader.state.training.action
 
 import android.content.Context
 import net.hyakuninanki.reader.domain.karuta.model.*
+import net.hyakuninanki.reader.domain.question.model.KarutaExamRepository
 import net.hyakuninanki.reader.domain.question.model.Question
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
@@ -32,7 +33,8 @@ import javax.inject.Singleton
 class TrainingActionCreator @Inject constructor(
     private val context: Context,
     private val karutaRepository: KarutaRepository,
-    private val questionRepository: QuestionRepository
+    private val questionRepository: QuestionRepository,
+    private val karutaExamRepository: KarutaExamRepository
 ) {
     /**
      * 練習を開始する.
@@ -45,7 +47,6 @@ class TrainingActionCreator @Inject constructor(
         kimariji: KimarijiCondition,
         color: ColorCondition
     ) = try {
-        val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
         val targetKarutaList = karutaRepository.findAllWithCondition(
             fromNo = fromCondition.value,
             toNo = toCondition.value,
@@ -57,39 +58,33 @@ class TrainingActionCreator @Inject constructor(
         if (targetKarutaList.isEmpty()) {
             StartTrainingAction.Empty()
         } else {
-            val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
+            start(KarutaNoCollection(targetKarutaList.map { it.no }))
+        }
+    } catch (e: Exception) {
+        StartTrainingAction.Failure(e)
+    }
 
-            val questionList = CreateQuestionListService()(
-                allKarutaNoCollection,
-                targetKarutaNoCollection,
-                Question.CHOICE_SIZE
-            )
-
-            questionRepository.initialize(questionList)
-
-            StartTrainingAction.Success(questionList.first().id.value)
+    suspend fun startByExamPractice(): StartTrainingAction = try {
+        val totalWrongKarutaNoCollection =
+            karutaExamRepository.findCollection().totalWrongKarutaNoCollection
+        if (totalWrongKarutaNoCollection.size == 0) {
+            StartTrainingAction.Empty()
+        } else {
+            start(totalWrongKarutaNoCollection)
         }
     } catch (e: Exception) {
         StartTrainingAction.Failure(e)
     }
 
     suspend fun restart(): StartTrainingAction = try {
-        val questionCollection = questionRepository.findCollection()
-        val targetKarutaNoList = questionCollection.wrongKarutaNoCollection.asRandomized
+        val targetKarutaNoList = questionRepository
+            .findCollection()
+            .wrongKarutaNoCollection.asRandomized
+
         if (targetKarutaNoList.isEmpty()) {
             StartTrainingAction.Empty()
         } else {
-            val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
-            val targetKarutaNoCollection = KarutaNoCollection(targetKarutaNoList)
-            val questionList = CreateQuestionListService()(
-                allKarutaNoCollection,
-                targetKarutaNoCollection,
-                Question.CHOICE_SIZE
-            )
-
-            questionRepository.initialize(questionList)
-
-            StartTrainingAction.Success(questionList.first().id.value)
+            start(KarutaNoCollection(targetKarutaNoList))
         }
     } catch (e: Exception) {
         StartTrainingAction.Failure(e)
@@ -116,5 +111,20 @@ class TrainingActionCreator @Inject constructor(
         } catch (e: Exception) {
             return AggregateResultsAction.Failure(e)
         }
+    }
+
+    private suspend fun start(targetKarutaNoCollection: KarutaNoCollection): StartTrainingAction {
+
+        val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
+
+        val questionList = CreateQuestionListService()(
+            allKarutaNoCollection,
+            targetKarutaNoCollection,
+            Question.CHOICE_SIZE
+        )
+
+        questionRepository.initialize(questionList)
+
+        return StartTrainingAction.Success(questionList.first().id.value)
     }
 }

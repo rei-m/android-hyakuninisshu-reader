@@ -25,7 +25,10 @@ import net.hyakuninanki.reader.domain.question.model.*
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
 import net.hyakuninanki.reader.state.R
 import net.hyakuninanki.reader.state.core.ext.toResult
+import net.hyakuninanki.reader.state.core.ext.toText
 import net.hyakuninanki.reader.state.exam.model.ExamResult
+import net.hyakuninanki.reader.state.material.model.Material
+import net.hyakuninanki.reader.state.question.model.QuestionResult
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -62,7 +65,7 @@ class ExamActionCreator @Inject constructor(
     suspend fun start() = try {
         val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
         // TODO: あとでtakeを消す
-        val targetKarutaList = karutaRepository.findAll().take(5)
+        val targetKarutaList = karutaRepository.findAll().take(1)
 
         val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
 
@@ -101,10 +104,17 @@ class ExamActionCreator @Inject constructor(
         )
 
         FinishExamAction.Success(
-            ExamResult(
+            examResult = ExamResult(
                 id = addedExamId.value,
                 score = result.resultSummary.score,
-                averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString)
+                averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
+                questionResultList = KarutaNo.LIST.map { karutaNo ->
+                    QuestionResult(
+                        karutaNo = karutaNo.value,
+                        karutaNoText = karutaNo.toText(context),
+                        isCorrect = !result.wrongKarutaNoCollection.contains(karutaNo)
+                    )
+                }
             )
         )
     } catch (e: Exception) {
@@ -114,6 +124,9 @@ class ExamActionCreator @Inject constructor(
     suspend fun fetch(id: Long): FetchExamResultAction {
         val exam = karutaExamRepository.findById(KarutaExamId(id))
             ?: return FetchExamResultAction.Failure(NoSuchElementException())
-        return FetchExamResultAction.Success(exam.toResult(context))
+        return FetchExamResultAction.Success(
+            examResult = exam.toResult(context),
+            materialList = karutaRepository.findAll().map { Material.createFromKaruta(it, context) }
+        )
     }
 }

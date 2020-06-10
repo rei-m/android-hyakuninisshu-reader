@@ -20,9 +20,7 @@ package net.hyakuninanki.reader.state.training.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.training.model.TrainingResult
 
-sealed class AggregateResultsAction(
-    override val error: Throwable? = null
-) : Action {
+sealed class AggregateResultsAction(override val error: Throwable? = null) : Action {
 
     class Success(val trainingResult: TrainingResult) : AggregateResultsAction() {
         override fun toString() = "$name(trainingResult=$trainingResult)"
@@ -32,5 +30,5 @@ sealed class AggregateResultsAction(
         override fun toString() = "$name(error=$error)"
     }
 
-    override val name = "StartTrainingAction"
+    override val name = "AggregateResultsAction"
 }

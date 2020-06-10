@@ -20,13 +20,9 @@ package net.hyakuninanki.reader.state.question.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.question.model.QuestionState
 
-sealed class AnswerQuestionAction constructor(
-    override val error: Throwable? = null
-) : Action {
+sealed class AnswerQuestionAction(override val error: Throwable? = null) : Action {
 
-    class Success(
-        val state: QuestionState.Answered
-    ) : AnswerQuestionAction() {
+    class Success(val state: QuestionState.Answered) : AnswerQuestionAction() {
         override fun toString() = "$name(state=$state)"
     }
 

@@ -91,6 +91,18 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_exam_practice_training_starter"
+        android:name="net.hyakuninanki.reader.feature.trainingstarter.ui.ExamPracticeTrainingStarterFragment">
+        <action
+            android:id="@+id/action_examPracticeTrainingStarter_to_question"
+            app:destination="@id/navigation_question"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/navigation_exam_practice_training_starter"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+    <fragment
         android:id="@+id/navigation_training_result"
         android:name="net.hyakuninanki.reader.feature.trainingresult.ui.TrainingResultFragment"
         android:label="@string/navigation_label_training_result"
@@ -141,6 +153,9 @@
         <argument
             android:name="examId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_examResult_to_material_detail_page"
+            app:destination="@id/navigation_material_detail_page" />
         <action
             android:id="@+id/action_examResult_pop"
             app:popUpTo="@+id/navigation_exam_menu" />
@@ -234,6 +249,10 @@
         <action
             android:id="@+id/action_examMenu_to_examStarter"
             app:destination="@id/navigation_exam_starter" />
+
+        <action
+            android:id="@+id/action_examMenu_to_examPracticeTrainingStarter"
+            app:destination="@id/navigation_exam_practice_training_starter" />
     </fragment>
 
     <fragment

@@ -28,6 +28,7 @@ import net.hyakuninanki.reader.state.core.ext.rawResId
 import net.hyakuninanki.reader.state.core.ext.toText
 
 data class Material(
+    val no: Int,
     val noTxt: String,
     val kimariji: Int,
     val kimarijiTxt: String,
@@ -53,6 +54,7 @@ data class Material(
     val shimoNoKuKana: String = "$nikuKana　$sankuKana"
 
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString()!!,
@@ -74,6 +76,7 @@ data class Material(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(no)
         parcel.writeString(noTxt)
         parcel.writeInt(kimariji)
         parcel.writeString(kimarijiTxt)
@@ -108,6 +111,7 @@ data class Material(
 
         fun createFromKaruta(karuta: Karuta, context: Context): Material {
             return Material(
+                no = karuta.no.value,
                 noTxt = karuta.no.toText(context),
                 kimariji = karuta.kimariji.value,
                 kimarijiTxt = karuta.kimariji.toText(context),

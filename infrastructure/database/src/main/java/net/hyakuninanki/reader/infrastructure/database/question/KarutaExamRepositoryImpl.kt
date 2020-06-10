@@ -100,6 +100,7 @@ class KarutaExamRepositoryImpl(
                     wrongKarutaNoDataMap[it.karutaExamId] = mutableListOf(KarutaNo(it.karutaNo))
                 }
             }
+
             return@withContext karutaExamDataList.map { karutaExamData ->
                 return@map KarutaExam(
                     id = KarutaExamId(karutaExamData.id!!),
@@ -110,7 +111,9 @@ class KarutaExamRepositoryImpl(
                             correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
                             averageAnswerSec = karutaExamData.averageAnswerTime
                         ),
-                        wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataMap[karutaExamData.id]!!)
+                        wrongKarutaNoCollection = KarutaNoCollection(
+                            wrongKarutaNoDataMap[karutaExamData.id] ?: listOf()
+                        )
                     )
                 )
             }.let {

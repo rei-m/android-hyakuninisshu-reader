@@ -20,17 +20,15 @@ package net.hyakuninanki.reader.state.exam.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 
-sealed class FetchRecentExamResultAction private constructor(
-    override val error: Throwable? = null
-) : Action {
+sealed class FetchRecentExamResultAction(override val error: Throwable? = null) : Action {
 
     class Success(val examResult: ExamResult?) : FetchRecentExamResultAction() {
-        override fun toString() = "$name(karutaExamResult=$examResult)"
+        override fun toString() = "$name(examResult=$examResult)"
     }
 
     class Failure(error: Throwable) : FetchRecentExamResultAction(error) {
         override fun toString() = "$name(error=$error)"
     }
 
-    override val name = "FetchRecentExamAction"
+    override val name = "FetchRecentExamResultAction"
 }
