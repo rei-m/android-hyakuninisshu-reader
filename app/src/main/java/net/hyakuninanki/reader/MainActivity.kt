@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.analytics.FirebaseAnalytics
 import hotchemi.android.rate.AppRate
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
 import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(),
     QuestionComponent.Provider {
 
     private lateinit var mainComponent: MainComponent
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun splashComponent() = mainComponent.splashComponent()
     override fun materialComponent() = mainComponent.materialListComponent()
@@ -55,6 +57,8 @@ class MainActivity : AppCompatActivity(),
         }
 
         setupNavController()
+
+        setupAnalytics()
 
         setupAppRate()
     }
@@ -118,5 +122,9 @@ class MainActivity : AppCompatActivity(),
             .monitor()
 
         AppRate.showRateDialogIfMeetsConditions(this)
+    }
+
+    private fun setupAnalytics() {
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
     }
 }
