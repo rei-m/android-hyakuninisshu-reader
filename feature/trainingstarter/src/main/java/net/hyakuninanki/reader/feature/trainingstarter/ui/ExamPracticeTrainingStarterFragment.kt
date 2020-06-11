@@ -28,6 +28,7 @@ import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
 import net.hyakuninanki.reader.feature.trainingstarter.databinding.TrainingStarterFragmentBinding
 import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
 import net.hyakuninanki.reader.state.question.model.Referer
+import net.hyakuninanki.reader.state.training.model.DisplayModeCondition
 import net.hyakuninanki.reader.state.training.model.InputSecondCondition
 import javax.inject.Inject
 
@@ -74,6 +75,7 @@ class ExamPracticeTrainingStarterFragment : Fragment() {
                 .actionExamPracticeTrainingStarterToQuestion(
                     questionId = it,
                     inputSecond = InputSecondCondition.SHORT,
+                    displayMode = DisplayModeCondition.JIJIN,
                     referer = Referer.Training
                 )
             findNavController().navigate(action)

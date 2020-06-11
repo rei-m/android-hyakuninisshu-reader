@@ -82,6 +82,7 @@ class TrainingStarterFragment : Fragment() {
             val action = TrainingStarterFragmentDirections.actionTrainingStarterToQuestion(
                 questionId = it,
                 inputSecond = args.inputSecond,
+                displayMode = args.displayMode,
                 referer = Referer.Training
             )
             findNavController().navigate(action)

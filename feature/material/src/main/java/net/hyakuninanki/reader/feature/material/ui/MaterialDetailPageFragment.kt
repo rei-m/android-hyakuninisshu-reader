@@ -17,6 +17,7 @@
 
 package net.hyakuninanki.reader.feature.material.ui
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +34,8 @@ class MaterialDetailPageFragment : Fragment() {
 
     private val args: MaterialDetailPageFragmentArgs by navArgs()
 
+    private var mediaPlayer: MediaPlayer? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,8 +47,10 @@ class MaterialDetailPageFragment : Fragment() {
         val materialFromBundle = requireArguments().getParcelable<Material>(ARG_MATERIAL)
         if (materialFromBundle == null) {
             binding.material = args.material
+            mediaPlayer = MediaPlayer.create(context, args.material.rawResId)
         } else {
             binding.material = materialFromBundle
+            mediaPlayer = MediaPlayer.create(context, materialFromBundle.rawResId)
         }
 
         return binding.root
@@ -54,6 +59,21 @@ class MaterialDetailPageFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonPlayReader.setOnClickListener {
+            if (mediaPlayer?.isPlaying == false) {
+                mediaPlayer?.start()
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mediaPlayer?.stop()
+        mediaPlayer = null
     }
 
     companion object {

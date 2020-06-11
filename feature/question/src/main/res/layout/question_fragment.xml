@@ -41,7 +41,7 @@
             android:paddingTop="@dimen/spacing_1"
             android:paddingEnd="@dimen/spacing_2"
             android:paddingBottom="@dimen/spacing_1"
-            android:text="@{viewModel.question.position}"
+            android:text="@{viewModel.position}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +76,7 @@
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[0]}"
+            app:toriFuda="@{viewModel.toriFudaList[0]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 0}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -91,7 +91,7 @@
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[1]}"
+            app:toriFuda="@{viewModel.toriFudaList[1]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 1}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -106,7 +106,7 @@
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toEndOf="@id/torifuda_2"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[2]}"
+            app:toriFuda="@{viewModel.toriFudaList[2]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 2}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -121,7 +121,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[3]}"
+            app:toriFuda="@{viewModel.toriFudaList[3]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 3}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -136,7 +136,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[4]}"
+            app:toriFuda="@{viewModel.toriFudaList[4]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 4}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -151,7 +151,7 @@
             app:layout_constraintStart_toEndOf="@id/torifuda_5"
             app:layout_constraintTop_toTopOf="parent"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[5]}"
+            app:toriFuda="@{viewModel.toriFudaList[5]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 5}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -166,7 +166,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/torifuda_4"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[6]}"
+            app:toriFuda="@{viewModel.toriFudaList[6]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 6}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -181,7 +181,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/torifuda_5"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[7]}"
+            app:toriFuda="@{viewModel.toriFudaList[7]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 7}" />
 
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
@@ -196,7 +196,7 @@
             app:layout_constraintStart_toEndOf="@id/torifuda_8"
             app:layout_constraintTop_toBottomOf="@id/torifuda_6"
             app:textSize="@dimen/text_m"
-            app:toriFuda="@{viewModel.question.toriFudaList[8]}"
+            app:toriFuda="@{viewModel.toriFudaList[8]}"
             app:visibleOrInvisible="@{viewModel.selectedTorifudaIndex == null || viewModel.selectedTorifudaIndex == 8}" />
 
         <View

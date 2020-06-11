@@ -75,6 +75,7 @@ class TrainingReStarterFragment : Fragment() {
             val action = TrainingReStarterFragmentDirections.actionTrainingReStarterToQuestion(
                 questionId = it,
                 inputSecond = args.inputSecond,
+                displayMode = args.displayMode,
                 referer = Referer.Training
             )
             findNavController().navigate(action)

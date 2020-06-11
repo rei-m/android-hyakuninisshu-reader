@@ -67,6 +67,9 @@ class TrainingMenuFragment : Fragment() {
         binding.dropdownColor.setUpDropDown(
             ColorCondition.values().map { it.label(resources) }
         )
+        binding.dropdownDisplayMode.setUpDropDown(
+            DisplayModeCondition.values().map { it.label(resources) }
+        )
         binding.dropdownInputSecond.setUpDropDown(
             InputSecondCondition.values().map { it.label(resources) }
         )
@@ -77,6 +80,7 @@ class TrainingMenuFragment : Fragment() {
                 rangeTo = viewModel.rangeTo,
                 kimariji = viewModel.kimariji,
                 color = viewModel.color,
+                displayMode = viewModel.displayMode,
                 inputSecond = viewModel.inputSecond
             )
             findNavController().navigate(action)
@@ -100,7 +104,9 @@ class TrainingMenuFragment : Fragment() {
         binding.dropdownColor.setUp(viewModel.color.label(resources)) {
             viewModel.color = ColorCondition.values()[it]
         }
-
+        binding.dropdownDisplayMode.setUp(viewModel.displayMode.label(resources)) {
+            viewModel.displayMode = DisplayModeCondition.values()[it]
+        }
         binding.dropdownInputSecond.setUp(viewModel.inputSecond.label(resources)) {
             viewModel.inputSecond = InputSecondCondition.values()[it]
         }

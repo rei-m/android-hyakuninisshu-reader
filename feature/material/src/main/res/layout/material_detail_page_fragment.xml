@@ -51,6 +51,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_play_reader"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                android:text="@string/play_reader"
+                android:textSize="@dimen/text_m"
+                app:backgroundTint="@color/colorPrimary"
+                app:icon="@drawable/ic_play_circle_outline_white_24"
+                app:iconGravity="textStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_karuta" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_creator_title"
                 android:layout_width="0dp"
@@ -61,7 +76,7 @@
                 android:textSize="@dimen/text_xs"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_karuta" />
+                app:layout_constraintTop_toBottomOf="@id/button_play_reader" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/text_creator"

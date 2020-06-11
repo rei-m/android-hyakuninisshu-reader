@@ -64,6 +64,10 @@
             android:defaultValue="ALL"
             app:argType="net.hyakuninanki.reader.state.training.model.ColorCondition" />
         <argument
+            android:name="displayMode"
+            android:defaultValue="JIJIN"
+            app:argType="net.hyakuninanki.reader.state.training.model.DisplayModeCondition" />
+        <argument
             android:name="inputSecond"
             android:defaultValue="NORMAL"
             app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
@@ -78,6 +82,10 @@
     <fragment
         android:id="@+id/navigation_training_re_starter"
         android:name="net.hyakuninanki.reader.feature.trainingstarter.ui.TrainingReStarterFragment">
+        <argument
+            android:name="displayMode"
+            android:defaultValue="JIJIN"
+            app:argType="net.hyakuninanki.reader.state.training.model.DisplayModeCondition" />
         <argument
             android:name="inputSecond"
             android:defaultValue="NORMAL"
@@ -107,6 +115,10 @@
         android:name="net.hyakuninanki.reader.feature.trainingresult.ui.TrainingResultFragment"
         android:label="@string/navigation_label_training_result"
         android:title="@string/navigation_label_training_result">
+        <argument
+            android:name="displayMode"
+            android:defaultValue="JIJIN"
+            app:argType="net.hyakuninanki.reader.state.training.model.DisplayModeCondition" />
         <argument
             android:name="inputSecond"
             android:defaultValue="NORMAL"
@@ -170,6 +182,10 @@
             android:name="questionId"
             app:argType="string" />
         <argument
+            android:name="displayMode"
+            android:defaultValue="JIJIN"
+            app:argType="net.hyakuninanki.reader.state.training.model.DisplayModeCondition" />
+        <argument
             android:name="inputSecond"
             android:defaultValue="NORMAL"
             app:argType="net.hyakuninanki.reader.state.training.model.InputSecondCondition" />
@@ -197,6 +213,10 @@
         <argument
             android:name="correctKaruta"
             app:argType="net.hyakuninanki.reader.state.material.model.Material" />
+        <argument
+            android:name="displayMode"
+            android:defaultValue="JIJIN"
+            app:argType="net.hyakuninanki.reader.state.training.model.DisplayModeCondition" />
         <argument
             android:name="inputSecond"
             android:defaultValue="NORMAL"

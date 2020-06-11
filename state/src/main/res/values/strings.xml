@@ -58,6 +58,9 @@
     <string name="input_second_normal">普通</string>
     <string name="input_second_long">長め</string>
 
+    <string name="display_mode_jijin">自陣</string>
+    <string name="display_mode_aitejin">相手陣</string>
+
     <string name="one">一</string>
     <string name="two">二</string>
     <string name="three">三</string>

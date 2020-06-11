@@ -68,6 +68,7 @@ class TrainingResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonRestart.setOnClickListener {
             val action = TrainingResultFragmentDirections.actionTrainingResultToTrainingReStarter(
+                displayMode = args.displayMode,
                 inputSecond = args.inputSecond
             )
             findNavController().navigate(action)
