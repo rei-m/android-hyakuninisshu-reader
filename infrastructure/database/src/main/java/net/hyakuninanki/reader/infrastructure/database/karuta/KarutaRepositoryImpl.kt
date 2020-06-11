@@ -107,7 +107,8 @@ fun KarutaData.toModel(): Karuta {
     val goku = Verse(kana = fifthKana, kanji = fifthKanji)
 
     // マスタを直せばいいのだが・・・めんどいので
-    val adjustedTorifuda = if (torifuda.length == 15) torifuda else "$torifuda　"
+    val padList =  List(15 - torifuda.length) { return@List "　" }
+    val adjustedTorifuda = if (padList.isEmpty()) torifuda else "$torifuda${padList.joinToString("")}"
 
     return Karuta(
         id = KarutaId(no),
