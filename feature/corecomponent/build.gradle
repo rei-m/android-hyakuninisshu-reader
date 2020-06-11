@@ -37,7 +37,8 @@ dependencies {
 
     api "com.google.android.material:material:$rootProject.google_material_version"
 
-    api "com.google.firebase:firebase-analytics:$firebase_core_version"
+    api "com.google.firebase:firebase-analytics:$firebase_analytics_version"
+    api "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
     api "com.google.android.gms:play-services-ads:$firebase_ads_version"
 
     api "androidx.appcompat:appcompat:$rootProject.androidx_appcompat_version"

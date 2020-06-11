@@ -12,6 +12,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.2.2"
         classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.1.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -48,7 +49,8 @@ ext {
     rxjava_version = '2.2.19'
     rxandroid_version = '2.1.1'
 
-    firebase_core_version = '17.4.3'
+    firebase_analytics_version = '17.4.3'
+    firebase_crashlytics_version = '17.0.1'
     firebase_ads_version = '19.1.0'
 
     crashlytics_version = '2.10.1'
