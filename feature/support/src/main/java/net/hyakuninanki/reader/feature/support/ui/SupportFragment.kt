@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import net.hyakuninanki.reader.feature.support.BuildConfig
 import net.hyakuninanki.reader.feature.support.R
 import net.hyakuninanki.reader.feature.support.databinding.SupportFragmentBinding
@@ -51,7 +52,7 @@ class SupportFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonLicense.setOnClickListener {
-            findNavController().navigate(R.id.action_support_to_licenceDialog)
+            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
         binding.buttonPrivacyPolicy.setOnClickListener {
             findNavController().navigate(R.id.action_support_to_privacyPolicyDialog)
