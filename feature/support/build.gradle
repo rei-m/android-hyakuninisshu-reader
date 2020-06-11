@@ -29,4 +29,5 @@ apply from: rootProject.file('gradle/dependencies/androidTest.gradle'), to: depe
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':feature:corecomponent')
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }

@@ -27,6 +27,5 @@
     <string name="text_explain_app_exam">百首通しで出題されます。結果は過去10回分が保存され、間違えた問題は振り返りで練習することができます。</string>
     <string name="text_explain_app_material">百人一首の資料を閲覧します。決まり字や歌の現代語訳を見ることができます。</string>
 
-    <string name="url_credit">file:///android_asset/licenses.html</string>
     <string name="url_policy">file:///android_asset/policy.html</string>
 </resources>

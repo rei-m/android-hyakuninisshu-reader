@@ -314,18 +314,10 @@
         <action
             android:id="@+id/action_support_to_privacyPolicyDialog"
             app:destination="@+id/privacy_policy_dialog_fragment" />
-        <action
-            android:id="@+id/action_support_to_licenceDialog"
-            app:destination="@+id/privacy_policy_dialog_fragment" />
     </fragment>
 
     <dialog
         android:id="@+id/privacy_policy_dialog_fragment"
         android:name="net.hyakuninanki.reader.feature.support.ui.PrivacyPolicyDialogFragment" />
-
-    <dialog
-        android:id="@+id/licence_dialog_fragment"
-        android:name="net.hyakuninanki.reader.feature.support.ui.LicenceDialogFragment" />
-
 
 </navigation>

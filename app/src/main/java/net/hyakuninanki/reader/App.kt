@@ -27,9 +27,8 @@ open class App : Application() {
     protected open fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-        } else {
-//            Timber.plant(CrashlyticsTree())
         }
+        // FB Crashlytics と連携させる・・・そのうち
     }
 
     protected open fun initAnalytics() {
