@@ -3,6 +3,7 @@ package net.hyakuninanki.reader
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -36,9 +37,6 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var mainComponent: MainComponent
 
-    @Inject
-    lateinit var adViewObserver: AdViewObserver
-
     override fun splashComponent() = mainComponent.splashComponent()
     override fun materialComponent() = mainComponent.materialListComponent()
     override fun examMenuComponent() = mainComponent.examMenuComponent()
@@ -48,6 +46,9 @@ class MainActivity : AppCompatActivity(),
     override fun examStarterComponent() = mainComponent.examStarterComponent()
     override fun examResultComponent() = mainComponent.examResultComponent()
     override fun examHistoryComponent() = mainComponent.examHistoryComponent()
+
+    @Inject
+    lateinit var adViewObserver: AdViewObserver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         mainComponent = (application as App).appComponent.mainComponent().create(this)
@@ -91,6 +92,7 @@ class MainActivity : AppCompatActivity(),
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        val adViewContainer: FrameLayout = findViewById(R.id.ad_view_container)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.splash_fragment -> {
@@ -102,7 +104,6 @@ class MainActivity : AppCompatActivity(),
                 R.id.navigation_question,
                 R.id.navigation_question_answer -> {
                     navView.visibility = View.GONE
-                    adViewObserver.pauseAd()
                     adViewObserver.hideAd()
                 }
                 R.id.navigation_training_result,
@@ -111,13 +112,11 @@ class MainActivity : AppCompatActivity(),
                 R.id.navigation_material_detail,
                 R.id.navigation_material_detail_page -> {
                     navView.visibility = View.GONE
-                    adViewObserver.resumeAd()
-                    adViewObserver.showAd()
+                    adViewObserver.showAd(this, adViewContainer)
                 }
                 else -> {
                     navView.visibility = View.VISIBLE
-                    adViewObserver.resumeAd()
-                    adViewObserver.showAd()
+                    adViewObserver.showAd(this, adViewContainer)
                 }
             }
         }
@@ -137,6 +136,5 @@ class MainActivity : AppCompatActivity(),
 
     private fun setupAd() {
         lifecycle.addObserver(adViewObserver)
-        adViewObserver.loadAd(this, findViewById(R.id.ad_view_container))
     }
 }

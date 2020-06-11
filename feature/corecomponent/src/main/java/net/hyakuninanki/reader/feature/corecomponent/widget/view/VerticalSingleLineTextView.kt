@@ -60,11 +60,6 @@ class VerticalSingleLineTextView @JvmOverloads constructor(
         paint.textSize = textSize.toFloat()
     }
 
-    fun setTextSizeByPx(textSize: Int) {
-        this.textSize = textSize
-        paint.textSize = textSize.toFloat()
-    }
-
     fun drawText(text: String?) {
         if (text != null) {
             this.text = text

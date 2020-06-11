@@ -106,6 +106,9 @@ fun KarutaData.toModel(): Karuta {
     val shiku = Verse(kana = fourthKana, kanji = fourthKanji)
     val goku = Verse(kana = fifthKana, kanji = fifthKanji)
 
+    // マスタを直せばいいのだが・・・めんどいので
+    val adjustedTorifuda = if (torifuda.length == 15) torifuda else "$torifuda　"
+
     return Karuta(
         id = KarutaId(no),
         no = karutaNo,
@@ -118,9 +121,9 @@ fun KarutaData.toModel(): Karuta {
         color = KarutaColor.forValue(color),
         toriFuda = ToriFuda(
             karutaNo = karutaNo,
-            firstLine = torifuda.substring(0..4),
-            secondLine = torifuda.substring(5..9),
-            thirdLine = torifuda.substring(10..torifuda.lastIndex)
+            firstLine = adjustedTorifuda.substring(0..4),
+            secondLine = adjustedTorifuda.substring(5..9),
+            thirdLine = adjustedTorifuda.substring(10..14)
         )
     )
 }
