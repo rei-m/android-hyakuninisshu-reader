@@ -21,9 +21,12 @@ import net.hyakuninanki.reader.domain.ValueObject
 
 /**
  * 歌の色.
+ *
+ * @param value 色の値
  */
-enum class KarutaColor(val value: String) :
-    ValueObject {
+enum class KarutaColor(
+    val value: String
+) : ValueObject {
     BLUE("blue"),
     PINK("pink"),
     YELLOW("yellow"),

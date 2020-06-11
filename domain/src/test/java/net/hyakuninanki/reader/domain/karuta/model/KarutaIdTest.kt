@@ -17,15 +17,31 @@
 
 package net.hyakuninanki.reader.domain.karuta.model
 
-import net.hyakuninanki.reader.domain.ValueObject
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Before
+import org.junit.Test
 
-/**
- * 歌の句.
- *
- * @param kana かな
- * @param kanji 漢字
- */
-data class Verse(
-    val kana: String,
-    val kanji: String
-) : ValueObject
+class KarutaIdTest {
+
+    private lateinit var karutaId: KarutaId
+
+    @Before
+    fun setUp() {
+        karutaId = KarutaId(1)
+    }
+
+    @Test
+    fun createInstance() {
+        assertThat(karutaId.value).isEqualTo(1)
+    }
+
+    @Test
+    fun equals() {
+        assertThat(karutaId == KarutaId(1)).isTrue()
+    }
+
+    @Test
+    fun notEquals() {
+        assertThat(karutaId == KarutaId(2)).isFalse()
+    }
+}

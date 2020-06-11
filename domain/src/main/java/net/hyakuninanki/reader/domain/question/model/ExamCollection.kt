@@ -22,20 +22,24 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
 
 /**
  * 力試しのコレクション.
+ *
+ * @param values 値のリスト
  */
-data class KarutaExamCollection(private val values: List<KarutaExam>) {
+data class ExamCollection(
+    private val values: List<Exam>
+) {
 
     /**
      * すべての力試し.
      */
-    val all: List<KarutaExam> = values
+    val all: List<Exam> = values
 
     /**
      * 保持履歴の上限を超えた力試し.
      */
-    val overflowed: List<KarutaExam> by lazy {
+    val overflowed: List<Exam> by lazy {
         if (values.size <= MAX_HISTORY_COUNT) {
-            return@lazy listOf<KarutaExam>()
+            return@lazy listOf<Exam>()
         }
         return@lazy values.takeLast(values.size - MAX_HISTORY_COUNT)
     }
@@ -53,6 +57,6 @@ data class KarutaExamCollection(private val values: List<KarutaExam>) {
     }
 
     companion object {
-        const val MAX_HISTORY_COUNT = 10
+        private const val MAX_HISTORY_COUNT = 10
     }
 }

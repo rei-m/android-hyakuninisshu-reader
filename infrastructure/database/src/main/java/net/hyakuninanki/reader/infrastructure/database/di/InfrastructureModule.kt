@@ -23,11 +23,11 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
-import net.hyakuninanki.reader.domain.question.model.KarutaExamRepository
+import net.hyakuninanki.reader.domain.question.model.ExamRepository
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
 import net.hyakuninanki.reader.infrastructure.database.AppDatabase
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaRepositoryImpl
-import net.hyakuninanki.reader.infrastructure.database.question.KarutaExamRepositoryImpl
+import net.hyakuninanki.reader.infrastructure.database.question.ExamRepositoryImpl
 import net.hyakuninanki.reader.infrastructure.database.question.QuestionRepositoryImpl
 import javax.inject.Singleton
 
@@ -60,8 +60,8 @@ class InfrastructureModule {
 
     @Provides
     @Singleton
-    fun provideKarutaExamRepository(appDatabase: AppDatabase): KarutaExamRepository {
-        return KarutaExamRepositoryImpl(appDatabase)
+    fun provideKarutaExamRepository(appDatabase: AppDatabase): ExamRepository {
+        return ExamRepositoryImpl(appDatabase)
     }
 
     @Provides

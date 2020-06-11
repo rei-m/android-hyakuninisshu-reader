@@ -23,39 +23,38 @@ import java.util.*
 
 /**
  * 百人一首の問題.
+ *
+ * @param id ID
+ * @param no 何番目の問題か
+ * @param choiceList 選択肢の歌番号のリスト
+ * @param state 問題の状態
  */
 class Question constructor(
     id: QuestionId,
     val no: Int,
     val choiceList: List<KarutaNo>,
     val correctNo: KarutaNo,
-    startDate: Date? = null,
-    result: QuestionResult? = null
+    state: State
 ) : AbstractEntity<QuestionId>(id) {
 
-    var startDate: Date? = startDate
+    var state: State = state
         private set
-
-    var result: QuestionResult? = result
-        private set
-
-    val state: State
-        get() = if (startDate == null && result == null) {
-            State.READY
-        } else if (startDate != null && result == null) {
-            State.IN_ANSWER
-        } else {
-            State.ANSWERED
-        }
 
     /**
      * 解答を開始する.
      *
      * @param startDate 解答開始時間
+     *
      * @return 問題
+     *
+     * @throws IllegalStateException すでに回答済だった場合
      */
+    @Throws(IllegalStateException::class)
     fun start(startDate: Date): Question {
-        this.startDate = startDate
+        if (state is State.Answered) {
+            throw IllegalStateException("Question is already answered.")
+        }
+        this.state = State.InAnswer(startDate)
         return this
     }
 
@@ -64,92 +63,57 @@ class Question constructor(
      *
      * @param selectedNo 選択した歌の番号
      * @param answerDate 解答した時間
+     *
      * @return 解答後の問題
-     * @throws IllegalStateException 解答開始していない場合
+     *
+     * @throws IllegalStateException 解答開始していない場合, すでに回答済の場合.
      */
     @Throws(IllegalStateException::class)
     fun verify(selectedNo: KarutaNo, answerDate: Date): Question {
-        val startTime = startDate?.time ?: let {
-            throw IllegalStateException("Question is not started. Call start.")
+        when (val current = state) {
+            is State.Ready -> {
+                throw IllegalStateException("Question is not started. Call start.")
+            }
+            is State.InAnswer -> {
+                val answerTime = answerDate.time - current.startDate.time
+                val judgement = QuestionJudgement(
+                    correctNo,
+                    correctNo == selectedNo
+                )
+                this.state = State.Answered(
+                    current.startDate,
+                    QuestionResult(selectedNo, answerTime, judgement)
+                )
+                return this
+            }
+            is State.Answered -> {
+                throw IllegalStateException("Question is already answered.")
+            }
         }
-        val answerTime = answerDate.time - startTime
-        val judgement =
-            QuestionJudgement(
-                correctNo,
-                correctNo == selectedNo
-            )
-        this.result =
-            QuestionResult(selectedNo, answerTime, judgement)
-        return this
     }
 
     override fun toString() =
-        "Question(choiceList=$choiceList, correctNo=$correctNo, startDate=$startDate, result=$result)"
+        "Question(id=$id no=$no, choiceList=$choiceList, correctNo=$correctNo, state=$state)"
 
-    enum class State {
-        READY, IN_ANSWER, ANSWERED,
+    sealed class State {
+        object Ready : State()
+        class InAnswer(val startDate: Date) : State()
+        class Answered(val startDate: Date, val result: QuestionResult) : State()
+
+        companion object {
+            fun create(startDate: Date?, result: QuestionResult?): State {
+                if (startDate != null && result != null) {
+                    return Answered(startDate, result)
+                }
+                if (startDate != null && result == null) {
+                    return InAnswer(startDate)
+                }
+                return Ready
+            }
+        }
     }
 
     companion object {
         const val CHOICE_SIZE = 9
-
-        fun createReady(
-            id: QuestionId,
-            no: Int,
-            choiceList: List<KarutaNo>,
-            correctNo: KarutaNo
-        ) = Question(
-            id,
-            no,
-            choiceList,
-            correctNo
-        )
-
-        fun createInAnswer(
-            id: QuestionId,
-            no: Int,
-            choiceList: List<KarutaNo>,
-            correctNo: KarutaNo,
-            startDate: Date
-        ) = Question(
-            id,
-            no,
-            choiceList,
-            correctNo,
-            startDate
-        )
-
-        fun createAnswered(
-            id: QuestionId,
-            no: Int,
-            choiceList: List<KarutaNo>,
-            correctNo: KarutaNo,
-            startDate: Date,
-            selectedNo: KarutaNo,
-            answerMillSec: Long,
-            isCorrect: Boolean
-        ): Question {
-
-            val judgement =
-                QuestionJudgement(
-                    correctNo,
-                    isCorrect
-                )
-            val result =
-                QuestionResult(
-                    selectedNo,
-                    answerMillSec,
-                    judgement
-                )
-
-            return Question(
-                id,
-                no,
-                choiceList,
-                correctNo,
-                startDate,
-                result
-            )
-        }
     }
 }

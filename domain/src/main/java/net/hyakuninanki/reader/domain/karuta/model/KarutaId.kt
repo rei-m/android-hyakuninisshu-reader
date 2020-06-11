@@ -21,5 +21,9 @@ import net.hyakuninanki.reader.domain.EntityId
 
 /**
  * 歌ID.
+ *
+ * @param value 値
  */
-data class KarutaId(val value: Int) : EntityId
+data class KarutaId(
+    val value: Int
+) : EntityId

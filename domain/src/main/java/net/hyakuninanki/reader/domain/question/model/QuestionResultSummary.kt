@@ -21,6 +21,10 @@ import net.hyakuninanki.reader.domain.ValueObject
 
 /**
  * 問題全体の解答結果集計.
+ *
+ * @param totalQuestionCount 全体の件数
+ * @param correctCount 正解数
+ * @param averageAnswerSec 平均解答時間
  */
 data class QuestionResultSummary(
     val totalQuestionCount: Int,

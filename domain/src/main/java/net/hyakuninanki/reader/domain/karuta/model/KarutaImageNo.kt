@@ -24,6 +24,10 @@ private val pattern = Pattern.compile("^(?!000)(0\\d\\d|001|100)$")
 
 /**
  * 歌の画像番号.
+ *
+ * @param value 値
+ *
+ * @throws IllegalArgumentException
  */
 data class KarutaImageNo @Throws(IllegalArgumentException::class) constructor(
     val value: String

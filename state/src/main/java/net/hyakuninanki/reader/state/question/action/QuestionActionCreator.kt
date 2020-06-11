@@ -59,14 +59,14 @@ class QuestionActionCreator @Inject constructor(
                 thirdLine = karuta.toriFuda.thirdLine
             )
         }
-        val state = when (question.state) {
-            DomainQuestion.State.READY,
-            DomainQuestion.State.IN_ANSWER ->
+        val state = when (val questionState = question.state) {
+            is DomainQuestion.State.Ready,
+            is DomainQuestion.State.InAnswer ->
                 QuestionState.Ready
-            DomainQuestion.State.ANSWERED ->
+            is DomainQuestion.State.Answered ->
                 QuestionState.Answered(
-                    selectedToriFudaIndex = question.choiceList.indexOf(question.result!!.selectedKarutaNo),
-                    isCorrect = question.result!!.judgement.isCorrect,
+                    selectedToriFudaIndex = question.choiceList.indexOf(questionState.result.selectedKarutaNo),
+                    isCorrect = questionState.result.judgement.isCorrect,
                     correctMaterial = Material.createFromKaruta(
                         choiceKarutaList.find { it.no == question.correctNo }!!,
                         context
@@ -134,10 +134,14 @@ class QuestionActionCreator @Inject constructor(
 
         val correctKaruta = karutaRepository.findByNo(verified.correctNo)
 
+        val isCorrect = verified.state.let {
+            it is DomainQuestion.State.Answered && it.result.judgement.isCorrect
+        }
+
         return AnswerQuestionAction.Success(
             QuestionState.Answered(
                 selectedToriFudaIndex = verified.choiceList.indexOf(selectedKarutaNo),
-                isCorrect = verified.result!!.judgement.isCorrect,
+                isCorrect = isCorrect,
                 correctMaterial = Material.createFromKaruta(correctKaruta, context),
                 nextQuestionId = questionRepository.findIdByNo(verified.no + 1)?.value
             )

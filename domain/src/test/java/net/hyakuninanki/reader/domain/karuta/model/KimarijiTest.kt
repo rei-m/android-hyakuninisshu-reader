@@ -15,11 +15,19 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.question.model
+package net.hyakuninanki.reader.domain.karuta.model
 
-import net.hyakuninanki.reader.domain.EntityId
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
-/**
- * 力試しID.
- */
-data class KarutaExamId(val value: Long) : EntityId
+class KimarijiTest {
+    @Test
+    fun forValue() {
+        assertThat(Kimariji.forValue(1)).isEqualTo(Kimariji.ONE)
+    }
+
+    @Test(expected = AssertionError::class)
+    fun forValueWithInvalidValue() {
+        Kimariji.forValue(0)
+    }
+}

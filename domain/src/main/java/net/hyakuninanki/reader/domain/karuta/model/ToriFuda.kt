@@ -21,6 +21,11 @@ import net.hyakuninanki.reader.domain.ValueObject
 
 /**
  * 取り札.
+ *
+ * @param karutaNo 歌番号
+ * @param firstLine 札の1行目
+ * @param secondLine 札の2行目
+ * @param thirdLine 札の3行目
  */
 data class ToriFuda(
     val karutaNo: KarutaNo,

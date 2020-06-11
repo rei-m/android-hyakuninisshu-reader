@@ -52,7 +52,7 @@ class CreateQuestionListService {
             val correctPosition = generateRandomIndexArray(choiceSize, 1)[0]
             choices.add(correctPosition, targetKarutaNo)
 
-            Question.createReady(QuestionId(), index + 1, choices, targetKarutaNo)
+            Question(QuestionId(), index + 1, choices, targetKarutaNo, Question.State.Ready)
         };
     }
 }

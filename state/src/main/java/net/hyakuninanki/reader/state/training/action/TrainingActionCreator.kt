@@ -19,7 +19,7 @@ package net.hyakuninanki.reader.state.training.action
 
 import android.content.Context
 import net.hyakuninanki.reader.domain.karuta.model.*
-import net.hyakuninanki.reader.domain.question.model.KarutaExamRepository
+import net.hyakuninanki.reader.domain.question.model.ExamRepository
 import net.hyakuninanki.reader.domain.question.model.Question
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
@@ -34,7 +34,8 @@ class TrainingActionCreator @Inject constructor(
     private val context: Context,
     private val karutaRepository: KarutaRepository,
     private val questionRepository: QuestionRepository,
-    private val karutaExamRepository: KarutaExamRepository
+    private val examRepository: ExamRepository,
+    private val createQuestionListService: CreateQuestionListService
 ) {
     /**
      * 練習を開始する.
@@ -66,7 +67,7 @@ class TrainingActionCreator @Inject constructor(
 
     suspend fun startByExamPractice(): StartTrainingAction = try {
         val totalWrongKarutaNoCollection =
-            karutaExamRepository.findCollection().totalWrongKarutaNoCollection
+            examRepository.findCollection().totalWrongKarutaNoCollection
         if (totalWrongKarutaNoCollection.size == 0) {
             StartTrainingAction.Empty()
         } else {
@@ -117,7 +118,7 @@ class TrainingActionCreator @Inject constructor(
 
         val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
 
-        val questionList = CreateQuestionListService()(
+        val questionList = createQuestionListService(
             allKarutaNoCollection,
             targetKarutaNoCollection,
             Question.CHOICE_SIZE

@@ -20,6 +20,7 @@ package net.hyakuninanki.reader.state.core.di
 import dagger.Module
 import dagger.Provides
 import io.reactivex.android.schedulers.AndroidSchedulers
+import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
 import net.hyakuninanki.reader.state.core.ActionDispatcher
 import net.hyakuninanki.reader.state.core.Dispatcher
 import javax.inject.Singleton
@@ -29,4 +30,7 @@ class StateCoreModule {
     @Provides
     @Singleton
     fun provideActionDispatcher(): Dispatcher = ActionDispatcher(AndroidSchedulers.mainThread())
+
+    @Provides
+    fun provideCreateQuestionListService(): CreateQuestionListService = CreateQuestionListService()
 }

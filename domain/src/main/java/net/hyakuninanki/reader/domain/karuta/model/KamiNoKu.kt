@@ -21,16 +21,15 @@ import net.hyakuninanki.reader.domain.ValueObject
 
 /**
  * 上の句.
+ *
+ * @param karutaNo 歌番号
+ * @param shoku 初句
+ * @param niku 二句
+ * @param sanku 三句
  */
 data class KamiNoKu(
     val karutaNo: KarutaNo,
     val shoku: Verse,
     val niku: Verse,
     val sanku: Verse
-) : ValueObject {
-    val kanji: String = "${shoku.kanji}　${niku.kanji}　${sanku.kanji}"
-
-    val kana: String = "${shoku.kana}　${niku.kana}　${sanku.kana}"
-
-    override fun toString() = "KamiNoKu(karutaNo='$karutaNo', kanji='$kanji', kana='$kana')"
-}
+) : ValueObject

@@ -17,27 +17,13 @@
 
 package net.hyakuninanki.reader.domain.question.model
 
-import net.hyakuninanki.reader.domain.ValueObject
-import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
-import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
+import net.hyakuninanki.reader.domain.EntityId
 
 /**
- * 百人一首力試しの結果.
+ * 力試しID.
+ *
+ * @param value 値
  */
-data class KarutaExamResult(
-    val resultSummary: QuestionResultSummary,
-    val wrongKarutaNoCollection: KarutaNoCollection
-) : ValueObject {
-
-    val judgements: List<QuestionJudgement>
-
-    init {
-        this.judgements = KarutaNo.LIST.map {
-            val isCorrect = !wrongKarutaNoCollection.contains(it)
-            QuestionJudgement(
-                it,
-                isCorrect
-            )
-        }
-    }
-}
+data class ExamId(
+    val value: Long
+) : EntityId

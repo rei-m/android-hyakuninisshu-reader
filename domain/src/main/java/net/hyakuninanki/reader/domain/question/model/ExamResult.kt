@@ -15,17 +15,18 @@
  *
  */
 
-package net.hyakuninanki.reader.domain.karuta.model
+package net.hyakuninanki.reader.domain.question.model
 
 import net.hyakuninanki.reader.domain.ValueObject
+import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
 
 /**
- * 歌の句.
+ * 百人一首力試しの結果.
  *
- * @param kana かな
- * @param kanji 漢字
+ * @param resultSummary 力試しの結果のサマリ
+ * @param wrongKarutaNoCollection 間違えた歌のコレクション
  */
-data class Verse(
-    val kana: String,
-    val kanji: String
+data class ExamResult(
+    val resultSummary: QuestionResultSummary,
+    val wrongKarutaNoCollection: KarutaNoCollection
 ) : ValueObject

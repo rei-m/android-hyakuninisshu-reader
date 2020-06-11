@@ -25,13 +25,42 @@ interface QuestionRepository {
      */
     suspend fun initialize(questionList: List<Question>)
 
+    /**
+     * 問題の件数を取得する.
+     *
+     * @return 件数
+     */
     suspend fun count(): Int
 
+    /**
+     * IDを指定して検索する.
+     *
+     * @param questionId 問題ID
+     *
+     * @return 指定されたIDの問題
+     */
     suspend fun findById(questionId: QuestionId): Question?
 
+    /**
+     * 何番目の問題か指定して検索する
+     *
+     * @param no 問題の中で何番目か
+     *
+     * @return 指定された番号の問題ID
+     */
     suspend fun findIdByNo(no: Int): QuestionId?
 
+    /**
+     * 問題の集合を取得する.
+     *
+     * @return 問題の集合
+     */
     suspend fun findCollection(): QuestionCollection
 
+    /**
+     * 問題を永続化する.
+     *
+     * @param question 問題
+     */
     suspend fun save(question: Question)
 }
