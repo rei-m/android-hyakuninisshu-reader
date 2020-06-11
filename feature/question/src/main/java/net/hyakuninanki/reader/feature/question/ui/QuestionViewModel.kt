@@ -30,12 +30,14 @@ import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.question.action.QuestionActionCreator
 import net.hyakuninanki.reader.state.question.model.QuestionState
 import net.hyakuninanki.reader.state.question.store.QuestionStore
+import net.hyakuninanki.reader.state.training.model.DisplayModeCondition
 import net.hyakuninanki.reader.state.training.model.InputSecondCondition
 import java.util.*
 import javax.inject.Inject
 
 class QuestionViewModel(
     private val questionId: String,
+    displayMode: DisplayModeCondition,
     inputSecond: InputSecondCondition,
     dispatcher: Dispatcher,
     private val actionCreator: QuestionActionCreator,
@@ -45,9 +47,15 @@ class QuestionViewModel(
 
     val question = store.question
 
-    val state = store.state
+    val position = question.map { it.position }
+
+    val toriFudaList = question.map {
+        it.toriFudaList.map { toriFuda -> Pair(toriFuda, displayMode) }
+    }
 
     val inputSecondCounter: MutableLiveData<Int> = MutableLiveData()
+
+    val state = store.state
 
     val isVisibleWaitingMask = state.map { it is QuestionState.Ready }
 
@@ -134,11 +142,13 @@ class QuestionViewModel(
         private val context: Context
     ) : ViewModelProvider.Factory {
         lateinit var questionId: String
+        lateinit var displayMode: DisplayModeCondition
         lateinit var inputSecond: InputSecondCondition
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = QuestionViewModel(
             questionId,
+            displayMode,
             inputSecond,
             dispatcher,
             actionCreator,

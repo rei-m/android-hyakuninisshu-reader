@@ -18,5 +18,6 @@
 <resources>
     <declare-styleable name="FudaView">
         <attr name="textSize" format="dimension" />
+        <attr name="displayMode" format="integer" />
     </declare-styleable>
 </resources>

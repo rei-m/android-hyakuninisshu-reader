@@ -27,6 +27,7 @@ import androidx.core.content.withStyledAttributes
 import net.hyakuninanki.reader.feature.corecomponent.widget.view.VerticalSingleLineTextView
 import net.hyakuninanki.reader.feature.question.R
 import net.hyakuninanki.reader.state.question.model.ToriFuda
+import net.hyakuninanki.reader.state.training.model.DisplayModeCondition
 
 class ToriFudaView @JvmOverloads constructor(
     context: Context,
@@ -63,11 +64,23 @@ class ToriFudaView @JvmOverloads constructor(
         thirdLineView.drawText(pad)
     }
 
-    var toriFuda: ToriFuda? = null
+    var toriFuda: Pair<ToriFuda, DisplayModeCondition>? = null
         set(value) {
             field = value
-            firstLineView.drawText(toriFuda?.firstLine)
-            secondLineView.drawText(toriFuda?.secondLine)
-            thirdLineView.drawText(toriFuda?.thirdLine)
+            value ?: return
+            val (toriFuda, displayMode) = value
+            // 札ごとrotateさせるとなぜかelevationが吹き飛ぶので中のテキストをrotateさせている
+            if (displayMode == DisplayModeCondition.AITEJIN) {
+                firstLineView.drawText(toriFuda.thirdLine)
+                secondLineView.drawText(toriFuda.secondLine)
+                thirdLineView.drawText(toriFuda.firstLine)
+                firstLineView.rotation = 180f
+                secondLineView.rotation = 180f
+                thirdLineView.rotation = 180f
+            } else {
+                firstLineView.drawText(toriFuda.firstLine)
+                secondLineView.drawText(toriFuda.secondLine)
+                thirdLineView.drawText(toriFuda.thirdLine)
+            }
         }
 }

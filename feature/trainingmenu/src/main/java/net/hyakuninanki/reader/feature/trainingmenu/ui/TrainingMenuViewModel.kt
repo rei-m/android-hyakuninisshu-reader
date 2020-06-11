@@ -68,11 +68,22 @@ class TrainingMenuViewModel(private val handle: SavedStateHandle) : ViewModel() 
             handle.set<Int>(KEY_INPUT_SPEED, value.ordinal)
         }
 
+    var displayMode: DisplayModeCondition
+        get() {
+            val ordinal: Int =
+                handle.get<Int>(KEY_DISPLAY_MODE) ?: DisplayModeCondition.JIJIN.ordinal
+            return DisplayModeCondition[ordinal]
+        }
+        set(value) {
+            handle.set<Int>(KEY_DISPLAY_MODE, value.ordinal)
+        }
+
     companion object {
         private const val KEY_RANGE_FROM = "rangeFrom"
         private const val KEY_RANGE_TO = "rangeTo"
         private const val KEY_KIMARIJI = "kimarij"
         private const val KEY_COLOR = "color"
         private const val KEY_INPUT_SPEED = "inputSecond"
+        private const val KEY_DISPLAY_MODE = "displayMode"
     }
 }

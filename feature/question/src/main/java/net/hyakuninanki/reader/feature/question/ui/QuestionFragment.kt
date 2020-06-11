@@ -42,6 +42,7 @@ class QuestionFragment : Fragment() {
     private val viewModel by viewModels<QuestionViewModel> {
         viewModelFactory.apply {
             questionId = args.questionId
+            displayMode = args.displayMode
             inputSecond = args.inputSecond
         }
     }
@@ -79,6 +80,7 @@ class QuestionFragment : Fragment() {
                 val action = QuestionFragmentDirections.actionQuestionToAnswer(
                     nextQuestionId = state.nextQuestionId,
                     correctKaruta = state.correctMaterial,
+                    displayMode = args.displayMode,
                     inputSecond = args.inputSecond,
                     referer = args.referer
                 )

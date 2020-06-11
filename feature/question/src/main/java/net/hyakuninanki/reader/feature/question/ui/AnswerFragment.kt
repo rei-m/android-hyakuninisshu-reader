@@ -66,6 +66,7 @@ class AnswerFragment : Fragment() {
             args.nextQuestionId?.let {
                 val action = AnswerFragmentDirections.actionAnswerToQuestion(
                     questionId = it,
+                    displayMode = args.displayMode,
                     inputSecond = args.inputSecond,
                     referer = args.referer
                 )
@@ -76,6 +77,7 @@ class AnswerFragment : Fragment() {
             when (args.referer) {
                 Referer.Training -> {
                     val action = AnswerFragmentDirections.actionAnswerToTrainingResult(
+                        displayMode = args.displayMode,
                         inputSecond = args.inputSecond
                     )
                     findNavController().navigate(action)
