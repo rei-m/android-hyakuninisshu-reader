@@ -20,12 +20,27 @@ package net.hyakuninanki.reader.domain.question.model
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
 import java.util.concurrent.TimeUnit
 
-data class QuestionCollection(val values: List<Question>) {
+/**
+ * 問題コレクション.
+ *
+ * @param values 問題のリスト
+ */
+data class QuestionCollection(
+    val values: List<Question>
+) {
     val wrongKarutaNoCollection: KarutaNoCollection by lazy {
         KarutaNoCollection(
             values
                 .asSequence()
-                .mapNotNull { it.result }
+                .mapNotNull { question ->
+                    question.state.let { state ->
+                        if (state is Question.State.Answered) {
+                            state.result
+                        } else {
+                            null
+                        }
+                    }
+                }
                 .filterNot { it.judgement.isCorrect }
                 .map { it.judgement.karutaNo }
                 .toList()
@@ -42,7 +57,12 @@ data class QuestionCollection(val values: List<Question>) {
             var collectCount = 0
 
             values.forEach {
-                val result = it.result ?: throw IllegalStateException("Training is not finished.")
+                val result = it.state.let { state ->
+                    if (state is Question.State.Answered) {
+                        return@let state.result
+                    }
+                    throw IllegalStateException("Question is not finished.")
+                }
 
                 totalAnswerTimeMillSec += result.answerMillSec
                 if (result.judgement.isCorrect) {

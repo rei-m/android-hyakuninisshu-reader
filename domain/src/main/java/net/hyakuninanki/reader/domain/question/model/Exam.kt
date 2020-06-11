@@ -22,16 +22,17 @@ import java.util.*
 
 /**
  * 百人一首の力試し.
+ *
+ * @param id ID
+ * @param tookDate 受験日
+ * @param result 力試し結果
+ *
  */
-class KarutaExam(
-    id: KarutaExamId,
+class Exam(
+    id: ExamId,
     val tookDate: Date,
-    val result: KarutaExamResult
-) : AbstractEntity<KarutaExamId>(id) {
+    val result: ExamResult
+) : AbstractEntity<ExamId>(id) {
 
-    override fun toString() = "KarutaExam(tookDate=$tookDate, result=$result)"
-
-    companion object {
-        const val MAX_HISTORY_COUNT = 10
-    }
+    override fun toString() = "Exam(id=$id, tookDate=$tookDate, result=$result)"
 }

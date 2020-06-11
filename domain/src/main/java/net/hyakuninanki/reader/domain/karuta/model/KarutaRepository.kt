@@ -29,13 +29,31 @@ interface KarutaRepository {
 
     /**
      * 指定した番号の歌を取得する
+     *
+     * @param karutaNo 歌番号
+     *
+     * @return 歌
      */
     suspend fun findByNo(
         karutaNo: KarutaNo
     ): Karuta
 
     /**
-     * 歌のリストを取得する
+     * すべての歌のリストを取得する
+     *
+     * @return 歌のリスト
+     */
+    suspend fun findAll(): List<Karuta>
+
+    /**
+     * 指定した条件の歌のリストを取得する
+     *
+     * @param fromNo 開始の歌番号
+     * @param toNo 終了の歌番号
+     * @param kimarijis 決まり字のリスト
+     * @param colors 色のリスト
+     *
+     * @return 条件に該当する歌のリスト
      */
     suspend fun findAllWithCondition(
         fromNo: KarutaNo,
@@ -45,14 +63,13 @@ interface KarutaRepository {
     ): List<Karuta>
 
     /**
-     * 指定した番号の歌のリストを取得する
+     * 指定した番号の歌のリストを取得する.
+     *
+     * @param karutaNoList 歌番号のリスト
+     *
+     * @return 条件に該当する歌のリスト
      */
     suspend fun findAllWithNo(
         karutaNoList: List<KarutaNo>
     ): List<Karuta>
-
-    /**
-     * すべての歌のリストを取得する
-     */
-    suspend fun findAll(): List<Karuta>
 }

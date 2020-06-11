@@ -22,6 +22,11 @@ import android.os.Parcelable
 import net.hyakuninanki.reader.domain.EntityId
 import java.util.*
 
+/**
+ * 問題ID.
+ *
+ * @param value 値
+ */
 data class QuestionId(
     val value: String = UUID.randomUUID().toString()
 ) : EntityId, Parcelable {

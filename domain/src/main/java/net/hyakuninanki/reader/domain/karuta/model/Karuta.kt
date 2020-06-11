@@ -20,7 +20,18 @@ package net.hyakuninanki.reader.domain.karuta.model
 import net.hyakuninanki.reader.domain.AbstractEntity
 
 /**
- * 百人一首の歌.
+ * 百人一首の歌エンティティ.
+ *
+ * @param id ID
+ * @param no 歌番号
+ * @param creator 作者
+ * @param kamiNoKu 上の句
+ * @param shimoNoKu 下の句
+ * @param kimariji 決まり字
+ * @param imageNo 画像番号
+ * @param translation 訳
+ * @param color 百人一首の色
+ * @param toriFuda 取り札
  */
 class Karuta(
     id: KarutaId,

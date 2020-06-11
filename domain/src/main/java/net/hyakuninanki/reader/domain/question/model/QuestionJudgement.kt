@@ -22,6 +22,9 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 
 /**
  * 問題の正誤判定.
+ *
+ * @param karutaNo 問題の対象となった歌の番号
+ * @param isCorrect 正解かどうか
  */
 data class QuestionJudgement(
     val karutaNo: KarutaNo,

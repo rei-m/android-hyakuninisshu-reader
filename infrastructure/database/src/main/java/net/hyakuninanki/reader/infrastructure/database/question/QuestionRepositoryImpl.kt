@@ -94,8 +94,10 @@ class QuestionRepositoryImpl(
                 no = questionData.no,
                 choiceList = choiceList,
                 correctNo = correctNo,
-                startDate = questionData.startDate,
-                result = result
+                state = Question.State.create(
+                    startDate = questionData.startDate,
+                    result = result
+                )
             )
         }
     }
@@ -133,8 +135,10 @@ class QuestionRepositoryImpl(
                     no = it.no,
                     choiceList = choiceList,
                     correctNo = correctNo,
-                    startDate = it.startDate,
-                    result = result
+                    state = Question.State.create(
+                        startDate = it.startDate,
+                        result = result
+                    )
                 )
             }.let {
                 QuestionCollection(it)
@@ -143,15 +147,41 @@ class QuestionRepositoryImpl(
     }
 
     override suspend fun save(question: Question) {
-        val karutaQuestionData = KarutaQuestionData(
-            id = question.id.value,
-            no = question.no,
-            correctKarutaNo = question.correctNo.value,
-            startDate = question.startDate,
-            selectedKarutaNo = question.result?.selectedKarutaNo?.value,
-            isCorrect = question.result?.judgement?.isCorrect,
-            answerTime = question.result?.answerMillSec
-        )
+        val karutaQuestionData = when (val questionState = question.state) {
+            is Question.State.Ready -> {
+                KarutaQuestionData(
+                    id = question.id.value,
+                    no = question.no,
+                    correctKarutaNo = question.correctNo.value,
+                    startDate = null,
+                    selectedKarutaNo = null,
+                    isCorrect = null,
+                    answerTime = null
+                )
+            }
+            is Question.State.InAnswer -> {
+                KarutaQuestionData(
+                    id = question.id.value,
+                    no = question.no,
+                    correctKarutaNo = question.correctNo.value,
+                    startDate = questionState.startDate,
+                    selectedKarutaNo = null,
+                    isCorrect = null,
+                    answerTime = null
+                )
+            }
+            is Question.State.Answered -> {
+                KarutaQuestionData(
+                    id = question.id.value,
+                    no = question.no,
+                    correctKarutaNo = question.correctNo.value,
+                    startDate = questionState.startDate,
+                    selectedKarutaNo = questionState.result.selectedKarutaNo.value,
+                    isCorrect = questionState.result.judgement.isCorrect,
+                    answerTime = questionState.result.answerMillSec
+                )
+            }
+        }
 
         withContext(ioContext) {
             database.karutaQuestionDao().updateKarutaQuestion(karutaQuestionData)

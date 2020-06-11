@@ -21,7 +21,7 @@ import android.content.Context
 import net.hyakuninanki.reader.domain.karuta.model.Karuta
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.Kimariji
-import net.hyakuninanki.reader.domain.question.model.KarutaExam
+import net.hyakuninanki.reader.domain.question.model.Exam
 import net.hyakuninanki.reader.state.BuildConfig
 import net.hyakuninanki.reader.state.R
 import net.hyakuninanki.reader.state.exam.model.ExamResult
@@ -77,7 +77,7 @@ fun Karuta.imageResId(context: Context): Int {
     )
 }
 
-fun KarutaExam.toResult(context: Context, now: Date): ExamResult {
+fun Exam.toResult(context: Context, now: Date): ExamResult {
     val averageAnswerTimeString = String.format(
         Locale.JAPAN,
         "%.2f",

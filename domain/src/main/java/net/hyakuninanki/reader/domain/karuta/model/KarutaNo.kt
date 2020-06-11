@@ -20,7 +20,11 @@ package net.hyakuninanki.reader.domain.karuta.model
 import net.hyakuninanki.reader.domain.ValueObject
 
 /**
- * 歌の画像番号.
+ * 歌の番号.
+ *
+ * @param value 値
+ *
+ * @throws IllegalArgumentException
  */
 data class KarutaNo @Throws(IllegalArgumentException::class) constructor(
     val value: Int

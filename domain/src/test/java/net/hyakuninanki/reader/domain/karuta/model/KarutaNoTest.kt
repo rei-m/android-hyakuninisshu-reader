@@ -17,27 +17,35 @@
 
 package net.hyakuninanki.reader.domain.karuta.model
 
-import net.hyakuninanki.reader.domain.ValueObject
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
 
-/**
- * 歌の決まり字.
- *
- * @param value 値
- */
-enum class Kimariji(val value: Int) :
-    ValueObject {
-    ONE(1),
-    TWO(2),
-    THREE(3),
-    FOUR(4),
-    FIVE(5),
-    SIX(6);
+class KarutaNoTest {
+    @Test
+    fun createWith001() {
+        val (value) = KarutaNo(1)
+        assertThat(value).isEqualTo(1)
+    }
 
-    override fun toString(): String = "Kimariji(value=$value)"
+    @Test
+    fun createWith050() {
+        val (value) = KarutaNo(50)
+        assertThat(value).isEqualTo(50)
+    }
 
-    companion object {
-        fun forValue(value: Int): Kimariji = values().find { it.value == value } ?: let {
-            throw AssertionError("no enum found. value is $value")
-        }
+    @Test
+    fun createWith100() {
+        val (value) = KarutaNo(100)
+        assertThat(value).isEqualTo(100)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun createWith000() {
+        KarutaNo(0)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun createWith101() {
+        KarutaNo(101)
     }
 }

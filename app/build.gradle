@@ -24,19 +24,13 @@ android {
             debuggable true
             applicationIdSuffix ".debug"
             versionNameSuffix "d"
-//            manifestPlaceholders = [crashlyticsEnabled: false]
         }
         release {
             debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-//            manifestPlaceholders = [crashlyticsEnabled: true]
         }
     }
-
-// To inline the bytecode built with JVM target 1.8 into
-// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
-
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

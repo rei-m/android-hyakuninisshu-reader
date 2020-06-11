@@ -15,19 +15,19 @@
  *
  */
 
-package net.hyakuninanki.reader.domain
+package net.hyakuninanki.reader.domain.karuta.model
 
-import org.junit.Assert.assertEquals
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
+class KarutaColorTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun forValue() {
+        assertThat(KarutaColor.forValue("blue")).isEqualTo(KarutaColor.BLUE)
+    }
+
+    @Test(expected = AssertionError::class)
+    fun forValueWithInvalidValue() {
+        KarutaColor.forValue("invalid")
     }
 }

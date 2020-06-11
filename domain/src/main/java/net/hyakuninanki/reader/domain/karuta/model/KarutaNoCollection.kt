@@ -21,11 +21,15 @@ import net.hyakuninanki.reader.domain.util.generateRandomIndexArray
 
 /**
  * 歌番号のコレクション.
+ *
+ * @param values 値のリスト
  */
-data class KarutaNoCollection(val values: List<KarutaNo>) {
+data class KarutaNoCollection(
+    val values: List<KarutaNo>
+) {
 
     /**
-     * @return 保持している歌IDの数
+     * @return 保持している歌の数
      */
     val size: Int = values.size
 

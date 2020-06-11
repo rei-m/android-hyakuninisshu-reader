@@ -40,7 +40,8 @@ class ExamActionCreator @Inject constructor(
     private val context: Context,
     private val karutaRepository: KarutaRepository,
     private val questionRepository: QuestionRepository,
-    private val karutaExamRepository: KarutaExamRepository
+    private val examRepository: ExamRepository,
+    private val createQuestionListService: CreateQuestionListService
 ) {
     /**
      * 力試しを開始する.
@@ -54,7 +55,7 @@ class ExamActionCreator @Inject constructor(
 
         val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
 
-        val questionList = CreateQuestionListService()(
+        val questionList = createQuestionListService(
             allKarutaNoCollection,
             targetKarutaNoCollection,
             Question.CHOICE_SIZE
@@ -74,13 +75,13 @@ class ExamActionCreator @Inject constructor(
      */
     suspend fun finish(now: Date = Date()) = try {
         val questionCollection = questionRepository.findCollection()
-        val result = KarutaExamResult(
+        val result = ExamResult(
             questionCollection.resultSummary,
             questionCollection.wrongKarutaNoCollection
         )
-        val addedExamId = karutaExamRepository.add(result, now)
-        val examCollection = karutaExamRepository.findCollection()
-        karutaExamRepository.deleteList(examCollection.overflowed)
+        val addedExamId = examRepository.add(result, now)
+        val examCollection = examRepository.findCollection()
+        examRepository.deleteList(examCollection.overflowed)
 
         val averageAnswerTimeString = String.format(
             Locale.JAPAN,
@@ -115,7 +116,7 @@ class ExamActionCreator @Inject constructor(
     suspend fun fetchRecentResult(now: Date = Date()): FetchRecentExamResultAction {
         try {
             val recentExam =
-                karutaExamRepository.last() ?: return FetchRecentExamResultAction.Success(null)
+                examRepository.last() ?: return FetchRecentExamResultAction.Success(null)
             return FetchRecentExamResultAction.Success(recentExam.toResult(context, now))
 
         } catch (e: Exception) {
@@ -124,7 +125,7 @@ class ExamActionCreator @Inject constructor(
     }
 
     suspend fun fetchResult(id: Long, now: Date = Date()): FetchExamResultAction {
-        val exam = karutaExamRepository.findById(KarutaExamId(id))
+        val exam = examRepository.findById(ExamId(id))
             ?: return FetchExamResultAction.Failure(NoSuchElementException())
         return FetchExamResultAction.Success(
             examResult = exam.toResult(context, now),
@@ -133,7 +134,7 @@ class ExamActionCreator @Inject constructor(
     }
 
     suspend fun fetchAllResult(now: Date = Date()): FetchAllExamResultAction {
-        val examCollection = karutaExamRepository.findCollection()
+        val examCollection = examRepository.findCollection()
         return FetchAllExamResultAction.Success(
             examResultList = examCollection.all.map { it.toResult(context, now) }
         )

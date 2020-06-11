@@ -20,6 +20,13 @@ package net.hyakuninanki.reader.domain.question.model
 import net.hyakuninanki.reader.domain.ValueObject
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 
+/**
+ * 問題の回答結果.
+ *
+ * @param selectedKarutaNo 選択した歌の番号
+ * @param answerMillSec 回答にかかった時間（ミリ秒）
+ * @param judgement 判定結果
+ */
 data class QuestionResult(
     val selectedKarutaNo: KarutaNo,
     val answerMillSec: Long,
