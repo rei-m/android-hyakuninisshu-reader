@@ -95,6 +95,13 @@ class Question constructor(
     override fun toString() =
         "Question(id=$id no=$no, choiceList=$choiceList, correctNo=$correctNo, state=$state)"
 
+    /**
+     * 問題の状態.
+     *
+     * Ready: 開始前
+     * InAnswer: 回答中
+     * Answered: 回答済
+     */
     sealed class State {
         object Ready : State()
         class InAnswer(val startDate: Date) : State()

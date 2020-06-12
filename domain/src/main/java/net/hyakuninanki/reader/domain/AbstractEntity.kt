@@ -17,6 +17,9 @@
 
 package net.hyakuninanki.reader.domain
 
+/**
+ * Entityのベース.
+ */
 abstract class AbstractEntity<out I : EntityId>(
     override val id: I
 ) : Entity<I> {

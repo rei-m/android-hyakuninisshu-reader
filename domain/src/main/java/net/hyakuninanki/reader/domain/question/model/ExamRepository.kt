@@ -47,7 +47,7 @@ interface ExamRepository {
     suspend fun findCollection(): ExamCollection
 
     /**
-     * 力試しを新規に永続化する.
+     * 力試しを新規に永続化する(ここはちょっと雑).
      *
      * @param examResult 力試しの結果
      * @param tookExamDate 力試しを受けた日付

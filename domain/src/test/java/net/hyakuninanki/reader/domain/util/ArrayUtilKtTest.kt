@@ -15,9 +15,20 @@
  *
  */
 
-package net.hyakuninanki.reader.domain
+package net.hyakuninanki.reader.domain.util
 
-/**
- * Entityを識別するID.
- */
-interface EntityId : ValueObject
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+
+@RunWith(RobolectricTestRunner::class)
+class ArrayUtilTest {
+    @Test
+    fun generateRandomIndexArray() {
+        val actual = generateRandomIndexArray(10, 4)
+        val firstValue = actual.first()
+        assertThat(actual.size).isEqualTo(4)
+        assertThat(actual.slice(1..actual.lastIndex)).doesNotContain(firstValue)
+    }
+}

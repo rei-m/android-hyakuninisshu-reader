@@ -26,7 +26,6 @@ import java.util.*
  * @param id ID
  * @param tookDate 受験日
  * @param result 力試し結果
- *
  */
 class Exam(
     id: ExamId,

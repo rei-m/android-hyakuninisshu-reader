@@ -17,24 +17,20 @@
 
 package net.hyakuninanki.reader.domain
 
+/**
+ * Entity
+ */
 interface Entity<out I : EntityId> {
 
-    /**
-     * identifier of entity
-     */
     val id: I
 
     /**
-     * compare equivalence of object. use identifier[.identifier]
-     *
      * @param other target object
      * @return if target has same identifier `true`
      */
     override fun equals(other: Any?): Boolean
 
     /**
-     * return hashcode of object.
-     *
      * @return hashcode
      */
     override fun hashCode(): Int
