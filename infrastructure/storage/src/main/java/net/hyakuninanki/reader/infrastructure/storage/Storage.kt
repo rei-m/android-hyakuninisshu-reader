@@ -15,15 +15,9 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.corecomponent.di
+package net.hyakuninanki.reader.infrastructure.storage
 
-import androidx.appcompat.app.AppCompatActivity
-import dagger.Module
-import dagger.Provides
-
-@Module
-class ActivityModule(private val activity: AppCompatActivity) {
-    @Provides
-    @ActivityScope
-    fun provideActivity(): AppCompatActivity = activity
+interface Storage {
+    fun setInt(key: String, value: Int)
+    fun getInt(key: String): Int
 }

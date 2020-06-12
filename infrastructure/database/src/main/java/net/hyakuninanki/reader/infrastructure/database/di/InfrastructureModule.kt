@@ -18,7 +18,6 @@
 package net.hyakuninanki.reader.infrastructure.database.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -29,16 +28,11 @@ import net.hyakuninanki.reader.infrastructure.database.AppDatabase
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaRepositoryImpl
 import net.hyakuninanki.reader.infrastructure.database.question.ExamRepositoryImpl
 import net.hyakuninanki.reader.infrastructure.database.question.QuestionRepositoryImpl
+import net.hyakuninanki.reader.infrastructure.storage.Storage
 import javax.inject.Singleton
 
 @Module
 class InfrastructureModule {
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences(KEY_PREFERENCES, Context.MODE_PRIVATE)
-    }
-
     @Provides
     @Singleton
     fun provideAppDatabase(context: Context): AppDatabase {
@@ -52,10 +46,10 @@ class InfrastructureModule {
     @Singleton
     fun provideKarutaRepository(
         context: Context,
-        preferences: SharedPreferences,
+        storage: Storage,
         appDatabase: AppDatabase
     ): KarutaRepository {
-        return KarutaRepositoryImpl(context, preferences, appDatabase)
+        return KarutaRepositoryImpl(context, storage, appDatabase)
     }
 
     @Provides
@@ -68,9 +62,5 @@ class InfrastructureModule {
     @Singleton
     fun provideQuestionRepository(appDatabase: AppDatabase): QuestionRepository {
         return QuestionRepositoryImpl(appDatabase)
-    }
-
-    companion object {
-        private const val KEY_PREFERENCES = "dse2QEKH9xdyNee"
     }
 }

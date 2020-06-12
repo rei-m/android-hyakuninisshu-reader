@@ -18,28 +18,25 @@
 package net.hyakuninanki.reader.infrastructure.database.karuta
 
 import android.content.Context
-import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import net.hyakuninanki.reader.domain.karuta.model.*
 import net.hyakuninanki.reader.infrastructure.database.AppDatabase
+import net.hyakuninanki.reader.infrastructure.storage.Storage
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import kotlin.coroutines.CoroutineContext
 
 class KarutaRepositoryImpl(
     private val context: Context,
-    private val preferences: SharedPreferences,
+    private val storage: Storage,
     private val database: AppDatabase,
     private val ioContext: CoroutineContext = Dispatchers.IO
 ) : KarutaRepository {
     @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun initialize() {
         withContext(ioContext) {
-            val karutaJsonVersion = preferences.getInt(
-                KarutaJsonConstant.KEY_KARUTA_JSON_VERSION,
-                0
-            )
+            val karutaJsonVersion = storage.getInt(KarutaJsonConstant.KEY_KARUTA_JSON_VERSION)
 
             if (karutaJsonVersion < KarutaJsonConstant.KARUTA_VERSION) {
                 val inputStream = context.assets.open("karuta_list_v_3.json")
@@ -59,12 +56,10 @@ class KarutaRepositoryImpl(
 
                 database.karutaDao().insertKarutas(karutaDataList)
 
-                preferences.edit()
-                    .putInt(
-                        KarutaJsonConstant.KEY_KARUTA_JSON_VERSION,
-                        KarutaJsonConstant.KARUTA_VERSION
-                    )
-                    .apply()
+                storage.setInt(
+                    KarutaJsonConstant.KEY_KARUTA_JSON_VERSION,
+                    KarutaJsonConstant.KARUTA_VERSION
+                )
             }
         }
     }
@@ -107,8 +102,9 @@ fun KarutaData.toModel(): Karuta {
     val goku = Verse(kana = fifthKana, kanji = fifthKanji)
 
     // マスタを直せばいいのだが・・・めんどいので
-    val padList =  List(15 - torifuda.length) { return@List "　" }
-    val adjustedTorifuda = if (padList.isEmpty()) torifuda else "$torifuda${padList.joinToString("")}"
+    val padList = List(15 - torifuda.length) { return@List "　" }
+    val adjustedTorifuda =
+        if (padList.isEmpty()) torifuda else "$torifuda${padList.joinToString("")}"
 
     return Karuta(
         id = KarutaId(no),

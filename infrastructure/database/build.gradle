@@ -35,6 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlin_version"
 
     implementation project(':domain')
+    implementation project(':infrastructure:storage')
 
     implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
     api "androidx.room:room-runtime:$rootProject.androidx_room_version"

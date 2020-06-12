@@ -21,13 +21,13 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import net.hyakuninanki.reader.MainComponent
-import net.hyakuninanki.reader.feature.corecomponent.di.ViewModelModule
 import net.hyakuninanki.reader.infrastructure.database.di.InfrastructureModule
+import net.hyakuninanki.reader.infrastructure.storage.di.StorageModule
 import net.hyakuninanki.reader.state.core.di.StateCoreModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [InfrastructureModule::class, StateCoreModule::class, ViewModelModule::class])
+@Component(modules = [InfrastructureModule::class, StorageModule::class, StateCoreModule::class])
 interface AppComponent {
     // Factory to create instances of the AppComponent
     @Component.Factory
