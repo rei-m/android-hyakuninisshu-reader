@@ -15,24 +15,18 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.corecomponent.di
+package net.hyakuninanki.reader.infrastructure.storage.di
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.Dispatchers
-import javax.inject.Named
-import javax.inject.Singleton
-import kotlin.coroutines.CoroutineContext
+import net.hyakuninanki.reader.infrastructure.storage.SharedPreferencesStorage
+import net.hyakuninanki.reader.infrastructure.storage.Storage
 
 @Module
-class ViewModelModule {
+class StorageModule {
     @Provides
-    @Singleton
-    @Named("mainContext")
-    fun provideMainContext(): CoroutineContext = Dispatchers.Main
-
-    @Provides
-    @Singleton
-    @Named("ioContext")
-    fun provideIOContext(): CoroutineContext = Dispatchers.IO
+    fun provideStorage(context: Context): Storage {
+        return SharedPreferencesStorage(context)
+    }
 }
