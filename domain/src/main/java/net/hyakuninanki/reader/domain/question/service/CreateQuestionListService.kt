@@ -23,7 +23,18 @@ import net.hyakuninanki.reader.domain.question.model.Question
 import net.hyakuninanki.reader.domain.question.model.QuestionId
 import net.hyakuninanki.reader.domain.util.generateRandomIndexArray
 
+/**
+ * 問題作成サービス.
+ */
 class CreateQuestionListService {
+    /**
+     * @param allKarutaNoCollection 百人一首全ての歌の番号コレクション
+     * @param targetKarutaNoCollection 問題の対象となる歌番号コレクション
+     * @param choiceSize 選択肢の数
+     *
+     * @return 問題リスト
+     */
+    @Throws(IllegalArgumentException::class)
     operator fun invoke(
         allKarutaNoCollection: KarutaNoCollection,
         targetKarutaNoCollection: KarutaNoCollection,
@@ -39,8 +50,9 @@ class CreateQuestionListService {
 
         return targetKarutaNoCollection.asRandomized.mapIndexed { index, targetKarutaNo ->
 
-            val dupNos =
-                allKarutaNoCollection.values.toMutableList().apply { remove(targetKarutaNo) }
+            val dupNos = allKarutaNoCollection.values.toMutableList().apply {
+                remove(targetKarutaNo)
+            }
 
             val choices = generateRandomIndexArray(
                 dupNos.size,

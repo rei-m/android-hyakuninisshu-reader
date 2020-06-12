@@ -31,5 +31,5 @@ data class QuestionResultSummary(
     val correctCount: Int,
     val averageAnswerSec: Float
 ) : ValueObject {
-    val score = "$correctCount/$totalQuestionCount"
+    val score = "$correctCount / $totalQuestionCount"
 }

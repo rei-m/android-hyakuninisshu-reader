@@ -18,20 +18,16 @@
 package net.hyakuninanki.reader.domain
 
 /**
- * Interface of ValueObject.
+ * ValueObject
  */
 interface ValueObject {
     /**
-     * compare equivalence of object.
-     *
      * @param other target object.
      * @return if equal`true`
      */
     override fun equals(other: Any?): Boolean
 
     /**
-     * return hashcode of object.
-     *
      * @return hashcode.
      */
     override fun hashCode(): Int
