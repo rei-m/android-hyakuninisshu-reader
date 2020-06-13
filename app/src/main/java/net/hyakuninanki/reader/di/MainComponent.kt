@@ -15,11 +15,12 @@
  *
  */
 
-package net.hyakuninanki.reader
+package net.hyakuninanki.reader.di
 
 import androidx.savedstate.SavedStateRegistryOwner
 import dagger.BindsInstance
 import dagger.Subcomponent
+import net.hyakuninanki.reader.ui.MainActivity
 import net.hyakuninanki.reader.feature.corecomponent.di.ActivityScope
 import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
 import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
@@ -58,4 +59,27 @@ interface MainComponent {
     fun examResultComponent(): ExamResultComponent.Factory
 
     fun examHistoryComponent(): ExamHistoryComponent.Factory
+
+    interface Injector : SplashComponent.Injector,
+        ExamMenuComponent.Injector,
+        MaterialComponent.Injector,
+        TrainingStarterComponent.Injector,
+        TrainingResultComponent.Injector,
+        ExamStarterComponent.Injector,
+        ExamResultComponent.Injector,
+        ExamHistoryComponent.Injector,
+        QuestionComponent.Injector {
+
+        fun mainComponent(): MainComponent
+
+        override fun splashComponent() = mainComponent().splashComponent()
+        override fun materialComponent() = mainComponent().materialListComponent()
+        override fun examMenuComponent() = mainComponent().examMenuComponent()
+        override fun trainingStarterComponent() = mainComponent().trainingStarterComponent()
+        override fun trainingResultComponent() = mainComponent().trainingResultComponent()
+        override fun questionFragment() = mainComponent().questionComponent()
+        override fun examStarterComponent() = mainComponent().examStarterComponent()
+        override fun examResultComponent() = mainComponent().examResultComponent()
+        override fun examHistoryComponent() = mainComponent().examHistoryComponent()
+    }
 }

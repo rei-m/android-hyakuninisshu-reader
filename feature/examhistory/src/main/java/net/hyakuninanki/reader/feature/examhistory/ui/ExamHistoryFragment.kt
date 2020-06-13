@@ -39,7 +39,7 @@ class ExamHistoryFragment : Fragment() {
     private val viewModel by viewModels<ExamHistoryViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamHistoryComponent.Provider)
+        (requireActivity() as ExamHistoryComponent.Injector)
             .examHistoryComponent()
             .create()
             .inject(this)

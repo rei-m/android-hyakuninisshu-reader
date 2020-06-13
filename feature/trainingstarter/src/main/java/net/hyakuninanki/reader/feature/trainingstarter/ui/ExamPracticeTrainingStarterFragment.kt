@@ -42,7 +42,7 @@ class ExamPracticeTrainingStarterFragment : Fragment() {
     private val viewModel by viewModels<ExamPracticeTrainingStarterViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as TrainingStarterComponent.Provider)
+        (requireActivity() as TrainingStarterComponent.Injector)
             .trainingStarterComponent()
             .create()
             .inject(this)

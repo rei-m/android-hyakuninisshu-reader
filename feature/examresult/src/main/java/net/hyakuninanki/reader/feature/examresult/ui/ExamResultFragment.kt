@@ -47,7 +47,7 @@ class ExamResultFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamResultComponent.Provider)
+        (requireActivity() as ExamResultComponent.Injector)
             .examResultComponent()
             .create()
             .inject(this)

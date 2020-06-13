@@ -29,7 +29,7 @@ interface ExamMenuComponent {
 
     fun inject(fragment: ExamMenuFragment)
 
-    interface Provider {
+    interface Injector {
         fun examMenuComponent(): Factory
     }
 }

@@ -29,7 +29,7 @@ interface ExamStarterComponent {
 
     fun inject(fragment: ExamStarterFragment)
 
-    interface Provider {
+    interface Injector {
         fun examStarterComponent(): Factory
     }
 }

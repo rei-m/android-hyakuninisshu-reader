@@ -20,7 +20,6 @@ package net.hyakuninanki.reader.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import net.hyakuninanki.reader.MainComponent
 import net.hyakuninanki.reader.infrastructure.database.di.InfrastructureModule
 import net.hyakuninanki.reader.infrastructure.storage.di.StorageModule
 import net.hyakuninanki.reader.state.core.di.StateCoreModule
@@ -29,11 +28,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [InfrastructureModule::class, StorageModule::class, StateCoreModule::class])
 interface AppComponent {
-    // Factory to create instances of the AppComponent
     @Component.Factory
     interface Factory {
-        // With @BindsInstance, the Context passed in will be available in the graph
-        // @BindsInstance tells Dagger that it needs to add that instance in the graph and whenever Context is required, provide that instance.
         fun create(@BindsInstance context: Context): AppComponent
     }
 

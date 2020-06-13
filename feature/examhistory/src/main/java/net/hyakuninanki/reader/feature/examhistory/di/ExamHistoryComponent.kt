@@ -29,7 +29,7 @@ interface ExamHistoryComponent {
 
     fun inject(fragment: ExamHistoryFragment)
 
-    interface Provider {
+    interface Injector {
         fun examHistoryComponent(): Factory
     }
 }

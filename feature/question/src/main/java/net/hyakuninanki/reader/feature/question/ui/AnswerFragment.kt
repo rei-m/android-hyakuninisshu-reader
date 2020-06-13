@@ -35,7 +35,7 @@ class AnswerFragment : Fragment() {
     private val args: AnswerFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as QuestionComponent.Provider)
+        (requireActivity() as QuestionComponent.Injector)
             .questionFragment()
             .create()
             .inject(this)

@@ -43,7 +43,7 @@ class MaterialDetailFragment : Fragment() {
     private val viewModel by activityViewModels<MaterialViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as MaterialComponent.Provider)
+        (requireActivity() as MaterialComponent.Injector)
             .materialComponent()
             .create()
             .inject(this)

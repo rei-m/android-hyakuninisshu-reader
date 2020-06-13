@@ -39,7 +39,7 @@ class ExamFinisherFragment : Fragment() {
     private val viewModel by viewModels<ExamFinisherViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamResultComponent.Provider)
+        (requireActivity() as ExamResultComponent.Injector)
             .examResultComponent()
             .create()
             .inject(this)

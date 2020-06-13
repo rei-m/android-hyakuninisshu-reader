@@ -50,7 +50,7 @@ class TrainingStarterFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as TrainingStarterComponent.Provider)
+        (requireActivity() as TrainingStarterComponent.Injector)
             .trainingStarterComponent()
             .create()
             .inject(this)

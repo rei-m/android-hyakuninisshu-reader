@@ -41,7 +41,7 @@ class TrainingResultFragment : Fragment() {
     private val viewModel by viewModels<TrainingResultViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as TrainingResultComponent.Provider)
+        (requireActivity() as TrainingResultComponent.Injector)
             .trainingResultComponent()
             .create()
             .inject(this)

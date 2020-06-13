@@ -43,7 +43,7 @@ class TrainingReStarterFragment : Fragment() {
     private val viewModel by viewModels<TrainingReStarterViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as TrainingStarterComponent.Provider)
+        (requireActivity() as TrainingStarterComponent.Injector)
             .trainingStarterComponent()
             .create()
             .inject(this)
