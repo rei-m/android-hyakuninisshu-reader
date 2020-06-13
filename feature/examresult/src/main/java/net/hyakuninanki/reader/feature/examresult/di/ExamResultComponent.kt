@@ -31,7 +31,7 @@ interface ExamResultComponent {
     fun inject(fragment: ExamFinisherFragment)
     fun inject(fragment: ExamResultFragment)
 
-    interface Provider {
+    interface Injector {
         fun examResultComponent(): Factory
     }
 }

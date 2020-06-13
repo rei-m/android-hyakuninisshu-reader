@@ -41,7 +41,7 @@ class ExamStarterFragment : Fragment() {
     private val viewModel by viewModels<ExamStarterViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamStarterComponent.Provider)
+        (requireActivity() as ExamStarterComponent.Injector)
             .examStarterComponent()
             .create()
             .inject(this)

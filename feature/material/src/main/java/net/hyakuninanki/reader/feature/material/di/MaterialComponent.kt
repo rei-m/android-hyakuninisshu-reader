@@ -31,7 +31,7 @@ interface MaterialComponent {
     fun inject(fragment: MaterialListFragment)
     fun inject(fragment: MaterialDetailFragment)
 
-    interface Provider {
+    interface Injector {
         fun materialComponent(): Factory
     }
 }

@@ -33,7 +33,7 @@ interface TrainingStarterComponent {
     fun inject(fragment: TrainingReStarterFragment)
     fun inject(fragment: ExamPracticeTrainingStarterFragment)
 
-    interface Provider {
+    interface Injector {
         fun trainingStarterComponent(): Factory
     }
 }

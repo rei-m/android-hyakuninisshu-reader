@@ -38,7 +38,7 @@ class ExamMenuFragment : Fragment() {
     private val viewModel by activityViewModels<ExamMenuViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamMenuComponent.Provider)
+        (requireActivity() as ExamMenuComponent.Injector)
             .examMenuComponent()
             .create()
             .inject(this)

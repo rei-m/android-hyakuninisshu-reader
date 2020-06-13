@@ -11,7 +11,7 @@ open class App : Application() {
 
     val appComponent: AppComponent by lazy { initializeComponent() }
 
-    lateinit var firebaseAnalytics: FirebaseAnalytics
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     open fun initializeComponent(): AppComponent {
         return DaggerAppComponent.factory().create(applicationContext)

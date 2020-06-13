@@ -29,7 +29,7 @@ interface TrainingResultComponent {
 
     fun inject(fragment: TrainingResultFragment)
 
-    interface Provider {
+    interface Injector {
         fun trainingResultComponent(): Factory
     }
 }

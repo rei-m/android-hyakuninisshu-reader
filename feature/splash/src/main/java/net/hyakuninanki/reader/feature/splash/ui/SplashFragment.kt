@@ -40,7 +40,7 @@ class SplashFragment : Fragment() {
     private val viewModel by activityViewModels<SplashViewModel> { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as SplashComponent.Provider)
+        (requireActivity() as SplashComponent.Injector)
             .splashComponent()
             .create()
             .inject(this)
