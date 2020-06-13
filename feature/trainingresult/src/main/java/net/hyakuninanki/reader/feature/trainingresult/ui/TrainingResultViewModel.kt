@@ -36,7 +36,7 @@ class TrainingResultViewModel(
 
     val isFailure = store.isFailure
 
-    val canRestartTraining = store.result.map { it.wrongQuestionKarutaNoList.isNotEmpty() }
+    val canRestartTraining = store.result.map { it.canRestart }
 
     init {
         dispatchAction {

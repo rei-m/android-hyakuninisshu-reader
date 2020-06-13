@@ -22,6 +22,9 @@ import androidx.annotation.StringRes
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.state.R
 
+/**
+ * 練習の条件/出題範囲開始.
+ */
 enum class RangeFromCondition(
     val value: KarutaNo,
     @param:StringRes private val resId: Int

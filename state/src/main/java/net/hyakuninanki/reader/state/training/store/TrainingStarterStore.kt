@@ -44,6 +44,7 @@ class TrainingStarterStore @Inject constructor(dispatcher: Dispatcher) : Store()
             when (it) {
                 is StartTrainingAction.Success -> {
                     _onReadyEvent.value = Event(it.questionId)
+                    _isEmpty.value = false
                     _isFailure.value = false
                 }
                 is StartTrainingAction.Empty -> {

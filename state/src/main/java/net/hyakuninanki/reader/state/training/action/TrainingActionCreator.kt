@@ -117,7 +117,7 @@ class TrainingActionCreator @Inject constructor(
             val trainingResult = TrainingResult(
                 score = resultSummary.score,
                 averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
-                wrongQuestionKarutaNoList = questionCollection.wrongKarutaNoCollection.asRandomized.map { it.value }
+                canRestart = 0 < questionCollection.wrongKarutaNoCollection.size
             )
             return AggregateResultsAction.Success(trainingResult)
         } catch (e: Exception) {

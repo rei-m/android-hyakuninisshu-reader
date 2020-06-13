@@ -21,6 +21,9 @@ import android.content.res.Resources
 import androidx.annotation.StringRes
 import net.hyakuninanki.reader.state.R
 
+/**
+ * 練習の取り札を覚える時間.
+ */
 enum class InputSecondCondition(
     val value: Int,
     @param:StringRes private val resId: Int
