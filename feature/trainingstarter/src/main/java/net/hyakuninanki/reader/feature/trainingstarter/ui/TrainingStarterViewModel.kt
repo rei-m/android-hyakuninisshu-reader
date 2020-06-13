@@ -35,8 +35,8 @@ class TrainingStarterViewModel(
     color: ColorCondition,
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
-    starterStore: TrainingStarterStore
-) : BaseTrainingStarterVIewModel(starterStore, dispatcher) {
+    store: TrainingStarterStore
+) : BaseTrainingStarterVIewModel(store, dispatcher) {
 
     init {
         dispatchAction {
@@ -52,7 +52,7 @@ class TrainingStarterViewModel(
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: TrainingActionCreator,
-        private val starterStore: TrainingStarterStore
+        private val store: TrainingStarterStore
     ) : ViewModelProvider.Factory {
         var fromCondition = RangeFromCondition.ONE
         var toCondition = RangeToCondition.ONE_HUNDRED
@@ -67,7 +67,7 @@ class TrainingStarterViewModel(
             color,
             dispatcher,
             actionCreator,
-            starterStore
+            store
         ) as T
     }
 }

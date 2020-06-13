@@ -29,14 +29,14 @@ import javax.inject.Inject
 class ExamStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: ExamActionCreator,
-    private val starterStore: ExamStarterStore
+    private val store: ExamStarterStore
 ) : AbstractViewModel(dispatcher) {
 
-    val onReadyEvent = starterStore.onReadyEvent
+    val onReadyEvent = store.onReadyEvent
 
-    val isFailure = starterStore.isFailure
+    val isFailure = store.isFailure
 
-    val isVisibleProgress = starterStore.isFailure.map { !it }
+    val isVisibleProgress = store.isFailure.map { !it }
 
     init {
         dispatchAction {
@@ -45,20 +45,20 @@ class ExamStarterViewModel(
     }
 
     override fun onCleared() {
-        starterStore.dispose()
+        store.dispose()
         super.onCleared()
     }
 
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: ExamActionCreator,
-        private val starterStore: ExamStarterStore
+        private val store: ExamStarterStore
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamStarterViewModel(
             dispatcher,
             actionCreator,
-            starterStore
+            store
         ) as T
     }
 }

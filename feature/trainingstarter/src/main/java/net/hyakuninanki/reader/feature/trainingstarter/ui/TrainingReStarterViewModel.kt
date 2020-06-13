@@ -27,8 +27,8 @@ import javax.inject.Inject
 class TrainingReStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
-    starterStore: TrainingStarterStore
-) : BaseTrainingStarterVIewModel(starterStore, dispatcher) {
+    store: TrainingStarterStore
+) : BaseTrainingStarterVIewModel(store, dispatcher) {
 
     init {
         dispatchAction {
@@ -39,13 +39,13 @@ class TrainingReStarterViewModel(
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: TrainingActionCreator,
-        private val starterStore: TrainingStarterStore
+        private val store: TrainingStarterStore
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = TrainingReStarterViewModel(
             dispatcher,
             actionCreator,
-            starterStore
+            store
         ) as T
     }
 }

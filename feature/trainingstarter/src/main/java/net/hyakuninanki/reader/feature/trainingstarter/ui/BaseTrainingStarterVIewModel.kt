@@ -24,14 +24,14 @@ import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.training.store.TrainingStarterStore
 
 abstract class BaseTrainingStarterVIewModel(
-    private val starterStore: TrainingStarterStore,
+    private val store: TrainingStarterStore,
     dispatcher: Dispatcher
 ) : AbstractViewModel(dispatcher) {
-    val onReadyEvent = starterStore.onReadyEvent
+    val onReadyEvent = store.onReadyEvent
 
-    val isEmpty = starterStore.isEmpty
+    val isEmpty = store.isEmpty
 
-    val isFailure = starterStore.isFailure
+    val isFailure = store.isFailure
 
     val isVisibleProgress =
         isEmpty.combineLatest(isFailure).map { (_isEmpty, _isFailure) ->
@@ -39,7 +39,7 @@ abstract class BaseTrainingStarterVIewModel(
         }
 
     override fun onCleared() {
-        starterStore.dispose()
+        store.dispose()
         super.onCleared()
     }
 }
