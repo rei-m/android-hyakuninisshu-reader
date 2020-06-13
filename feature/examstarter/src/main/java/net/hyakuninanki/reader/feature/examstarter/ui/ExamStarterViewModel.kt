@@ -23,20 +23,20 @@ import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
-import net.hyakuninanki.reader.state.exam.store.ExamStore
+import net.hyakuninanki.reader.state.exam.store.ExamStarterStore
 import javax.inject.Inject
 
 class ExamStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: ExamActionCreator,
-    private val store: ExamStore
+    private val starterStore: ExamStarterStore
 ) : AbstractViewModel(dispatcher) {
 
-    val onReadyEvent = store.onReadyEvent
+    val onReadyEvent = starterStore.onReadyEvent
 
-    val isFailure = store.isFailure
+    val isFailure = starterStore.isFailure
 
-    val isVisibleProgress = store.isFailure.map { !it }
+    val isVisibleProgress = starterStore.isFailure.map { !it }
 
     init {
         dispatchAction {
@@ -45,20 +45,20 @@ class ExamStarterViewModel(
     }
 
     override fun onCleared() {
-        store.dispose()
+        starterStore.dispose()
         super.onCleared()
     }
 
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: ExamActionCreator,
-        private val store: ExamStore
+        private val starterStore: ExamStarterStore
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamStarterViewModel(
             dispatcher,
             actionCreator,
-            store
+            starterStore
         ) as T
     }
 }

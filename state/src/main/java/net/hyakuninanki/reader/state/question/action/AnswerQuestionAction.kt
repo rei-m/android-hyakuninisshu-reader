@@ -20,6 +20,9 @@ package net.hyakuninanki.reader.state.question.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.question.model.QuestionState
 
+/**
+ * 問題に回答したアクション.
+ */
 sealed class AnswerQuestionAction(override val error: Throwable? = null) : Action {
 
     class Success(val state: QuestionState.Answered) : AnswerQuestionAction() {

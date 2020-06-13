@@ -20,6 +20,9 @@ package net.hyakuninanki.reader.state.material.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.material.model.Material
 
+/**
+ * すべての資料を取得するアクション.
+ */
 sealed class FetchMaterialListAction(override val error: Throwable? = null) : Action {
 
     class Success(val materialList: List<Material>) : FetchMaterialListAction() {

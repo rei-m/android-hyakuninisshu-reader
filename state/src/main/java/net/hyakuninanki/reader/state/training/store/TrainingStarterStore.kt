@@ -15,31 +15,42 @@
  *
  */
 
-package net.hyakuninanki.reader.state.exam.store
+package net.hyakuninanki.reader.state.training.store
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.core.Event
 import net.hyakuninanki.reader.state.core.Store
-import net.hyakuninanki.reader.state.exam.action.StartExamAction
+import net.hyakuninanki.reader.state.training.action.StartTrainingAction
 import javax.inject.Inject
 
-class ExamStore @Inject constructor(dispatcher: Dispatcher) : Store() {
+/**
+ * 練習の開始状態を管理する.
+ */
+class TrainingStarterStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
     private val _onReadyEvent = MutableLiveData<Event<String>>()
     val onReadyEvent: LiveData<Event<String>> = _onReadyEvent
+
+    private val _isEmpty = MutableLiveData(false)
+    val isEmpty: LiveData<Boolean> = _isEmpty
 
     private val _isFailure = MutableLiveData(false)
     val isFailure: LiveData<Boolean> = _isFailure
 
     init {
-        register(dispatcher.on(StartExamAction::class.java).subscribe {
+        register(dispatcher.on(StartTrainingAction::class.java).subscribe {
             when (it) {
-                is StartExamAction.Success -> {
+                is StartTrainingAction.Success -> {
                     _onReadyEvent.value = Event(it.questionId)
+                    _isFailure.value = false
                 }
-                is StartExamAction.Failure -> {
+                is StartTrainingAction.Empty -> {
+                    _isEmpty.value = true
+                    _isFailure.value = false
+                }
+                is StartTrainingAction.Failure -> {
                     _isFailure.value = true
                 }
             }

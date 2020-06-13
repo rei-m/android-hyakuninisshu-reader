@@ -20,6 +20,9 @@ package net.hyakuninanki.reader.state.exam.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 
+/**
+ * 力試しを完了するアクション.
+ */
 sealed class FinishExamAction(override val error: Throwable? = null) : Action {
 
     class Success(val examResult: ExamResult) : FinishExamAction() {

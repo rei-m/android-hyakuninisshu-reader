@@ -20,11 +20,11 @@ package net.hyakuninanki.reader.state.core.ext
 import android.content.Context
 import net.hyakuninanki.reader.domain.karuta.model.Karuta
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
-import net.hyakuninanki.reader.domain.karuta.model.Kimariji
 import net.hyakuninanki.reader.domain.question.model.Exam
 import net.hyakuninanki.reader.state.BuildConfig
 import net.hyakuninanki.reader.state.R
 import net.hyakuninanki.reader.state.exam.model.ExamResult
+import net.hyakuninanki.reader.state.material.model.Material
 import net.hyakuninanki.reader.state.question.model.QuestionResult
 import java.util.*
 
@@ -54,12 +54,6 @@ fun KarutaNo.toText(context: Context): String {
     return context.getString(R.string.karuta_number, sb.toString())
 }
 
-fun Kimariji.toText(context: Context): String {
-    val resources = context.resources
-    val kimarijiArray = resources.getStringArray(R.array.kimariji)
-    return kimarijiArray[this.value - 1]
-}
-
 fun Karuta.rawResId(context: Context): Int {
     val rawResName = if (BuildConfig.DEBUG) "000" else this.imageNo.value
     return context.resources.getIdentifier(
@@ -69,11 +63,36 @@ fun Karuta.rawResId(context: Context): Int {
     )
 }
 
-fun Karuta.imageResId(context: Context): Int {
-    return context.resources.getIdentifier(
+fun Karuta.toMaterial(context: Context): Material {
+    val resources = context.resources
+    val kimarijiArray = resources.getStringArray(R.array.kimariji)
+    val kimarijiTxt = kimarijiArray[kimariji.value - 1]
+
+    val imageResId = resources.getIdentifier(
         "karuta_${imageNo.value}",
         "drawable",
         context.packageName
+    )
+
+    return Material(
+        no = no.value,
+        noTxt = no.toText(context),
+        kimariji = kimariji.value,
+        kimarijiTxt = kimarijiTxt,
+        creator = creator,
+        shokuKanji = kamiNoKu.shoku.kanji,
+        shokuKana = kamiNoKu.shoku.kana,
+        nikuKanji = kamiNoKu.niku.kanji,
+        nikuKana = kamiNoKu.niku.kana,
+        sankuKanji = kamiNoKu.sanku.kanji,
+        sankuKana = kamiNoKu.sanku.kana,
+        shikuKanji = shimoNoKu.shiku.kanji,
+        shikuKana = shimoNoKu.shiku.kana,
+        gokuKanji = shimoNoKu.goku.kanji,
+        gokuKana = shimoNoKu.goku.kana,
+        translation = translation,
+        imageResId = imageResId,
+        rawResId = rawResId(context)
     )
 }
 

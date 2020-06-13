@@ -25,8 +25,14 @@ import net.hyakuninanki.reader.state.core.Store
 import net.hyakuninanki.reader.state.exam.action.FinishExamAction
 import javax.inject.Inject
 
+/**
+ * 力試しの完了状態を管理する.
+ */
 class ExamFinisherStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
+    /**
+     * 力試しの完了を通知するイベント.
+     */
     private val _onFinishEvent = MutableLiveData<Event<Long>>()
     val onFinishEvent: LiveData<Event<Long>> = _onFinishEvent
 
@@ -38,6 +44,7 @@ class ExamFinisherStore @Inject constructor(dispatcher: Dispatcher) : Store() {
             when (it) {
                 is FinishExamAction.Success -> {
                     _onFinishEvent.value = Event(it.examResult.id)
+                    _isFailure.value = false
                 }
                 is FinishExamAction.Failure -> {
                     _isFailure.value = true

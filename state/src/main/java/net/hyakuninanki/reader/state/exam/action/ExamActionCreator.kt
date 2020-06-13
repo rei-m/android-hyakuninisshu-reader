@@ -25,10 +25,10 @@ import net.hyakuninanki.reader.domain.question.model.*
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
 import net.hyakuninanki.reader.state.R
 import net.hyakuninanki.reader.state.core.ext.diffString
+import net.hyakuninanki.reader.state.core.ext.toMaterial
 import net.hyakuninanki.reader.state.core.ext.toResult
 import net.hyakuninanki.reader.state.core.ext.toText
 import net.hyakuninanki.reader.state.exam.model.ExamResult
-import net.hyakuninanki.reader.state.material.model.Material
 import net.hyakuninanki.reader.state.question.model.QuestionResult
 import java.util.*
 import javax.inject.Inject
@@ -50,8 +50,8 @@ class ExamActionCreator @Inject constructor(
      */
     suspend fun start() = try {
         val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
-        // TODO: あとでtakeを消す
-        val targetKarutaList = karutaRepository.findAll().take(1)
+
+        val targetKarutaList = karutaRepository.findAll()
 
         val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
 
@@ -71,9 +71,13 @@ class ExamActionCreator @Inject constructor(
     /**
      * 力試しを終了して結果を登録する.
      *
+     * @param now 力試しを終了した時間
+     *
      * @return FinishExamAction
      */
-    suspend fun finish(now: Date = Date()) = try {
+    suspend fun finish(
+        now: Date = Date()
+    ) = try {
         val questionCollection = questionRepository.findCollection()
         val result = ExamResult(
             questionCollection.resultSummary,
@@ -109,11 +113,15 @@ class ExamActionCreator @Inject constructor(
     }
 
     /**
-     * 最新の力試しを取得する.
+     * 最新の力試しの結果を取得する.
+     *
+     * @param now 現在時刻
      *
      * @return FetchRecentExamAction
      */
-    suspend fun fetchRecentResult(now: Date = Date()): FetchRecentExamResultAction {
+    suspend fun fetchRecentResult(
+        now: Date = Date()
+    ): FetchRecentExamResultAction {
         try {
             val recentExam =
                 examRepository.last() ?: return FetchRecentExamResultAction.Success(null)
@@ -124,19 +132,46 @@ class ExamActionCreator @Inject constructor(
         }
     }
 
-    suspend fun fetchResult(id: Long, now: Date = Date()): FetchExamResultAction {
-        val exam = examRepository.findById(ExamId(id))
-            ?: return FetchExamResultAction.Failure(NoSuchElementException())
-        return FetchExamResultAction.Success(
-            examResult = exam.toResult(context, now),
-            materialList = karutaRepository.findAll().map { Material.createFromKaruta(it, context) }
-        )
+    /**
+     * 指定した力試しの結果を取得する.
+     *
+     * @param id 力試しID
+     * @param now 現在時刻
+     *
+     * @return FetchExamResultAction
+     */
+    suspend fun fetchResult(
+        id: Long,
+        now: Date = Date()
+    ): FetchExamResultAction {
+        try {
+            val exam = examRepository.findById(ExamId(id))
+                ?: return FetchExamResultAction.Failure(NoSuchElementException())
+            return FetchExamResultAction.Success(
+                examResult = exam.toResult(context, now),
+                materialList = karutaRepository.findAll()
+                    .map { it.toMaterial(context) }
+            )
+        } catch (e: Exception) {
+            return FetchExamResultAction.Failure(e)
+        }
     }
 
-    suspend fun fetchAllResult(now: Date = Date()): FetchAllExamResultAction {
+    /**
+     * すべての力試しの結果を取得する.
+     *
+     * @param now 現在時刻
+     *
+     * @return FetchAllExamResultAction
+     */
+    suspend fun fetchAllResult(
+        now: Date = Date()
+    ): FetchAllExamResultAction = try {
         val examCollection = examRepository.findCollection()
-        return FetchAllExamResultAction.Success(
+        FetchAllExamResultAction.Success(
             examResultList = examCollection.all.map { it.toResult(context, now) }
         )
+    } catch (e: Exception) {
+        FetchAllExamResultAction.Failure(e)
     }
 }

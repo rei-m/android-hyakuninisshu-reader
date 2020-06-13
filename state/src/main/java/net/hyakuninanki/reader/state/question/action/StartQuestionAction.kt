@@ -21,6 +21,9 @@ import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.question.model.Question
 import net.hyakuninanki.reader.state.question.model.QuestionState
 
+/**
+ * 問題を開始するアクション.
+ */
 sealed class StartQuestionAction(override val error: Throwable? = null) : Action {
 
     class Success(val question: Question, val state: QuestionState) : StartQuestionAction() {

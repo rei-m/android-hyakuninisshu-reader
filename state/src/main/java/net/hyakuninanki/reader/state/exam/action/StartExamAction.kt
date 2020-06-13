@@ -19,6 +19,9 @@ package net.hyakuninanki.reader.state.exam.action
 
 import net.hyakuninanki.reader.state.core.Action
 
+/**
+ * 力試しを開始するアクション.
+ */
 sealed class StartExamAction(override val error: Throwable? = null) : Action {
 
     class Success(val questionId: String) : StartExamAction() {

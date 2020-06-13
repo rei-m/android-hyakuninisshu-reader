@@ -17,16 +17,33 @@
 
 package net.hyakuninanki.reader.state.material.model
 
-import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
-import net.hyakuninanki.reader.domain.karuta.model.Karuta
-import net.hyakuninanki.reader.state.core.ext.imageResId
-import net.hyakuninanki.reader.state.core.ext.rawResId
-import net.hyakuninanki.reader.state.core.ext.toText
 
+/**
+ * 歌の資料表示用.
+ *
+ * @param no 番号
+ * @param noTxt 番号の表示用テキスト
+ * @param kimariji 決まり字
+ * @param kimarijiTxt 決まり字の表示用テキスト
+ * @param creator 作者
+ * @param shokuKanji 初句の漢字
+ * @param shokuKana 初句のかな
+ * @param nikuKanji 二句の漢字
+ * @param nikuKana 二句のかな
+ * @param sankuKanji 三句の漢字
+ * @param sankuKana 三句のかな
+ * @param shikuKanji 四句の漢字
+ * @param shikuKana 四句のかな
+ * @param gokuKanji 結句の漢字
+ * @param gokuKana 結句のかな
+ * @param translation 訳
+ * @param imageResId 画像のリソースID
+ * @param rawResId 読み上げデータのリソースID
+ */
 data class Material(
     val no: Int,
     val noTxt: String,
@@ -107,29 +124,6 @@ data class Material(
 
         override fun newArray(size: Int): Array<Material?> {
             return arrayOfNulls(size)
-        }
-
-        fun createFromKaruta(karuta: Karuta, context: Context): Material {
-            return Material(
-                no = karuta.no.value,
-                noTxt = karuta.no.toText(context),
-                kimariji = karuta.kimariji.value,
-                kimarijiTxt = karuta.kimariji.toText(context),
-                creator = karuta.creator,
-                shokuKanji = karuta.kamiNoKu.shoku.kanji,
-                shokuKana = karuta.kamiNoKu.shoku.kana,
-                nikuKanji = karuta.kamiNoKu.niku.kanji,
-                nikuKana = karuta.kamiNoKu.niku.kana,
-                sankuKanji = karuta.kamiNoKu.sanku.kanji,
-                sankuKana = karuta.kamiNoKu.sanku.kana,
-                shikuKanji = karuta.shimoNoKu.shiku.kanji,
-                shikuKana = karuta.shimoNoKu.shiku.kana,
-                gokuKanji = karuta.shimoNoKu.goku.kanji,
-                gokuKana = karuta.shimoNoKu.goku.kana,
-                translation = karuta.translation,
-                imageResId = karuta.imageResId(context),
-                rawResId = karuta.rawResId(context)
-            )
         }
     }
 }

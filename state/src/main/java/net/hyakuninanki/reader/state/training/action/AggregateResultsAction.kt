@@ -20,6 +20,9 @@ package net.hyakuninanki.reader.state.training.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.training.model.TrainingResult
 
+/**
+ * 練習の結果を集計するアクション.
+ */
 sealed class AggregateResultsAction(override val error: Throwable? = null) : Action {
 
     class Success(val trainingResult: TrainingResult) : AggregateResultsAction() {

@@ -28,6 +28,9 @@ import net.hyakuninanki.reader.state.question.model.Question
 import net.hyakuninanki.reader.state.question.model.QuestionState
 import javax.inject.Inject
 
+/**
+ * 問題の状態を管理する.
+ */
 class QuestionStore @Inject constructor(dispatcher: Dispatcher) : Store() {
     private val _question = MutableLiveData<Question>()
     val question: LiveData<Question> = _question
@@ -35,33 +38,39 @@ class QuestionStore @Inject constructor(dispatcher: Dispatcher) : Store() {
     private val _state = MutableLiveData<QuestionState>()
     val state: LiveData<QuestionState> = _state
 
+    private val _isFailure = MutableLiveData(false)
+    val isFailure: LiveData<Boolean> = _isFailure
+
     init {
         register(dispatcher.on(StartQuestionAction::class.java).subscribe {
             when (it) {
                 is StartQuestionAction.Success -> {
                     _question.value = it.question
                     _state.value = it.state
+                    _isFailure.value = false
                 }
                 is StartQuestionAction.Failure -> {
-                    // TODO
+                    _isFailure.value = true
                 }
             }
         }, dispatcher.on(StartAnswerQuestionAction::class.java).subscribe {
             when (it) {
                 is StartAnswerQuestionAction.Success -> {
                     _state.value = it.state
+                    _isFailure.value = false
                 }
                 is StartAnswerQuestionAction.Failure -> {
-                    // TODO
+                    _isFailure.value = true
                 }
             }
         }, dispatcher.on(AnswerQuestionAction::class.java).subscribe {
             when (it) {
                 is AnswerQuestionAction.Success -> {
                     _state.value = it.state
+                    _isFailure.value = false
                 }
                 is AnswerQuestionAction.Failure -> {
-                    // TODO
+                    _isFailure.value = true
                 }
             }
         })

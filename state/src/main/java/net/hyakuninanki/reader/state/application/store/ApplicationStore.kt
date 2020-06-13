@@ -25,8 +25,14 @@ import net.hyakuninanki.reader.state.core.Event
 import net.hyakuninanki.reader.state.core.Store
 import javax.inject.Inject
 
+/**
+ * アプリケーションの状態を管理する.
+ */
 class ApplicationStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
+    /**
+     * アプリケーションの準備が完了したことを通知するイベント.
+     */
     private val _onReadyEvent = MutableLiveData<Event<Unit>>()
     val onReadyEvent: LiveData<Event<Unit>> = _onReadyEvent
 
@@ -38,6 +44,7 @@ class ApplicationStore @Inject constructor(dispatcher: Dispatcher) : Store() {
             when (it) {
                 is StartApplicationAction.Success -> {
                     _onReadyEvent.value = Event(Unit)
+                    _isFailure.value = false
                 }
                 is StartApplicationAction.Failure -> {
                     _isFailure.value = true

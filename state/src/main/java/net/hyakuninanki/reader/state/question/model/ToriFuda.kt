@@ -17,6 +17,14 @@
 
 package net.hyakuninanki.reader.state.question.model
 
+/**
+ * 取り札の表示用.
+ *
+ * @param karutaNo 取り札の歌の番号
+ * @param firstLine 1行目に表示するテキスト
+ * @param secondLine 2行目に表示するテキスト
+ * @param thirdLine 3行目に表示するテキスト
+ */
 data class ToriFuda(
     val karutaNo: Int,
     val firstLine: String,

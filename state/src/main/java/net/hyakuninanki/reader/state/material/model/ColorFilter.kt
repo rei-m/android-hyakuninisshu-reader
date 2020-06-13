@@ -21,6 +21,12 @@ import androidx.annotation.StringRes
 import net.hyakuninanki.reader.domain.karuta.model.KarutaColor
 import net.hyakuninanki.reader.state.R
 
+/**
+ * 資料の色で絞り込むフィルター.
+ *
+ * @param value 色の値
+ * @param resId テキスト表示用のID
+ */
 enum class ColorFilter(
     val value: KarutaColor?,
     @param:StringRes val resId: Int

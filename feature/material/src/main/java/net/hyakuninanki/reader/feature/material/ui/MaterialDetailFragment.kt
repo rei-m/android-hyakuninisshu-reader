@@ -73,6 +73,7 @@ class MaterialDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.materialList.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
             (binding.pager.adapter as ScreenSlidePagerAdapter).replaceData(it)
             if (savedInstanceState == null) {
                 binding.pager.setCurrentItem(args.position, false)
