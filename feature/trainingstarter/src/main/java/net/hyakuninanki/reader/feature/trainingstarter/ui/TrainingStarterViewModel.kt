@@ -25,7 +25,7 @@ import net.hyakuninanki.reader.state.training.model.ColorCondition
 import net.hyakuninanki.reader.state.training.model.KimarijiCondition
 import net.hyakuninanki.reader.state.training.model.RangeFromCondition
 import net.hyakuninanki.reader.state.training.model.RangeToCondition
-import net.hyakuninanki.reader.state.training.store.TrainingStore
+import net.hyakuninanki.reader.state.training.store.TrainingStarterStore
 import javax.inject.Inject
 
 class TrainingStarterViewModel(
@@ -35,7 +35,7 @@ class TrainingStarterViewModel(
     color: ColorCondition,
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
-    store: TrainingStore
+    store: TrainingStarterStore
 ) : BaseTrainingStarterVIewModel(store, dispatcher) {
 
     init {
@@ -52,7 +52,7 @@ class TrainingStarterViewModel(
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: TrainingActionCreator,
-        private val store: TrainingStore
+        private val store: TrainingStarterStore
     ) : ViewModelProvider.Factory {
         var fromCondition = RangeFromCondition.ONE
         var toCondition = RangeToCondition.ONE_HUNDRED

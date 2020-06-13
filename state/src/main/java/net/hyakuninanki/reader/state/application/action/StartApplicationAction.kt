@@ -19,13 +19,18 @@ package net.hyakuninanki.reader.state.application.action
 
 import net.hyakuninanki.reader.state.core.Action
 
+/**
+ * アプリケーションの開始を通知するアクション.
+ */
 sealed class StartApplicationAction(override val error: Throwable? = null) : Action {
 
     class Success : StartApplicationAction() {
         override fun toString() = "$name()"
     }
 
-    class Failure(error: Throwable) : StartApplicationAction(error) {
+    class Failure(
+        error: Throwable
+    ) : StartApplicationAction(error) {
         override fun toString() = "$name(error=$error)"
     }
 

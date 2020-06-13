@@ -25,18 +25,25 @@ import net.hyakuninanki.reader.state.exam.action.FetchAllExamResultAction
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 import javax.inject.Inject
 
+/**
+ * 力試しの履歴を管理する.
+ */
 class ExamHistoryStore @Inject constructor(dispatcher: Dispatcher) : Store() {
     private val _resultList = MutableLiveData<List<ExamResult>?>()
     val resultList: LiveData<List<ExamResult>?> = _resultList
+
+    private val _isFailure = MutableLiveData(false)
+    val isFailure: LiveData<Boolean> = _isFailure
 
     init {
         register(dispatcher.on(FetchAllExamResultAction::class.java).subscribe {
             when (it) {
                 is FetchAllExamResultAction.Success -> {
                     _resultList.value = it.examResultList
+                    _isFailure.value = false
                 }
                 is FetchAllExamResultAction.Failure -> {
-                    // TODO
+                    _isFailure.value = true
                 }
             }
         })

@@ -25,11 +25,17 @@ import net.hyakuninanki.reader.state.core.Store
 import net.hyakuninanki.reader.state.exam.action.StartExamAction
 import javax.inject.Inject
 
-class ExamStore @Inject constructor(dispatcher: Dispatcher) : Store() {
+/**
+ * 力試しの開始情報を管理する.
+ */
+class ExamStarterStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
+    /**
+     * 力試しの準備完了イベント.
+     */
     private val _onReadyEvent = MutableLiveData<Event<String>>()
     val onReadyEvent: LiveData<Event<String>> = _onReadyEvent
-
+    
     private val _isFailure = MutableLiveData(false)
     val isFailure: LiveData<Boolean> = _isFailure
 
@@ -38,6 +44,7 @@ class ExamStore @Inject constructor(dispatcher: Dispatcher) : Store() {
             when (it) {
                 is StartExamAction.Success -> {
                     _onReadyEvent.value = Event(it.questionId)
+                    _isFailure.value = false
                 }
                 is StartExamAction.Failure -> {
                     _isFailure.value = true

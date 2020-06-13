@@ -38,7 +38,12 @@ class TrainingActionCreator @Inject constructor(
     private val createQuestionListService: CreateQuestionListService
 ) {
     /**
-     * 練習を開始する.
+     * 条件を指定して練習を開始する.
+     *
+     * @param fromCondition 歌番号の開始
+     * @param toCondition 歌番号の終了
+     * @param kimariji 決まり字
+     * @param color 色
      *
      * @return StartTrainingAction
      */
@@ -65,6 +70,9 @@ class TrainingActionCreator @Inject constructor(
         StartTrainingAction.Failure(e)
     }
 
+    /**
+     * 過去の力試しの結果から間違えた問題を抽出して練習を開始する.
+     */
     suspend fun startByExamPractice(): StartTrainingAction = try {
         val totalWrongKarutaNoCollection =
             examRepository.findCollection().totalWrongKarutaNoCollection
@@ -77,6 +85,9 @@ class TrainingActionCreator @Inject constructor(
         StartTrainingAction.Failure(e)
     }
 
+    /**
+     * 練習で間違えた問題を抽出して練習を開始する.
+     */
     suspend fun restart(): StartTrainingAction = try {
         val targetKarutaNoList = questionRepository
             .findCollection()
@@ -106,7 +117,7 @@ class TrainingActionCreator @Inject constructor(
             val trainingResult = TrainingResult(
                 score = resultSummary.score,
                 averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
-                wrongQuestionKarutaNoList = questionCollection.wrongKarutaNoCollection.asRandomized.map { it.value }
+                canRestart = 0 < questionCollection.wrongKarutaNoCollection.size
             )
             return AggregateResultsAction.Success(trainingResult)
         } catch (e: Exception) {

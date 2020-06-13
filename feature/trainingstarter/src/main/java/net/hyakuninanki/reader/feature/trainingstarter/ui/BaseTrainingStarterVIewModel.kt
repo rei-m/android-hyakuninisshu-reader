@@ -21,10 +21,10 @@ import net.hyakuninanki.reader.feature.corecomponent.ext.combineLatest
 import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
-import net.hyakuninanki.reader.state.training.store.TrainingStore
+import net.hyakuninanki.reader.state.training.store.TrainingStarterStore
 
 abstract class BaseTrainingStarterVIewModel(
-    private val store: TrainingStore,
+    private val store: TrainingStarterStore,
     dispatcher: Dispatcher
 ) : AbstractViewModel(dispatcher) {
     val onReadyEvent = store.onReadyEvent

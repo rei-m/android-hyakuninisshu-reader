@@ -18,13 +18,75 @@
 package net.hyakuninanki.reader.domain.helper
 
 import androidx.annotation.VisibleForTesting
-import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
-import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
+import net.hyakuninanki.reader.domain.karuta.model.*
 import net.hyakuninanki.reader.domain.question.model.*
 import java.util.*
 
 @VisibleForTesting
 interface TestHelper {
+    fun createKaruta(
+        id: KarutaId = KarutaId(1),
+        no: KarutaNo = KarutaNo(1),
+        creator: String = "天智天皇",
+        kamiNoKu: KamiNoKu = KamiNoKu(
+            karutaNo = KarutaNo(1),
+            shoku = Verse(
+                kana = "あきのたの",
+                kanji = "秋の田の"
+            ),
+            niku = Verse(
+                kana = "かりほのいほの",
+                kanji = "かりほの庵の"
+            ),
+            sanku = Verse(
+                kana = "とまをあらみ",
+                kanji = "苫をあらみ"
+            )
+        ),
+        shimoNoKu: ShimoNoKu = ShimoNoKu(
+            karutaNo = KarutaNo(1),
+            shiku = Verse(
+                kana = "わがころもでは",
+                kanji = "わが衣手は"
+            ),
+            goku = Verse(
+                kana = "つゆにぬれつつ",
+                kanji = "露にぬれつつ"
+            )
+        ),
+        kimariji: Kimariji = Kimariji.THREE,
+        imageNo: KarutaImageNo = KarutaImageNo("001"),
+        translation: String = "秋の田の側につくった仮小屋に泊まってみると、屋根をふいた苫の目があらいので、その隙間から忍びこむ冷たい夜露が、私の着物の袖をすっかりと濡らしてしまっているなぁ。",
+        color: KarutaColor = KarutaColor.BLUE,
+        toriFuda: ToriFuda = ToriFuda(
+            karutaNo = KarutaNo(1),
+            firstLine = "わかころも",
+            secondLine = "てはつゆに",
+            thirdLine = "ぬれつつ"
+        )
+
+    ): Karuta = Karuta(
+        id = id,
+        no = no,
+        creator = creator,
+        kamiNoKu = kamiNoKu,
+        shimoNoKu = shimoNoKu,
+        kimariji = kimariji,
+        imageNo = imageNo,
+        translation = translation,
+        color = color,
+        toriFuda = toriFuda
+    )
+
+    fun createAllKarutaList(): List<Karuta> {
+        return KarutaNo.LIST.map {
+            createKaruta(
+                id = KarutaId(it.value),
+                no = it
+            )
+        }
+    }
+
     fun createQuestionReady(
         id: QuestionId = QuestionId(),
         no: Int = 1,

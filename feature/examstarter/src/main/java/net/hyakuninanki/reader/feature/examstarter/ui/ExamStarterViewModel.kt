@@ -23,13 +23,13 @@ import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
-import net.hyakuninanki.reader.state.exam.store.ExamStore
+import net.hyakuninanki.reader.state.exam.store.ExamStarterStore
 import javax.inject.Inject
 
 class ExamStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: ExamActionCreator,
-    private val store: ExamStore
+    private val store: ExamStarterStore
 ) : AbstractViewModel(dispatcher) {
 
     val onReadyEvent = store.onReadyEvent
@@ -52,7 +52,7 @@ class ExamStarterViewModel(
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: ExamActionCreator,
-        private val store: ExamStore
+        private val store: ExamStarterStore
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamStarterViewModel(

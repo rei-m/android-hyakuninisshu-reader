@@ -21,13 +21,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.training.action.TrainingActionCreator
-import net.hyakuninanki.reader.state.training.store.TrainingStore
+import net.hyakuninanki.reader.state.training.store.TrainingStarterStore
 import javax.inject.Inject
 
 class TrainingReStarterViewModel(
     dispatcher: Dispatcher,
     actionCreator: TrainingActionCreator,
-    store: TrainingStore
+    store: TrainingStarterStore
 ) : BaseTrainingStarterVIewModel(store, dispatcher) {
 
     init {
@@ -39,7 +39,7 @@ class TrainingReStarterViewModel(
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: TrainingActionCreator,
-        private val store: TrainingStore
+        private val store: TrainingStarterStore
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = TrainingReStarterViewModel(

@@ -26,11 +26,20 @@ import net.hyakuninanki.reader.state.exam.model.ExamResult
 import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 
+/**
+ * 力試しの結果の状態を管理する.
+ */
 class ExamResultStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
+    /**
+     * 力試しの結果.
+     */
     private val _result = MutableLiveData<ExamResult?>()
     val result: LiveData<ExamResult?> = _result
 
+    /**
+     * 全百人一首の資料の情報.
+     */
     private val _materialList = MutableLiveData<List<Material>?>()
     val materialList: LiveData<List<Material>?> = _materialList
 
@@ -43,6 +52,7 @@ class ExamResultStore @Inject constructor(dispatcher: Dispatcher) : Store() {
                 is FetchExamResultAction.Success -> {
                     _result.value = it.examResult
                     _materialList.value = it.materialList
+                    _isFailure.value = false
                 }
                 is FetchExamResultAction.Failure -> {
                     _isFailure.value = true

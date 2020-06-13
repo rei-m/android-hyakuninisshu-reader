@@ -19,6 +19,9 @@ package net.hyakuninanki.reader.state.training.action
 
 import net.hyakuninanki.reader.state.core.Action
 
+/**
+ * 練習を開始するアクション.
+ */
 sealed class StartTrainingAction(override val error: Throwable? = null) : Action {
 
     class Success(val questionId: String) : StartTrainingAction() {

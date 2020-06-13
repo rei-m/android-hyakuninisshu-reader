@@ -25,7 +25,10 @@ import net.hyakuninanki.reader.state.core.Store
 import net.hyakuninanki.reader.state.training.action.StartTrainingAction
 import javax.inject.Inject
 
-class TrainingStore @Inject constructor(dispatcher: Dispatcher) : Store() {
+/**
+ * 練習の開始状態を管理する.
+ */
+class TrainingStarterStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
     private val _onReadyEvent = MutableLiveData<Event<String>>()
     val onReadyEvent: LiveData<Event<String>> = _onReadyEvent
@@ -41,9 +44,12 @@ class TrainingStore @Inject constructor(dispatcher: Dispatcher) : Store() {
             when (it) {
                 is StartTrainingAction.Success -> {
                     _onReadyEvent.value = Event(it.questionId)
+                    _isEmpty.value = false
+                    _isFailure.value = false
                 }
                 is StartTrainingAction.Empty -> {
                     _isEmpty.value = true
+                    _isFailure.value = false
                 }
                 is StartTrainingAction.Failure -> {
                     _isFailure.value = true

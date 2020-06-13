@@ -17,6 +17,15 @@
 
 package net.hyakuninanki.reader.state.question.model
 
+/**
+ * 問題の表示用.
+ *
+ * @param id 問題のID値
+ * @param no 問題の番号
+ * @param position 問題が何問中何番目にいるかのテキスト
+ * @param toriFudaList 取り札のリスト
+ * @param yomiFudaKarutaNo 読み札の歌番号
+ */
 data class Question(
     val id: String,
     val no: Int,

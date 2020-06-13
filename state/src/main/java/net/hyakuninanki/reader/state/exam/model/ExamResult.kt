@@ -19,6 +19,15 @@ package net.hyakuninanki.reader.state.exam.model
 
 import net.hyakuninanki.reader.state.question.model.QuestionResult
 
+/**
+ * 力試し結果表示用.
+ *
+ * @param id 力試しID値
+ * @param score 力試しの結果
+ * @param averageAnswerSecText 力試しの全問題の平均解答時間(秒)
+ * @param questionResultList 力試しの各問題の結果
+ * @param fromNowText 現在時間から何秒前に実行したか
+ */
 data class ExamResult(
     val id: Long,
     val score: String,

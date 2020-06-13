@@ -26,24 +26,39 @@ import net.hyakuninanki.reader.state.exam.action.FinishExamAction
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 import javax.inject.Inject
 
+/**
+ * 力試しメニューの状態を管理する.
+ */
 class ExamMenuStore @Inject constructor(dispatcher: Dispatcher) : Store() {
+
+    /**
+     * 最新の力試しの結果.
+     */
     private val _recentResult = MutableLiveData<ExamResult>()
     val recentResult: LiveData<ExamResult?> = _recentResult
+
+    private val _isFailure = MutableLiveData(false)
+    val isFailure: LiveData<Boolean> = _isFailure
 
     init {
         register(dispatcher.on(FetchRecentExamResultAction::class.java).subscribe {
             when (it) {
                 is FetchRecentExamResultAction.Success -> {
                     _recentResult.value = it.examResult
+                    _isFailure.value = false
                 }
                 is FetchRecentExamResultAction.Failure -> {
-                    // TODO
+                    _isFailure.value = true
                 }
             }
         }, dispatcher.on(FinishExamAction::class.java).subscribe {
             when (it) {
                 is FinishExamAction.Success -> {
                     _recentResult.value = it.examResult
+                    _isFailure.value = false
+                }
+                is FinishExamAction.Failure -> {
+                    _isFailure.value = true
                 }
             }
         })

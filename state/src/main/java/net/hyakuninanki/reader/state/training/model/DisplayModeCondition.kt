@@ -21,6 +21,9 @@ import android.content.res.Resources
 import androidx.annotation.StringRes
 import net.hyakuninanki.reader.state.R
 
+/**
+ * 練習の取り札の表示条件.
+ */
 enum class DisplayModeCondition(
     val value: Int,
     @param:StringRes private val resId: Int

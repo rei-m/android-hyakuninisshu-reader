@@ -23,7 +23,7 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
 import net.hyakuninanki.reader.domain.question.model.QuestionId
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
 import net.hyakuninanki.reader.state.core.ext.rawResId
-import net.hyakuninanki.reader.state.material.model.Material
+import net.hyakuninanki.reader.state.core.ext.toMaterial
 import net.hyakuninanki.reader.state.question.model.Question
 import net.hyakuninanki.reader.state.question.model.QuestionState
 import net.hyakuninanki.reader.state.question.model.ToriFuda
@@ -40,7 +40,9 @@ class QuestionActionCreator @Inject constructor(
     private val questionRepository: QuestionRepository
 ) {
     /**
-     * 問題を開始する
+     * 問題を開始する.
+     *
+     * @param questionId 問題ID.
      *
      * @return StartQuestionAction
      */
@@ -67,10 +69,8 @@ class QuestionActionCreator @Inject constructor(
                 QuestionState.Answered(
                     selectedToriFudaIndex = question.choiceList.indexOf(questionState.result.selectedKarutaNo),
                     isCorrect = questionState.result.judgement.isCorrect,
-                    correctMaterial = Material.createFromKaruta(
-                        choiceKarutaList.find { it.no == question.correctNo }!!,
-                        context
-                    ),
+                    correctMaterial = choiceKarutaList.find { it.no == question.correctNo }!!
+                        .toMaterial(context),
                     nextQuestionId = questionRepository.findIdByNo(question.no)?.value
                 )
         }
@@ -91,9 +91,11 @@ class QuestionActionCreator @Inject constructor(
     /**
      * 回答を開始する.
      *
-     * @param questionId 問題ID.
-     * @param startTime 開始時間.
+     * @param questionId 問題ID
+     * @param startTime 開始時間
+     *
      * @return StartQuestionAction
+     *
      * @throws NoSuchElementException 問題が見つからなかった場合
      */
     suspend fun startAnswer(questionId: String, startTime: Date): StartAnswerQuestionAction {
@@ -115,9 +117,11 @@ class QuestionActionCreator @Inject constructor(
     /**
      * 回答する.
      *
-     * @param questionId 問題ID.
-     * @param toriFuda 選択した取札.
+     * @param questionId 問題ID
+     * @param toriFuda 選択した取札
+     *
      * @return AnswerQuestionAction
+     *
      * @throws NoSuchElementException 問題が見つからなかった場合
      */
     suspend fun answer(
@@ -142,7 +146,7 @@ class QuestionActionCreator @Inject constructor(
             QuestionState.Answered(
                 selectedToriFudaIndex = verified.choiceList.indexOf(selectedKarutaNo),
                 isCorrect = isCorrect,
-                correctMaterial = Material.createFromKaruta(correctKaruta, context),
+                correctMaterial = correctKaruta.toMaterial(context),
                 nextQuestionId = questionRepository.findIdByNo(verified.no + 1)?.value
             )
         )

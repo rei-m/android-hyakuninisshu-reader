@@ -17,8 +17,11 @@
 
 package net.hyakuninanki.reader.state.training.model
 
+/**
+ * 練習結果.
+ */
 data class TrainingResult(
     val score: String,
     val averageAnswerSecText: String,
-    val wrongQuestionKarutaNoList: List<Int>
+    val canRestart: Boolean
 )

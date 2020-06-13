@@ -25,6 +25,9 @@ import net.hyakuninanki.reader.state.training.action.AggregateResultsAction
 import net.hyakuninanki.reader.state.training.model.TrainingResult
 import javax.inject.Inject
 
+/**
+ * 練習結果の状態を管理する
+ */
 class TrainingResultStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
     private val _result = MutableLiveData<TrainingResult>()
@@ -38,6 +41,7 @@ class TrainingResultStore @Inject constructor(dispatcher: Dispatcher) : Store() 
             when (it) {
                 is AggregateResultsAction.Success -> {
                     _result.value = it.trainingResult
+                    _isFailure.value = false
                 }
                 is AggregateResultsAction.Failure -> {
                     _isFailure.value = true

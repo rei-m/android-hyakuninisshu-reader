@@ -22,6 +22,9 @@ import androidx.annotation.StringRes
 import net.hyakuninanki.reader.domain.karuta.model.Kimariji
 import net.hyakuninanki.reader.state.R
 
+/**
+ * 練習の条件/決まり字.
+ */
 enum class KimarijiCondition(
     val value: Kimariji?,
     @param:StringRes private val resId: Int

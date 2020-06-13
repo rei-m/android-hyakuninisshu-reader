@@ -25,19 +25,26 @@ import net.hyakuninanki.reader.state.material.action.FetchMaterialListAction
 import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 
+/**
+ * 資料の状態を管理する.
+ */
 class MaterialStore @Inject constructor(dispatcher: Dispatcher) : Store() {
 
-    private val _materialList = MutableLiveData<List<Material>>(listOf())
-    val materialList: LiveData<List<Material>> = _materialList
+    private val _materialList = MutableLiveData<List<Material>?>()
+    val materialList: LiveData<List<Material>?> = _materialList
+
+    private val _isFailure = MutableLiveData(false)
+    val isFailure: LiveData<Boolean> = _isFailure
 
     init {
         register(dispatcher.on(FetchMaterialListAction::class.java).subscribe {
             when (it) {
                 is FetchMaterialListAction.Success -> {
                     _materialList.value = it.materialList
+                    _isFailure.value = false
                 }
                 is FetchMaterialListAction.Failure -> {
-                    // TODO
+                    _isFailure.value = true
                 }
             }
         })

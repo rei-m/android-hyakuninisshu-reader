@@ -22,8 +22,8 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaColor
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
 import net.hyakuninanki.reader.domain.karuta.model.Kimariji
+import net.hyakuninanki.reader.state.core.ext.toMaterial
 import net.hyakuninanki.reader.state.material.model.ColorFilter
-import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -36,6 +36,7 @@ class MaterialActionCreator @Inject constructor(
      * 指定した色の該当する歌をすべて取り出す.
      *
      *  @param color 五色絞り込み条件
+     *
      *  @return FetchMaterialAction
      */
     suspend fun fetchMaterialList(color: ColorFilter?) = try {
@@ -48,9 +49,7 @@ class MaterialActionCreator @Inject constructor(
             colors = colors
         )
 
-        FetchMaterialListAction.Success(karutaList.map { karuta ->
-            Material.createFromKaruta(karuta, context)
-        })
+        FetchMaterialListAction.Success(karutaList.map { it.toMaterial(context) })
     } catch (e: Exception) {
         FetchMaterialListAction.Failure(e)
     }

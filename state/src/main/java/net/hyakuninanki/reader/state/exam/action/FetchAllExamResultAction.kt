@@ -20,6 +20,9 @@ package net.hyakuninanki.reader.state.exam.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 
+/**
+ * 力試しの結果をすべて取得するアクション.
+ */
 sealed class FetchAllExamResultAction(override val error: Throwable? = null) : Action {
 
     class Success(
@@ -32,5 +35,5 @@ sealed class FetchAllExamResultAction(override val error: Throwable? = null) : A
         override fun toString() = "$name(error=$error)"
     }
 
-    override val name = "FetchExamResultAction"
+    override val name = "FetchAllExamResultAction"
 }

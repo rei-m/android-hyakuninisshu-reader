@@ -20,11 +20,31 @@ package net.hyakuninanki.reader.state.question.model
 import androidx.annotation.RawRes
 import net.hyakuninanki.reader.state.material.model.Material
 
+/**
+ * 問題の状態表示用.
+ */
 sealed class QuestionState {
+
+    /**
+     * 回答開始前.
+     */
     object Ready : QuestionState()
 
+    /**
+     * 回答中.
+     *
+     * @param rawResId 読み上げデータのリソースID
+     */
     class InAnswer(@RawRes val rawResId: Int) : QuestionState()
 
+    /**
+     * 回答済.
+     *
+     * @param selectedToriFudaIndex 何番目の取り札をとったか
+     * @param isCorrect 正解したか
+     * @param correctMaterial 問題の正解の歌の資料
+     * @param nextQuestionId 次の問題のID値
+     */
     class Answered(
         val selectedToriFudaIndex: Int,
         val isCorrect: Boolean,

@@ -77,6 +77,7 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.materialList.observe(viewLifecycleOwner, Observer {
+            it ?: return@Observer
             (binding.recyclerMaterialList.adapter as MaterialListAdapter).replaceData(it)
         })
     }

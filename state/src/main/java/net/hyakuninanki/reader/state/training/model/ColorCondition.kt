@@ -22,6 +22,9 @@ import androidx.annotation.StringRes
 import net.hyakuninanki.reader.domain.karuta.model.KarutaColor
 import net.hyakuninanki.reader.state.R
 
+/**
+ * 練習の開始条件/色
+ */
 enum class ColorCondition(
     val value: KarutaColor?,
     @param:StringRes private val resId: Int

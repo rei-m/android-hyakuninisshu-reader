@@ -31,6 +31,7 @@ class ActionDispatcher(private val uiScheduler: Scheduler) : Dispatcher {
             Timber.tag("Action").d(action.toString())
         } else {
             Timber.tag("Action").e(action.toString())
+            // TODO: Firebaseにログを送る.
         }
         processor.onNext(action)
     }

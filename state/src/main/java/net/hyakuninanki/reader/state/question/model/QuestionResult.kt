@@ -17,6 +17,13 @@
 
 package net.hyakuninanki.reader.state.question.model
 
+/**
+ * 問題の結果表示用.
+ *
+ * @param karutaNo 問題の正解の歌番号
+ * @param karutaNoText 問題の正解の歌番号の表示用テキスト
+ * @param isCorrect 正解したか否か
+ */
 data class QuestionResult(
     val karutaNo: Int,
     val karutaNoText: String,

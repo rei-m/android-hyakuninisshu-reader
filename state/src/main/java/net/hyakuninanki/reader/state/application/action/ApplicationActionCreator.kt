@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.state.application.action
 
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 import javax.inject.Singleton
 

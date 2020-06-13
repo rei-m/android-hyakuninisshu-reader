@@ -20,6 +20,9 @@ package net.hyakuninanki.reader.state.exam.action
 import net.hyakuninanki.reader.state.core.Action
 import net.hyakuninanki.reader.state.exam.model.ExamResult
 
+/**
+ * 最新の力試しの結果を取得するアクション.
+ */
 sealed class FetchRecentExamResultAction(override val error: Throwable? = null) : Action {
 
     class Success(val examResult: ExamResult?) : FetchRecentExamResultAction() {
