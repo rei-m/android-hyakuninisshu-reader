@@ -28,12 +28,13 @@
     </data>
 
     <ScrollView
-        android:id="@+id/exam_result_fragment_root"
+        android:id="@+id/root_exam_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_exam_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/tatami"
@@ -50,6 +51,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_score"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -97,6 +99,7 @@
                 app:layout_constraintTop_toBottomOf="@id/card_score">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_average_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -144,6 +147,7 @@
                 app:layout_constraintTop_toBottomOf="@id/card_average_time">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_exam_result_table"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

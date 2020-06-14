@@ -50,10 +50,10 @@ class ExamResultListAdapter(
             } else {
                 itemPaddingBottom
             }
-            holder.binding.layoutRoot.setPadding(
-                holder.binding.layoutRoot.paddingLeft,
-                holder.binding.layoutRoot.paddingTop,
-                holder.binding.layoutRoot.paddingRight,
+            holder.binding.rootItemExamResult.setPadding(
+                holder.binding.rootItemExamResult.paddingLeft,
+                holder.binding.rootItemExamResult.paddingTop,
+                holder.binding.rootItemExamResult.paddingRight,
                 paddingBottom
             )
             examResult = examResultList[position]

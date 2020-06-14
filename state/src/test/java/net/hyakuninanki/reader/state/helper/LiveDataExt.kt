@@ -15,19 +15,15 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.support
+package net.hyakuninanki.reader.state.helper
 
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
-class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
+fun <T> LiveData<T>.verify(expected: T) {
+    val observer = mock<Observer<T>>()
+    observeForever(observer)
+    verify(observer).onChanged(expected)
 }

@@ -27,11 +27,13 @@
     </data>
 
     <ScrollView
+        android:id="@+id/root_material_detail_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_material_detail_page"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/spacing_2"

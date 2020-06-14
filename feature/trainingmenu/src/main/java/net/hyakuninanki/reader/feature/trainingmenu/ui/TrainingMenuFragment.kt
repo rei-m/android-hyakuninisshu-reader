@@ -24,8 +24,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUp
 import net.hyakuninanki.reader.feature.corecomponent.ext.setUpDropDown
+import net.hyakuninanki.reader.feature.trainingmenu.R
 import net.hyakuninanki.reader.feature.trainingmenu.databinding.TrainingMenuFragmentBinding
 import net.hyakuninanki.reader.state.training.model.*
 
@@ -75,6 +77,15 @@ class TrainingMenuFragment : Fragment() {
         )
 
         binding.buttonStartTraining.setOnClickListener {
+            if (viewModel.rangeTo.ordinal < viewModel.rangeFrom.ordinal) {
+                Snackbar.make(
+                    binding.root,
+                    R.string.text_message_invalid_training_range,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
             val action = TrainingMenuFragmentDirections.actionTrainingMenuToTrainingStarter(
                 rangeFrom = viewModel.rangeFrom,
                 rangeTo = viewModel.rangeTo,

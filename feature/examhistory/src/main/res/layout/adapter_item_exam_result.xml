@@ -28,7 +28,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_root"
+        android:id="@+id/root_item_exam_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

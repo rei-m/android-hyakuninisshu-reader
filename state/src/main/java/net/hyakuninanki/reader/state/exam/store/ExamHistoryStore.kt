@@ -29,7 +29,7 @@ import javax.inject.Inject
  * 力試しの履歴を管理する.
  */
 class ExamHistoryStore @Inject constructor(dispatcher: Dispatcher) : Store() {
-    private val _resultList = MutableLiveData<List<ExamResult>?>()
+    private val _resultList = MutableLiveData<List<ExamResult>?>(null)
     val resultList: LiveData<List<ExamResult>?> = _resultList
 
     private val _isFailure = MutableLiveData(false)
@@ -40,7 +40,6 @@ class ExamHistoryStore @Inject constructor(dispatcher: Dispatcher) : Store() {
             when (it) {
                 is FetchAllExamResultAction.Success -> {
                     _resultList.value = it.examResultList
-                    _isFailure.value = false
                 }
                 is FetchAllExamResultAction.Failure -> {
                     _isFailure.value = true

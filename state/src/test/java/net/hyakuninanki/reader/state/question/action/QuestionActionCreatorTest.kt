@@ -114,7 +114,6 @@ class QuestionActionCreatorTest : TestHelper {
         val question = createQuestionInAnswer(
             id = questionId
         )
-        val choiceList = question.choiceList
         whenever(questionRepository.findById(questionId)).thenReturn(question)
         whenever(questionRepository.save(question)).thenAnswer { }
         whenever(karutaRepository.findByNo(question.correctNo)).thenReturn(createKaruta())
@@ -138,7 +137,6 @@ class QuestionActionCreatorTest : TestHelper {
         val question = createQuestionInAnswer(
             id = questionId
         )
-        val choiceList = question.choiceList
         whenever(questionRepository.findById(questionId)).thenReturn(null)
         whenever(questionRepository.save(question)).thenAnswer { }
         whenever(karutaRepository.findByNo(question.correctNo)).thenReturn(createKaruta())

@@ -20,22 +20,26 @@
     tools:context=".ui.SupportFragment">
 
     <ScrollView
+        android:id="@+id/root_support"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme">
 
         <LinearLayout
+            android:id="@+id/layout_support_contents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingBottom="@dimen/height_ad_banner">
 
             <View
+                android:id="@+id/view_line_1"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_2"
                 android:background="@color/whiteSmoke" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_about_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -45,6 +49,7 @@
                 android:textSize="@dimen/text_xs" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_contents_about_app"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -53,6 +58,7 @@
                 android:textAppearance="?attr/textAppearanceBody2" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_about_training"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -62,6 +68,7 @@
                 android:textSize="@dimen/text_xs" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_contents_about_training"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -70,6 +77,7 @@
                 android:textAppearance="?attr/textAppearanceBody2" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_about_exam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -79,6 +87,7 @@
                 android:textSize="@dimen/text_xs" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_contents_about_exam"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -87,6 +96,7 @@
                 android:textAppearance="?attr/textAppearanceBody2" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_title_about_material"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -96,6 +106,7 @@
                 android:textSize="@dimen/text_xs" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_contents_about_material"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_2"
@@ -104,6 +115,7 @@
                 android:textAppearance="?attr/textAppearanceBody2" />
 
             <View
+                android:id="@+id/view_line_2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_2"
                 android:layout_marginTop="@dimen/spacing_2"
@@ -121,6 +133,7 @@
                 android:text="@string/post_review" />
 
             <View
+                android:id="@+id/view_line_3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_2"
                 android:background="@color/whiteSmoke" />
@@ -137,6 +150,7 @@
                 android:text="@string/license" />
 
             <View
+                android:id="@+id/view_line_4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_2"
                 android:background="@color/whiteSmoke" />
@@ -153,6 +167,7 @@
                 android:text="@string/privacy_policy" />
 
             <View
+                android:id="@+id/view_line_5"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_2"
                 android:background="@color/whiteSmoke" />
@@ -167,6 +182,7 @@
                 android:gravity="center_vertical" />
 
             <View
+                android:id="@+id/view_line_6"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spacing_2"
                 android:background="@color/whiteSmoke" />

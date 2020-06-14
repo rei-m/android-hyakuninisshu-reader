@@ -15,7 +15,4 @@
   ~
   -->
 
-<manifest package="net.hyakuninanki.reader.feature.exammenu">
-
-    /
-</manifest>
+<manifest package="net.hyakuninanki.reader.feature.exammenu" />

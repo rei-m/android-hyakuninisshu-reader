@@ -28,6 +28,7 @@
     </data>
 
     <FrameLayout
+        android:id="@+id/root_exam_finisher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/tatami">
@@ -42,7 +43,7 @@
             app:visibleOrGone="@{viewModel.isVisibleProgress}" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/text_start_error"
+            android:id="@+id/text_finish_error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -20,8 +20,6 @@ package net.hyakuninanki.reader.feature.corecomponent.ext
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 
 fun AppCompatActivity.setupActionBar(toolbar: Toolbar, action: ActionBar.() -> Unit) {
     setSupportActionBar(toolbar)
@@ -29,8 +27,3 @@ fun AppCompatActivity.setupActionBar(toolbar: Toolbar, action: ActionBar.() -> U
         action()
     }
 }
-
-fun <T : ViewModel> AppCompatActivity.provideViewModel(
-    viewModelClass: Class<T>,
-    factory: ViewModelProvider.Factory
-) = ViewModelProvider(this, factory).get(viewModelClass)

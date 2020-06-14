@@ -21,11 +21,13 @@
     tools:context=".ui.TrainingMenuFragment">
 
     <ScrollView
+        android:id="@+id/root_training_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_training_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/height_ad_banner">

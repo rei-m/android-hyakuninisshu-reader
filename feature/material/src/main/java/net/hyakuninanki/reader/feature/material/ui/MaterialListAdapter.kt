@@ -54,10 +54,10 @@ class MaterialListAdapter(
             } else {
                 itemPaddingBottom
             }
-            holder.binding.layoutRoot.setPadding(
-                holder.binding.layoutRoot.paddingLeft,
-                holder.binding.layoutRoot.paddingTop,
-                holder.binding.layoutRoot.paddingRight,
+            holder.binding.rootAdapterItemMaterialKaruta.setPadding(
+                holder.binding.rootAdapterItemMaterialKaruta.paddingLeft,
+                holder.binding.rootAdapterItemMaterialKaruta.paddingTop,
+                holder.binding.rootAdapterItemMaterialKaruta.paddingRight,
                 paddingBottom
             )
             this.material = materialList[position]

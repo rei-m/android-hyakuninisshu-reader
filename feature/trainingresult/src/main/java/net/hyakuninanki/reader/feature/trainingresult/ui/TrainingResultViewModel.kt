@@ -34,8 +34,6 @@ class TrainingResultViewModel(
 
     val result = store.result
 
-    val isFailure = store.isFailure
-
     val canRestartTraining = store.result.map { it.canRestart }
 
     init {
