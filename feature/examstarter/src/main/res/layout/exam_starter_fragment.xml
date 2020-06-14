@@ -28,6 +28,7 @@
     </data>
 
     <FrameLayout
+        android:id="@+id/root_exam_starter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/tatami">

@@ -21,7 +21,11 @@ import android.content.Context
 import android.widget.ArrayAdapter
 import android.widget.Filter
 
-class DropdownSelectAdapter<T>(context: Context, resource: Int, objects: List<T>) : ArrayAdapter<T>(
+class DropdownSelectAdapter<T>(
+    context: Context,
+    resource: Int,
+    objects: List<T>
+) : ArrayAdapter<T>(
     context,
     resource,
     objects
@@ -46,4 +50,3 @@ class DropdownSelectAdapter<T>(context: Context, resource: Int, objects: List<T>
         }
     }
 }
-

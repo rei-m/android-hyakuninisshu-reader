@@ -28,6 +28,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_training_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/tatami"
@@ -44,6 +45,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -91,6 +93,7 @@
             app:layout_constraintTop_toBottomOf="@id/card_score">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_average_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

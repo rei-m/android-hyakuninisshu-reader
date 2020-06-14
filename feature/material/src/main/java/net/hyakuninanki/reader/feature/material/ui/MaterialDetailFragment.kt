@@ -78,7 +78,10 @@ class MaterialDetailFragment : Fragment() {
             if (savedInstanceState == null) {
                 binding.pager.setCurrentItem(args.position, false)
             } else {
-                binding.pager.setCurrentItem(savedInstanceState.getInt(ARG_POSITION, 0), false)
+                binding.pager.setCurrentItem(
+                    savedInstanceState.getInt(ARG_POSITION, args.position),
+                    false
+                )
             }
         })
     }

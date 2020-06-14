@@ -30,11 +30,13 @@
     </data>
 
     <ScrollView
+        android:id="@+id/root_exam_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/AppTheme">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_exam_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/height_ad_banner">
@@ -62,6 +64,7 @@
                 app:visibleOrInvisible="@{viewModel.hasResult}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_exam_recent_history"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

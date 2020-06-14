@@ -42,8 +42,6 @@ class ExamResultViewModel(
         return@map temp
     }
 
-    val isFailure = store.isFailure
-
     init {
         dispatchAction {
             actionCreator.fetchResult(examId)

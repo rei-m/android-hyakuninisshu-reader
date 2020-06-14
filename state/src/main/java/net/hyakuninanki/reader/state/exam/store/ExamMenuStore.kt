@@ -34,7 +34,7 @@ class ExamMenuStore @Inject constructor(dispatcher: Dispatcher) : Store() {
     /**
      * 最新の力試しの結果.
      */
-    private val _recentResult = MutableLiveData<ExamResult>()
+    private val _recentResult = MutableLiveData<ExamResult?>()
     val recentResult: LiveData<ExamResult?> = _recentResult
 
     private val _isFailure = MutableLiveData(false)

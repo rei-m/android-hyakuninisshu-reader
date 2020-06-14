@@ -200,7 +200,6 @@ class TrainingActionCreatorTest : TestHelper {
 
     @Test
     fun start_restart_failure() = runBlocking {
-        val questionCollection = QuestionCollection(listOf())
         whenever(questionRepository.findCollection()).thenThrow(RuntimeException())
         val actual = actionCreator.restart()
         assertThat(actual).isInstanceOf(StartTrainingAction.Failure::class.java)

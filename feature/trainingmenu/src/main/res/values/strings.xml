@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2020. Rei Matsushita.
   ~
@@ -15,4 +16,6 @@
   ~
   -->
 
-<manifest package="net.hyakuninanki.reader.feature.examhistory" />
+<resources>
+    <string name="text_message_invalid_training_range">出題範囲の開始と終了の組み合わせが正しくありません。</string>
+</resources>
