@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepnames class net.hyakuninanki.reader.state.training.model.*
+-keepnames class net.hyakuninanki.reader.state.question.model.*
+-keepnames class net.hyakuninanki.reader.state.material.model.*
+
+-keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoaderImpl
+
+-keep class kotlin.Metadata {
+    public <methods>;
+}
+-keepclassmembers class net.hyakuninanki.reader.infrastructure.database.karuta.* {
+  <init>(...);
+  <fields>;
+}
+-keepclassmembers class net.hyakuninanki.reader.infrastructure.database.question.* {
+  <init>(...);
+  <fields>;
+}
