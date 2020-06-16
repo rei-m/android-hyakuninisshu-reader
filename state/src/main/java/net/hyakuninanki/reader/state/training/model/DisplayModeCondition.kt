@@ -20,6 +20,7 @@ package net.hyakuninanki.reader.state.training.model
 import android.content.res.Resources
 import androidx.annotation.StringRes
 import net.hyakuninanki.reader.state.R
+import java.util.*
 
 /**
  * 練習の取り札の表示条件.
@@ -35,5 +36,8 @@ enum class DisplayModeCondition(
 
     companion object {
         operator fun get(ordinal: Int) = values()[ordinal]
+        fun random(): DisplayModeCondition {
+            return values()[(Date().time % 2).toInt()]
+        }
     }
 }

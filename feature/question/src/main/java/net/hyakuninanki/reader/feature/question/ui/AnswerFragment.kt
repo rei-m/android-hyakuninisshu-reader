@@ -27,6 +27,7 @@ import androidx.navigation.fragment.navArgs
 import net.hyakuninanki.reader.feature.question.databinding.AnswerFragmentBinding
 import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.state.question.model.Referer
+import net.hyakuninanki.reader.state.training.model.DisplayModeCondition
 
 class AnswerFragment : Fragment() {
     private var _binding: AnswerFragmentBinding? = null
@@ -64,9 +65,14 @@ class AnswerFragment : Fragment() {
         binding.existNextQuestion = args.nextQuestionId != null
         binding.buttonGoToNext.setOnClickListener {
             args.nextQuestionId?.let {
+                val displayMode = if (args.referer == Referer.Training) {
+                    args.displayMode
+                } else {
+                    DisplayModeCondition.random()
+                }
                 val action = AnswerFragmentDirections.actionAnswerToQuestion(
                     questionId = it,
-                    displayMode = args.displayMode,
+                    displayMode = displayMode,
                     inputSecond = args.inputSecond,
                     referer = args.referer
                 )

@@ -28,6 +28,7 @@ import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
 import net.hyakuninanki.reader.feature.examstarter.databinding.ExamStarterFragmentBinding
 import net.hyakuninanki.reader.feature.examstarter.di.ExamStarterComponent
 import net.hyakuninanki.reader.state.question.model.Referer
+import net.hyakuninanki.reader.state.training.model.DisplayModeCondition
 import net.hyakuninanki.reader.state.training.model.InputSecondCondition
 import javax.inject.Inject
 
@@ -73,6 +74,7 @@ class ExamStarterFragment : Fragment() {
             val action = ExamStarterFragmentDirections.actionExamStarterToQuestion(
                 questionId = it,
                 inputSecond = InputSecondCondition.SHORT,
+                displayMode = DisplayModeCondition.random(),
                 referer = Referer.Exam
             )
             findNavController().navigate(action)
