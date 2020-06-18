@@ -20,5 +20,6 @@
     <string name="char_material">資</string>
     <string name="go_to_next">次の問題</string>
     <string name="go_to_result">結果を確認</string>
+    <string name="restart_reading">もう一度聴く</string>
     <string name="torifuda_pad">　　　　　</string>
 </resources>
