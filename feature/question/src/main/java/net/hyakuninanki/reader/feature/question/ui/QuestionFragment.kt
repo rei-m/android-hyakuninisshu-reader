@@ -44,6 +44,7 @@ class QuestionFragment : Fragment() {
             questionId = args.questionId
             displayMode = args.displayMode
             inputSecond = args.inputSecond
+            canReplay = args.referer.canReplayReader
         }
     }
 

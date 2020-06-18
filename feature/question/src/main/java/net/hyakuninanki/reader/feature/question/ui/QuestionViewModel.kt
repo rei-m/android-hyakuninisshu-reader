@@ -19,6 +19,7 @@ package net.hyakuninanki.reader.feature.question.ui
 
 import android.content.Context
 import android.media.MediaPlayer
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -39,6 +40,7 @@ class QuestionViewModel(
     private val questionId: String,
     displayMode: DisplayModeCondition,
     inputSecond: InputSecondCondition,
+    canReplay: Boolean,
     dispatcher: Dispatcher,
     private val actionCreator: QuestionActionCreator,
     private val store: QuestionStore,
@@ -75,6 +77,9 @@ class QuestionViewModel(
         context.getDrawable(resId)
     }
 
+    private val _isVisibleReplayButton = MutableLiveData(false)
+    val isVisibleReplayButton: LiveData<Boolean> = _isVisibleReplayButton
+
     private var mediaPlayer: MediaPlayer? = null
 
     private val timer = Timer()
@@ -99,7 +104,13 @@ class QuestionViewModel(
                 timer.scheduleAtFixedRate(timerTask, 0, 1000)
             }
             is QuestionState.InAnswer -> {
-                mediaPlayer = MediaPlayer.create(context, it.rawResId)
+                mediaPlayer = MediaPlayer.create(context, it.rawResId).apply {
+                    if (canReplay) {
+                        setOnCompletionListener {
+                            _isVisibleReplayButton.postValue(true)
+                        }
+                    }
+                }
                 mediaPlayer?.start()
             }
             is QuestionState.Answered -> {
@@ -118,6 +129,7 @@ class QuestionViewModel(
     override fun onCleared() {
         timer.cancel()
         mediaPlayer?.stop()
+        mediaPlayer?.setOnCompletionListener(null)
         state.removeObserver(stateObserver)
         store.dispose()
         super.onCleared()
@@ -135,6 +147,16 @@ class QuestionViewModel(
         return
     }
 
+    fun onClickReplay() {
+        mediaPlayer?.let {
+            if (it.isPlaying) {
+                return@let
+            }
+            _isVisibleReplayButton.value = false
+            it.start()
+        }
+    }
+
     class Factory @Inject constructor(
         private val dispatcher: Dispatcher,
         private val actionCreator: QuestionActionCreator,
@@ -144,12 +166,14 @@ class QuestionViewModel(
         lateinit var questionId: String
         lateinit var displayMode: DisplayModeCondition
         lateinit var inputSecond: InputSecondCondition
+        var canReplay: Boolean = false
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T = QuestionViewModel(
             questionId,
             displayMode,
             inputSecond,
+            canReplay,
             dispatcher,
             actionCreator,
             store,

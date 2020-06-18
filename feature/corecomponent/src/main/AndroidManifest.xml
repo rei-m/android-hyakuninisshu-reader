@@ -1,1 +1,5 @@
-<manifest package="net.hyakuninanki.reader.feature.corecomponent" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.hyakuninanki.reader.feature.corecomponent">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+</manifest>

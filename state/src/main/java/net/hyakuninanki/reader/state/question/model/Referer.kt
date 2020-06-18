@@ -21,6 +21,12 @@ package net.hyakuninanki.reader.state.question.model
  * 練習と力試しのどちらのコンテキストにいるか判定するためのリファラ.
  */
 enum class Referer {
-    Training,
-    Exam;
+    Training {
+        override val canReplayReader: Boolean = true
+    },
+    Exam {
+        override val canReplayReader: Boolean = false
+    };
+
+    abstract val canReplayReader: Boolean
 }

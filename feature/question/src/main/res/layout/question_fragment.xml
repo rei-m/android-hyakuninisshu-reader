@@ -67,6 +67,24 @@
             app:visibleOrGone="@{0 &lt; viewModel.inputSecondCounter}"
             tools:text="あと5秒" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_restart_reading"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#e0e0e0"
+            android:onClick="@{() -> viewModel.onClickReplay()}"
+            android:text="@string/restart_reading"
+            android:textColor="@android:color/primary_text_light"
+            app:icon="@drawable/ic_rotate_right_black_24dp"
+            app:iconGravity="textStart"
+            app:iconTint="@android:color/primary_text_light"
+            app:layout_constraintBottom_toTopOf="@id/torifuda_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibleOrGone="@{viewModel.isVisibleReplayButton}" />
+
         <net.hyakuninanki.reader.feature.question.ui.widget.ToriFudaView
             android:id="@+id/torifuda_1"
             android:layout_width="wrap_content"
