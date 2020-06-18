@@ -114,6 +114,8 @@ class QuestionViewModel(
                 mediaPlayer?.start()
             }
             is QuestionState.Answered -> {
+                _isVisibleReplayButton.postValue(false)
+                mediaPlayer?.setOnCompletionListener(null)
             }
         }
     }
