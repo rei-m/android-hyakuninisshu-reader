@@ -65,14 +65,13 @@ fun Karuta.rawResId(context: Context): Int {
 
 fun Karuta.toMaterial(context: Context): Material {
     val resources = context.resources
+
     val kimarijiArray = resources.getStringArray(R.array.kimariji)
     val kimarijiTxt = kimarijiArray[kimariji.value - 1]
 
-    val imageResId = resources.getIdentifier(
-        "karuta_${imageNo.value}",
-        "drawable",
-        context.packageName
-    )
+    val typedArray = resources.obtainTypedArray(R.array.karuta_image)
+    val imageResId = typedArray.getResourceId(no.value - 1, 0)
+    typedArray.recycle()
 
     return Material(
         no = no.value,
