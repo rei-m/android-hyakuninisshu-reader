@@ -67,8 +67,8 @@ data class Material(
 
     val kamiNoKuKanji: String = "$shokuKanji　$nikuKanji　$sankuKanji"
     val kamiNoKuKana: String = "$shokuKana　$nikuKana　$sankuKana"
-    val shimoNoKuKanji: String = "$nikuKanji　$sankuKanji"
-    val shimoNoKuKana: String = "$nikuKana　$sankuKana"
+    val shimoNoKuKanji: String = "$shikuKanji　$gokuKanji"
+    val shimoNoKuKana: String = "$shikuKana　$gokuKana"
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
