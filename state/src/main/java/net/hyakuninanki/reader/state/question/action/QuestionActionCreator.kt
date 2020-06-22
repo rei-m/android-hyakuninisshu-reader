@@ -107,9 +107,7 @@ class QuestionActionCreator @Inject constructor(
         val correctKaruta = karutaRepository.findByNo(question.correctNo)
         return StartAnswerQuestionAction.Success(
             state = QuestionState.InAnswer(
-                correctKaruta.rawResId(
-                    context
-                )
+                correctKaruta.rawResId()
             )
         )
     }

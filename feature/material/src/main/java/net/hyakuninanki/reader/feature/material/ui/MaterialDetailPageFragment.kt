@@ -34,6 +34,7 @@ class MaterialDetailPageFragment : Fragment() {
 
     private val args: MaterialDetailPageFragmentArgs by navArgs()
 
+    private var rawResId: Int = -1
     private var mediaPlayer: MediaPlayer? = null
 
     override fun onCreateView(
@@ -47,10 +48,10 @@ class MaterialDetailPageFragment : Fragment() {
         val materialFromBundle = requireArguments().getParcelable<Material>(ARG_MATERIAL)
         if (materialFromBundle == null) {
             binding.material = args.material
-            mediaPlayer = MediaPlayer.create(context, args.material.rawResId)
+            rawResId = args.material.rawResId
         } else {
             binding.material = materialFromBundle
-            mediaPlayer = MediaPlayer.create(context, materialFromBundle.rawResId)
+            rawResId = materialFromBundle.rawResId
         }
 
         return binding.root
@@ -64,8 +65,13 @@ class MaterialDetailPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonPlayReader.setOnClickListener {
-            if (mediaPlayer?.isPlaying == false) {
-                mediaPlayer?.start()
+            val targetMediaPlayer = mediaPlayer ?: let {
+                val tmp = MediaPlayer.create(context, rawResId)
+                mediaPlayer = tmp
+                return@let tmp
+            }
+            if (!targetMediaPlayer.isPlaying) {
+                targetMediaPlayer.start()
             }
         }
     }
