@@ -32,6 +32,6 @@ interface QuestionComponent {
     fun inject(fragment: AnswerFragment)
 
     interface Injector {
-        fun questionFragment(): Factory
+        fun questionComponent(): Factory
     }
 }
