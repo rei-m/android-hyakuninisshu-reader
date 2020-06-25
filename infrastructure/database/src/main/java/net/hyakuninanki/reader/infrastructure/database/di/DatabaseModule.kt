@@ -32,7 +32,7 @@ import net.hyakuninanki.reader.infrastructure.storage.Storage
 import javax.inject.Singleton
 
 @Module
-class InfrastructureModule {
+class DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(context: Context): AppDatabase {
@@ -54,7 +54,7 @@ class InfrastructureModule {
 
     @Provides
     @Singleton
-    fun provideKarutaExamRepository(appDatabase: AppDatabase): ExamRepository {
+    fun provideExamRepository(appDatabase: AppDatabase): ExamRepository {
         return ExamRepositoryImpl(appDatabase)
     }
 

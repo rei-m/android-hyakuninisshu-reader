@@ -77,7 +77,7 @@ interface MainComponent {
         override fun examMenuComponent() = mainComponent().examMenuComponent()
         override fun trainingStarterComponent() = mainComponent().trainingStarterComponent()
         override fun trainingResultComponent() = mainComponent().trainingResultComponent()
-        override fun questionFragment() = mainComponent().questionComponent()
+        override fun questionComponent() = mainComponent().questionComponent()
         override fun examStarterComponent() = mainComponent().examStarterComponent()
         override fun examResultComponent() = mainComponent().examResultComponent()
         override fun examHistoryComponent() = mainComponent().examHistoryComponent()

@@ -46,6 +46,8 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var _mainComponent: MainComponent
 
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         _mainComponent = (application as App).appComponent.mainComponent().create(this)
         _mainComponent.inject(this)
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == android.R.id.home) {
-            findNavController(R.id.nav_host_fragment).popBackStack()
+            navController.popBackStack()
             return false
         }
         return super.onOptionsItemSelected(menuItem)
@@ -74,7 +76,6 @@ class MainActivity : AppCompatActivity(),
     private fun setupNavController() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_training_menu,
@@ -94,6 +95,8 @@ class MainActivity : AppCompatActivity(),
                     navView.visibility = View.GONE
                 }
                 R.id.navigation_training_starter,
+                R.id.navigation_training_re_starter,
+                R.id.navigation_exam_practice_training_starter,
                 R.id.navigation_exam_finisher,
                 R.id.navigation_question,
                 R.id.navigation_question_answer -> {

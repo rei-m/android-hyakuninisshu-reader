@@ -37,7 +37,7 @@ class AnswerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity() as QuestionComponent.Injector)
-            .questionFragment()
+            .questionComponent()
             .create()
             .inject(this)
         super.onCreate(savedInstanceState)
