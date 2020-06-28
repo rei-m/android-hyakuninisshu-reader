@@ -2,7 +2,7 @@
 ========
 
 ## Description
-- [https://github.com/rei-m/android_hyakuninisshu](百人一首 簡単に暗記) の読み上げ機能版。欲しい欲しい言われ続けたので作成。
+- [百人一首 簡単に暗記](https://github.com/rei-m/android_hyakuninisshu) の読み上げ機能版。欲しい欲しい言われ続けたので作成。
 - 基本的な構成は元アプリと同じ形。
 
 ## Build
