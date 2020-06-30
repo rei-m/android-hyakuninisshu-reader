@@ -71,7 +71,7 @@ class QuestionActionCreator @Inject constructor(
                     isCorrect = questionState.result.judgement.isCorrect,
                     correctMaterial = choiceKarutaList.find { it.no == question.correctNo }!!
                         .toMaterial(context),
-                    nextQuestionId = questionRepository.findIdByNo(question.no)?.value
+                    nextQuestionId = questionRepository.findIdByNo(question.no + 1)?.value
                 )
         }
         val count = questionRepository.count()
