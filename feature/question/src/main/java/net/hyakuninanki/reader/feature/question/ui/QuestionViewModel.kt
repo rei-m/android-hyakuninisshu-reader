@@ -120,6 +120,8 @@ class QuestionViewModel(
         }
     }
 
+    private var isSelected = false
+
     init {
         state.observeForever(stateObserver)
 
@@ -139,6 +141,11 @@ class QuestionViewModel(
 
     fun onSelected(position: Int) {
         question.value?.let {
+            if (isSelected) {
+                return@let
+            }
+            isSelected = true
+
             dispatchAction {
                 actionCreator.answer(questionId, it.toriFudaList[position], Date())
             }
