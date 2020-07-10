@@ -24,11 +24,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.examhistory.databinding.ExamHistoryFragmentBinding
-import net.hyakuninanki.reader.feature.examhistory.di.ExamHistoryComponent
 import net.hyakuninanki.reader.feature.examhistory.ui.widget.ExamResultListAdapter
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ExamHistoryFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ExamHistoryViewModel.Factory
@@ -37,14 +38,6 @@ class ExamHistoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<ExamHistoryViewModel> { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamHistoryComponent.Injector)
-            .examHistoryComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

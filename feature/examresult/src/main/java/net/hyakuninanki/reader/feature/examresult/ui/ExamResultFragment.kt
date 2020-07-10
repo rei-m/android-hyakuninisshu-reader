@@ -26,11 +26,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.examresult.databinding.ExamResultFragmentBinding
-import net.hyakuninanki.reader.feature.examresult.di.ExamResultComponent
 import net.hyakuninanki.reader.feature.examresult.ui.widget.ExamResultView
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ExamResultFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ExamResultViewModel.Factory
@@ -44,14 +45,6 @@ class ExamResultFragment : Fragment() {
         viewModelFactory.apply {
             examId = args.examId
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamResultComponent.Injector)
-            .examResultComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

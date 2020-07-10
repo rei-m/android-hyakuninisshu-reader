@@ -25,10 +25,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.trainingresult.databinding.TrainingResultFragmentBinding
-import net.hyakuninanki.reader.feature.trainingresult.di.TrainingResultComponent
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TrainingResultFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: TrainingResultViewModel.Factory
@@ -39,14 +40,6 @@ class TrainingResultFragment : Fragment() {
     private val args: TrainingResultFragmentArgs by navArgs()
 
     private val viewModel by viewModels<TrainingResultViewModel> { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as TrainingResultComponent.Injector)
-            .trainingResultComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
