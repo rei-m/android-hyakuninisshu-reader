@@ -21,6 +21,9 @@ import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
 import net.hyakuninanki.reader.domain.question.model.ExamRepository
 import net.hyakuninanki.reader.domain.question.model.QuestionRepository
@@ -31,21 +34,23 @@ import net.hyakuninanki.reader.infrastructure.database.question.QuestionReposito
 import net.hyakuninanki.reader.infrastructure.storage.Storage
 import javax.inject.Singleton
 
+@InstallIn(ApplicationComponent::class)
 @Module
-class DatabaseModule {
+object DatabaseModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(context: Context): AppDatabase {
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            AppDatabase::class.java, AppDatabase.DB_NAME
+            AppDatabase::class.java,
+            AppDatabase.DB_NAME
         ).build()
     }
 
     @Provides
     @Singleton
     fun provideKarutaRepository(
-        context: Context,
+        @ApplicationContext context: Context,
         storage: Storage,
         appDatabase: AppDatabase
     ): KarutaRepository {

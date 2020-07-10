@@ -27,31 +27,20 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import hotchemi.android.rate.AppRate
-import net.hyakuninanki.reader.App
 import net.hyakuninanki.reader.BuildConfig
 import net.hyakuninanki.reader.R
-import net.hyakuninanki.reader.di.MainComponent
 import net.hyakuninanki.reader.feature.corecomponent.ext.setupActionBar
 import net.hyakuninanki.reader.feature.corecomponent.widget.ad.AdViewObserver
-import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(),
-    MainComponent.Injector {
-
-    override fun mainComponent(): MainComponent = _mainComponent
-
-    @Inject
-    lateinit var adViewObserver: AdViewObserver
-
-    private lateinit var _mainComponent: MainComponent
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+    private val adViewObserver: AdViewObserver = AdViewObserver()
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        _mainComponent = (application as App).appComponent.mainComponent().create(this)
-        _mainComponent.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

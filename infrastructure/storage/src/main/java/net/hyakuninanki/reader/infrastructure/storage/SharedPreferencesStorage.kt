@@ -18,12 +18,17 @@
 package net.hyakuninanki.reader.infrastructure.storage
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class SharedPreferencesStorage @Inject constructor(context: Context) : Storage {
+@Singleton
+class SharedPreferencesStorage @Inject constructor(
+    @ApplicationContext appContext: Context
+) : Storage {
 
     private val sharedPreferences =
-        context.getSharedPreferences(KEY_PREFERENCES, Context.MODE_PRIVATE)
+        appContext.getSharedPreferences(KEY_PREFERENCES, Context.MODE_PRIVATE)
 
     override fun setInt(key: String, value: Int) {
         with(sharedPreferences.edit()) {

@@ -24,10 +24,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.exammenu.databinding.ExamMenuFragmentBinding
-import net.hyakuninanki.reader.feature.exammenu.di.ExamMenuComponent
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ExamMenuFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ExamMenuViewModel.Factory
@@ -36,14 +37,6 @@ class ExamMenuFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by activityViewModels<ExamMenuViewModel> { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as ExamMenuComponent.Injector)
-            .examMenuComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

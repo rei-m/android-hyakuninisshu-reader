@@ -29,11 +29,8 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import net.hyakuninanki.reader.feature.corecomponent.R
-import net.hyakuninanki.reader.feature.corecomponent.di.ActivityScope
-import javax.inject.Inject
 
-@ActivityScope
-class AdViewObserver @Inject constructor() : LifecycleObserver {
+class AdViewObserver : LifecycleObserver {
 
     private var adView: AdView? = null
 

@@ -25,12 +25,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.corecomponent.helper.EventObserver
 import net.hyakuninanki.reader.feature.trainingstarter.databinding.TrainingStarterFragmentBinding
-import net.hyakuninanki.reader.feature.trainingstarter.di.TrainingStarterComponent
 import net.hyakuninanki.reader.state.question.model.Referer
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TrainingStarterFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: TrainingStarterViewModel.Factory
@@ -47,14 +48,6 @@ class TrainingStarterFragment : Fragment() {
             kimariji = args.kimariji
             color = args.color
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as TrainingStarterComponent.Injector)
-            .trainingStarterComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

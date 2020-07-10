@@ -17,16 +17,18 @@
 
 package net.hyakuninanki.reader.infrastructure.storage.di
 
-import android.content.Context
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import net.hyakuninanki.reader.infrastructure.storage.SharedPreferencesStorage
 import net.hyakuninanki.reader.infrastructure.storage.Storage
+import javax.inject.Singleton
 
+@InstallIn(ApplicationComponent::class)
 @Module
-class StorageModule {
-    @Provides
-    fun provideStorage(context: Context): Storage {
-        return SharedPreferencesStorage(context)
-    }
+abstract class StorageModule {
+    @Singleton
+    @Binds
+    abstract fun bindStorage(impl: SharedPreferencesStorage): Storage
 }
