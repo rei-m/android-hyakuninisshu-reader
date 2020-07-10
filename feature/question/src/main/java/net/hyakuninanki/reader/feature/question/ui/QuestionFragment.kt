@@ -25,11 +25,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.question.databinding.QuestionFragmentBinding
-import net.hyakuninanki.reader.feature.question.di.QuestionComponent
 import net.hyakuninanki.reader.state.question.model.QuestionState
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class QuestionFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: QuestionViewModel.Factory
@@ -46,14 +47,6 @@ class QuestionFragment : Fragment() {
             inputSecond = args.inputSecond
             canReplay = args.referer.canReplayReader
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as QuestionComponent.Injector)
-            .questionComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

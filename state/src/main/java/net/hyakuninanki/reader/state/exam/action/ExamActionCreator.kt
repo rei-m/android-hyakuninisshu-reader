@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.state.exam.action
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNoCollection
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
@@ -37,7 +38,7 @@ import kotlin.NoSuchElementException
 
 @Singleton
 class ExamActionCreator @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val karutaRepository: KarutaRepository,
     private val questionRepository: QuestionRepository,
     private val examRepository: ExamRepository,

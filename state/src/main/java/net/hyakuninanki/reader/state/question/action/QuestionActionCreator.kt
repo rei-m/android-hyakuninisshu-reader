@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.state.question.action
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
 import net.hyakuninanki.reader.domain.question.model.QuestionId
@@ -35,7 +36,7 @@ import net.hyakuninanki.reader.domain.question.model.Question as DomainQuestion
 
 @Singleton
 class QuestionActionCreator @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val karutaRepository: KarutaRepository,
     private val questionRepository: QuestionRepository
 ) {

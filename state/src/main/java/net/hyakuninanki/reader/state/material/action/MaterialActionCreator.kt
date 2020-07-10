@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.state.material.action
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import net.hyakuninanki.reader.domain.karuta.model.KarutaColor
 import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
 import net.hyakuninanki.reader.domain.karuta.model.KarutaRepository
@@ -29,7 +30,7 @@ import javax.inject.Singleton
 
 @Singleton
 class MaterialActionCreator @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val karutaRepository: KarutaRepository
 ) {
     /**

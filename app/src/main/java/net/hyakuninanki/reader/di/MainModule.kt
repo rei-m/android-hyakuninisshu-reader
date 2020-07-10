@@ -15,23 +15,21 @@
  *
  */
 
-package net.hyakuninanki.reader.feature.material.di
+package net.hyakuninanki.reader.di
 
-import dagger.Subcomponent
-import net.hyakuninanki.reader.feature.material.ui.MaterialDetailFragment
-import net.hyakuninanki.reader.feature.material.ui.MaterialListFragment
+import android.content.Context
+import androidx.savedstate.SavedStateRegistryOwner
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 
-@Subcomponent
-interface MaterialComponent {
-    @Subcomponent.Factory
-    interface Factory {
-        fun create(): MaterialComponent
-    }
-
-    fun inject(fragment: MaterialListFragment)
-    fun inject(fragment: MaterialDetailFragment)
-
-    interface Injector {
-        fun materialComponent(): Factory
+@InstallIn(ActivityComponent::class)
+@Module
+object MainModule {
+    @Provides
+    fun provideSavedStateRegistryOwner(@ActivityContext context: Context): SavedStateRegistryOwner {
+        return context as SavedStateRegistryOwner
     }
 }

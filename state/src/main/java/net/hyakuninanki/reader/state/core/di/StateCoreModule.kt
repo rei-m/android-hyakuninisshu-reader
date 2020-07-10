@@ -19,14 +19,17 @@ package net.hyakuninanki.reader.state.core.di
 
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import net.hyakuninanki.reader.domain.question.service.CreateQuestionListService
 import net.hyakuninanki.reader.state.core.ActionDispatcher
 import net.hyakuninanki.reader.state.core.Dispatcher
 import javax.inject.Singleton
 
+@InstallIn(ApplicationComponent::class)
 @Module
-class StateCoreModule {
+object StateCoreModule {
     @Provides
     @Singleton
     fun provideActionDispatcher(): Dispatcher = ActionDispatcher(AndroidSchedulers.mainThread())

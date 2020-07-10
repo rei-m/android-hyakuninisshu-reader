@@ -24,11 +24,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.material.databinding.MaterialListFragmentBinding
-import net.hyakuninanki.reader.feature.material.di.MaterialComponent
 import net.hyakuninanki.reader.state.material.model.ColorFilter
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionListener {
     @Inject
     lateinit var viewModelFactory: MaterialViewModel.Factory
@@ -37,14 +38,6 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
     private val binding get() = _binding!!
 
     private val viewModel by activityViewModels<MaterialViewModel> { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as MaterialComponent.Injector)
-            .materialComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

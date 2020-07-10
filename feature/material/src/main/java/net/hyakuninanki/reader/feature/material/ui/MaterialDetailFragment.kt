@@ -26,11 +26,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import net.hyakuninanki.reader.feature.material.databinding.MaterialDetailFragmentBinding
-import net.hyakuninanki.reader.feature.material.di.MaterialComponent
 import net.hyakuninanki.reader.state.material.model.Material
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MaterialDetailFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: MaterialViewModel.Factory
@@ -41,14 +42,6 @@ class MaterialDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by activityViewModels<MaterialViewModel> { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        (requireActivity() as MaterialComponent.Injector)
-            .materialComponent()
-            .create()
-            .inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

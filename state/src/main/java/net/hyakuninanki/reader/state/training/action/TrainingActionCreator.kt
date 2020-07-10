@@ -18,6 +18,7 @@
 package net.hyakuninanki.reader.state.training.action
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import net.hyakuninanki.reader.domain.karuta.model.*
 import net.hyakuninanki.reader.domain.question.model.ExamRepository
 import net.hyakuninanki.reader.domain.question.model.Question
@@ -31,7 +32,7 @@ import javax.inject.Singleton
 
 @Singleton
 class TrainingActionCreator @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     private val karutaRepository: KarutaRepository,
     private val questionRepository: QuestionRepository,
     private val examRepository: ExamRepository,

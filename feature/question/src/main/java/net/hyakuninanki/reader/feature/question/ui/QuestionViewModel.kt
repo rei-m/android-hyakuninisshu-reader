@@ -24,6 +24,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.qualifiers.ApplicationContext
 import net.hyakuninanki.reader.feature.corecomponent.ext.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.feature.question.R
@@ -131,10 +132,10 @@ class QuestionViewModel(
     }
 
     override fun onCleared() {
-        timer.cancel()
+        state.removeObserver(stateObserver)
         mediaPlayer?.stop()
         mediaPlayer?.setOnCompletionListener(null)
-        state.removeObserver(stateObserver)
+        timer.cancel()
         store.dispose()
         super.onCleared()
     }
@@ -170,7 +171,7 @@ class QuestionViewModel(
         private val dispatcher: Dispatcher,
         private val actionCreator: QuestionActionCreator,
         private val store: QuestionStore,
-        private val context: Context
+        @ApplicationContext private val context: Context
     ) : ViewModelProvider.Factory {
         lateinit var questionId: String
         lateinit var displayMode: DisplayModeCondition

@@ -3,19 +3,13 @@ package net.hyakuninanki.reader
 import android.app.Application
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
-import net.hyakuninanki.reader.di.AppComponent
-import net.hyakuninanki.reader.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 open class App : Application() {
 
-    val appComponent: AppComponent by lazy { initializeComponent() }
-
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-
-    open fun initializeComponent(): AppComponent {
-        return DaggerAppComponent.factory().create(applicationContext)
-    }
 
     override fun onCreate() {
         super.onCreate()
