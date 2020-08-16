@@ -1,4 +1,5 @@
 import dependencies.Versions
+import dependencies.Packages
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -20,7 +21,7 @@ android {
     compileSdkVersion Versions.compileSdkVersion
 
     defaultConfig {
-        applicationId "net.hyakuninanki.reader"
+        applicationId Packages.applicationId
         minSdkVersion Versions.minSdkVersion
         targetSdkVersion Versions.targetSdkVersion
         versionCode Versions.versionCode
@@ -32,8 +33,8 @@ android {
     buildTypes {
         debug {
             debuggable true
-            applicationIdSuffix ".debug"
-            versionNameSuffix "d"
+            applicationIdSuffix Packages.applicationIdSuffix
+            versionNameSuffix Packages.versionNameSuffix
         }
         release {
             signingConfig signingConfigs.releaseConfig
