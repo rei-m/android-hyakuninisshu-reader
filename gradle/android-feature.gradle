@@ -19,9 +19,4 @@ android {
     buildFeatures {
         dataBinding = true
     }
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
 }

@@ -15,6 +15,8 @@
  *
  */
 
+import dependencies.Deps
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -23,11 +25,15 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply from: rootProject.file('gradle/android.gradle')
 apply from: rootProject.file('gradle/android-feature.gradle')
 
-apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
 apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies
 apply from: rootProject.file('gradle/dependencies/androidTest.gradle'), to: dependencies
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation project(':feature:corecomponent')
+
+    implementation Deps.Dagger.hiltAndroid
+    kapt Deps.Dagger.hiltAndroidCompiler
+    androidTestImplementation Deps.Dagger.hiltAndroidTesting
+    kaptAndroidTest Deps.Dagger.hiltAndroidCompiler
 }

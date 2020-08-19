@@ -15,6 +15,8 @@
  *
  */
 
+import dependencies.Deps
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -27,7 +29,6 @@ android {
     }
 }
 
-apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
 apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies
 
 dependencies {
@@ -49,4 +50,9 @@ dependencies {
 
     implementation "com.squareup.moshi:moshi:$rootProject.moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$rootProject.moshi_version"
+
+    implementation Deps.Dagger.hiltAndroid
+    kapt Deps.Dagger.hiltAndroidCompiler
+    androidTestImplementation Deps.Dagger.hiltAndroidTesting
+    kaptAndroidTest Deps.Dagger.hiltAndroidCompiler
 }

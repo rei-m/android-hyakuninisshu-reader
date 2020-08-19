@@ -1,5 +1,6 @@
 import dependencies.Versions
 import dependencies.Packages
+import dependencies.Deps
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -57,8 +58,6 @@ android {
     }
 }
 
-apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -80,6 +79,11 @@ dependencies {
     implementation project(':feature:question')
     implementation project(':feature:material')
     implementation project(':feature:support')
+
+    implementation Deps.Dagger.hiltAndroid
+    kapt Deps.Dagger.hiltAndroidCompiler
+    androidTestImplementation Deps.Dagger.hiltAndroidTesting
+    kaptAndroidTest Deps.Dagger.hiltAndroidCompiler
 
     implementation 'com.github.hotchemi:android-rate:1.0.1'
 

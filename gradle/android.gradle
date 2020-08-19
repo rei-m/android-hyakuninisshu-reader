@@ -15,15 +15,13 @@
  *
  */
 
+import dependencies.Versions
+
 android {
-    compileSdkVersion rootProject.ext.compile_sdk_version
-    buildToolsVersion rootProject.ext.build_tools_version
+    compileSdkVersion Versions.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.min_sdk_version
-        targetSdkVersion rootProject.ext.target_sdk_version
-        versionCode rootProject.ext.version_code
-        versionName rootProject.ext.version_name
+        minSdkVersion Versions.minSdkVersion
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

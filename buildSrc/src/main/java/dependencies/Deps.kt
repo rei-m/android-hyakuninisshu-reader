@@ -18,4 +18,11 @@
 package dependencies
 
 object Deps {
+    object Dagger {
+        private const val version = "2.28-alpha"
+        const val hiltAndroidGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
+        const val hiltAndroid = "com.google.dagger:hilt-android:$version"
+        const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:$version"
+        const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:$version"
+    }
 }
