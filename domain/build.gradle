@@ -15,16 +15,25 @@
  *
  */
 
+import dependencies.Deps
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 apply from: rootProject.file('gradle/android.gradle')
 
-apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies
-
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
+    implementation Deps.Kotlin.kotlinStdlibJdk7
     implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.androidx_lifecycle_version"
+
+    testImplementation Deps.AndroidX.Test.core
+    testImplementation Deps.AndroidX.Test.runner
+    testImplementation Deps.AndroidX.Test.rules
+    testImplementation Deps.AndroidX.Test.junit
+    testImplementation Deps.AndroidX.Arch.coreTesting
+    testImplementation Deps.AssertJ.core
+    testImplementation Deps.Robolectric.robolectric
+    testImplementation Deps.MockitoKotlin2.mockitokotlin2
 }

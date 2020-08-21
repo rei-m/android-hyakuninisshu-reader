@@ -25,11 +25,8 @@ apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('gradle/android.gradle')
 
-apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies
-
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlin_version"
+    implementation Deps.Kotlin.kotlinStdlibJdk7
 
     implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
 
@@ -37,4 +34,13 @@ dependencies {
     kapt Deps.Dagger.hiltAndroidCompiler
     androidTestImplementation Deps.Dagger.hiltAndroidTesting
     kaptAndroidTest Deps.Dagger.hiltAndroidCompiler
+
+    testImplementation Deps.AndroidX.Test.core
+    testImplementation Deps.AndroidX.Test.runner
+    testImplementation Deps.AndroidX.Test.rules
+    testImplementation Deps.AndroidX.Test.junit
+    testImplementation Deps.AndroidX.Arch.coreTesting
+    testImplementation Deps.AssertJ.core
+    testImplementation Deps.Robolectric.robolectric
+    testImplementation Deps.MockitoKotlin2.mockitokotlin2
 }

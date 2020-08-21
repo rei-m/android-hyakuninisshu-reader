@@ -3,7 +3,6 @@
 import dependencies.Deps
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
     repositories {
         google()
         jcenter()
@@ -11,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath Deps.Kotlin.kotlinGradlePlugin
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.0"
         classpath Deps.Dagger.hiltAndroidGradlePlugin
         classpath 'com.google.gms:google-services:4.3.3'
