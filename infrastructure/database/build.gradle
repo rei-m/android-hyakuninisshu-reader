@@ -16,6 +16,7 @@
  */
 
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -33,21 +34,21 @@ dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
     implementation Deps.Kotlin.kotlinReflect
 
-    implementation project(':domain')
-    implementation project(':infrastructure:storage')
+    implementation project(Projects.domain)
+    implementation project(Projects.Infrastructure.storage)
 
-    implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
-    api "androidx.room:room-runtime:$rootProject.androidx_room_version"
-    api "androidx.room:room-ktx:$rootProject.androidx_room_version"
-    kapt "androidx.room:room-compiler:$rootProject.androidx_room_version"
-    androidTestImplementation "androidx.room:room-testing:$rootProject.androidx_room_version"
+    implementation Deps.AndroidX.androidXAnnotation
+    api Deps.AndroidX.Room.runtime
+    api Deps.AndroidX.Room.ktx
+    kapt Deps.AndroidX.Room.compiler
+    androidTestImplementation Deps.AndroidX.Room.testing
 
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.androidx_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.androidx_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.androidx_lifecycle_version"
+    implementation Deps.AndroidX.Lifecycle.extensions
+    implementation Deps.AndroidX.Lifecycle.commonJava8
+    implementation Deps.AndroidX.Lifecycle.liveDataKtx
 
-    implementation "com.squareup.moshi:moshi:$rootProject.moshi_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$rootProject.moshi_version"
+    implementation Deps.Moshi.moshi
+    implementation Deps.Moshi.kotlin
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler

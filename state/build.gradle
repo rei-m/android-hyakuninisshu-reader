@@ -16,6 +16,7 @@
  */
 
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -25,17 +26,17 @@ apply from: rootProject.file('gradle/android-feature.gradle')
 
 dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
+    implementation Deps.AndroidX.androidXAnnotation
+    implementation Deps.AndroidX.Lifecycle.reactiveStreams
 
-    implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$rootProject.androidx_lifecycle_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjava_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid_version"
-    implementation "com.jakewharton.timber:timber:$rootProject.timber_version"
+    implementation Deps.RxJava2.rxJava
+    implementation Deps.RxJava2.rxAndroid
+    implementation Deps.timber
 
-    implementation project(':domain')
+    implementation project(Projects.domain)
 
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines_version"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines_version"
+    testImplementation Deps.KotlinX.coroutinesCore
+    testImplementation Deps.KotlinX.coroutinesAndroid
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler

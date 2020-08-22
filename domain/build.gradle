@@ -24,9 +24,9 @@ apply from: rootProject.file('gradle/android.gradle')
 
 dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
-    implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.androidx_lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.androidx_lifecycle_version"
+    implementation Deps.AndroidX.androidXAnnotation
+    implementation Deps.AndroidX.Lifecycle.extensions
+    implementation Deps.AndroidX.Lifecycle.commonJava8
 
     testImplementation Deps.AndroidX.Test.core
     testImplementation Deps.AndroidX.Test.runner

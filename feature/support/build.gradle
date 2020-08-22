@@ -18,6 +18,7 @@ import dependencies.Deps
  */
 
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -29,8 +30,8 @@ apply from: rootProject.file('gradle/android-feature.gradle')
 dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
 
-    implementation project(':feature:corecomponent')
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
+    implementation project(Projects.Feature.corecomponent)
+    implementation Deps.Google.Android.Gms.playServicesOssLicenses
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler

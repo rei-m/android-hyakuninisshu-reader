@@ -25,9 +25,84 @@ object Deps {
         const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
     }
 
+    object KotlinX {
+        private const val coroutines_version = "1.3.7"
+        const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+        const val coroutinesAndroid ="org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    }
+
+    object Google {
+        object Gms {
+            const val googleServices = "com.google.gms:google-services:4.3.3"
+        }
+        object Firebase {
+            const val analytics = "com.google.firebase:firebase-analytics:17.5.0"
+            const val crashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:2.2.0"
+            const val crashlytics = "com.google.firebase:firebase-crashlytics:17.2.1"
+        }
+        object Android {
+            object Gms {
+                const val playServicesAds = "com.google.android.gms:play-services-ads:19.3.0"
+                const val playServicesOssLicenses = "com.google.android.gms:play-services-oss-licenses:17.0.0"
+                const val ossLicensesPlugin = "com.google.android.gms:oss-licenses-plugin:0.10.2"
+            }
+            object Material {
+                const val material = "com.google.android.material:material:1.2.0"
+            }
+        }
+    }
+
+    object Android {
+        object Tools {
+            object Build {
+                const val gradle = "com.android.tools.build:gradle:4.0.1"
+            }
+        }
+    }
+
     object AndroidX {
+        const val androidXAnnotation = "androidx.annotation:annotation:1.1.0"
+        const val appcompat = "androidx.appcompat:appcompat:1.2.0"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-rc1"
+        const val viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
+
+        object Core {
+            const val ktx = "androidx.core:core-ktx:1.3.1"
+        }
+
+        object Fragment {
+            const val ktx = "androidx.fragment:fragment-ktx:1.2.5"
+        }
+
+        object Lifecycle {
+            private const val version = "2.2.0"
+            const val viewModelSavedState = "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version"
+            const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
+            const val liveDataKtx = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+            const val reactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams:$version"
+            const val extensions = "androidx.lifecycle:lifecycle-extensions:$version"
+            const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:$version"
+        }
+
         object Arch {
             const val coreTesting = "androidx.arch.core:core-testing:2.1.0"
+        }
+
+        object Navigation {
+            private const val version = "2.3.0"
+            const val safeArgsGradlePlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$version"
+            const val fragment = "androidx.navigation:navigation-fragment:$version"
+            const val ui = "androidx.navigation:navigation-ui:$version"
+            const val fragmentKtx = "androidx.navigation:navigation-fragment-ktx:$version"
+            const val uiKtx = "androidx.navigation:navigation-ui-ktx:$version"
+        }
+
+        object Room {
+            private const val version = "2.2.5"
+            const val runtime = "androidx.room:room-runtime:$version"
+            const val ktx = "androidx.room:room-ktx:$version"
+            const val compiler = "androidx.room:room-compiler:$version"
+            const val testing = "androidx.room:room-testing:$version"
         }
 
         object Test {
@@ -53,6 +128,23 @@ object Deps {
         const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:$version"
     }
 
+    object Glide {
+        private const val version = "4.11.0"
+        const val glide = "com.github.bumptech.glide:glide:$version"
+        const val compiler = "com.github.bumptech.glide:compiler:$version"
+    }
+
+    object Moshi {
+        private const val version = "1.9.2"
+        const val moshi = "com.squareup.moshi:moshi:$version"
+        const val kotlin = "com.squareup.moshi:moshi-kotlin:$version"
+    }
+
+    object RxJava2 {
+        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.19"
+        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+    }
+
     object AssertJ {
         const val core = "org.assertj:assertj-core:3.16.1"
     }
@@ -64,4 +156,8 @@ object Deps {
     object MockitoKotlin2 {
         const val mockitokotlin2 = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     }
+
+    const val androidRate = "com.github.hotchemi:android-rate:1.0.1"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.3"
+    const val timber = "com.jakewharton.timber:timber:4.7.1"
 }

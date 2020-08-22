@@ -16,6 +16,7 @@
  */
 
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -27,37 +28,37 @@ apply from: rootProject.file('gradle/android-feature.gradle')
 dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
 
-    api project(':state')
+    api project(Projects.state)
 
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines_version"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines_version"
+    api Deps.KotlinX.coroutinesCore
+    api Deps.KotlinX.coroutinesAndroid
 
-    api "com.google.android.material:material:$rootProject.google_material_version"
+    api Deps.Google.Android.Material.material
+    api Deps.Google.Android.Gms.playServicesAds
 
-    api "com.google.firebase:firebase-analytics:$firebase_analytics_version"
-    api "com.google.firebase:firebase-crashlytics:$firebase_crashlytics_version"
-    api "com.google.android.gms:play-services-ads:$firebase_ads_version"
+    api Deps.Google.Firebase.analytics
+    api Deps.Google.Firebase.crashlytics
 
-    api "androidx.appcompat:appcompat:$rootProject.androidx_appcompat_version"
-    api "androidx.core:core-ktx:$rootProject.androidx_core_ktx_version"
-    api "androidx.fragment:fragment-ktx:$rootProject.androidx_fragment_ktx_version"
-    api "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
-    api "androidx.constraintlayout:constraintlayout:$rootProject.androidx_constraintlayout_version"
-    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$rootProject.androidx_lifecycle_version"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.androidx_lifecycle_version"
-    api "androidx.lifecycle:lifecycle-extensions:$rootProject.androidx_lifecycle_version"
-    api "androidx.lifecycle:lifecycle-reactivestreams:$rootProject.androidx_lifecycle_version"
-    api "androidx.navigation:navigation-fragment:$rootProject.androidx_navigation_version"
-    api "androidx.navigation:navigation-ui:$rootProject.androidx_navigation_version"
-    api "androidx.navigation:navigation-fragment-ktx:$rootProject.androidx_navigation_version"
-    api "androidx.navigation:navigation-ui-ktx:$rootProject.androidx_navigation_version"
+    api Deps.AndroidX.appcompat
+    api Deps.AndroidX.androidXAnnotation
+    api Deps.AndroidX.constraintLayout
+    api Deps.AndroidX.Core.ktx
+    api Deps.AndroidX.Fragment.ktx
+    api Deps.AndroidX.Lifecycle.viewModelSavedState
+    api Deps.AndroidX.Lifecycle.viewModelKtx
+    api Deps.AndroidX.Lifecycle.extensions
+    api Deps.AndroidX.Lifecycle.reactiveStreams
+    api Deps.AndroidX.Navigation.fragment
+    api Deps.AndroidX.Navigation.ui
+    api Deps.AndroidX.Navigation.fragmentKtx
+    api Deps.AndroidX.Navigation.uiKtx
 
-    api "com.github.bumptech.glide:glide:$rootProject.glide_version"
-    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
+    api Deps.Glide.glide
+    kapt Deps.Glide.compiler
 
-    api "io.reactivex.rxjava2:rxjava:$rootProject.rxjava_version"
-    api "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroid_version"
-    api "com.jakewharton.timber:timber:$rootProject.timber_version"
+    api Deps.RxJava2.rxJava
+    api Deps.RxJava2.rxAndroid
+    api Deps.timber
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler

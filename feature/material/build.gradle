@@ -16,6 +16,7 @@
  */
 
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -27,9 +28,9 @@ apply from: rootProject.file('gradle/android-feature.gradle')
 dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
 
-    implementation project(':feature:corecomponent')
+    implementation project(Projects.Feature.corecomponent)
 
-    implementation "androidx.viewpager2:viewpager2:$rootProject.androidx_viewpager2_version"
+    implementation Deps.AndroidX.viewpager2
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler

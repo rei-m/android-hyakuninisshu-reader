@@ -15,6 +15,7 @@
  *
  */
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -26,7 +27,7 @@ apply from: rootProject.file('gradle/android-feature.gradle')
 dependencies {
     implementation Deps.Kotlin.kotlinStdlibJdk7
 
-    implementation project(':feature:corecomponent')
+    implementation project(Projects.Feature.corecomponent)
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler

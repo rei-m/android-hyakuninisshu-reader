@@ -1,6 +1,7 @@
 import dependencies.Versions
 import dependencies.Packages
 import dependencies.Deps
+import dependencies.Projects
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -63,32 +64,32 @@ dependencies {
 
     implementation Deps.Kotlin.kotlinStdlibJdk7
 
-    implementation project(':domain')
+    implementation project(Projects.domain)
 
-    implementation project(':infrastructure:database')
-    implementation project(':infrastructure:storage')
+    implementation project(Projects.Infrastructure.database)
+    implementation project(Projects.Infrastructure.storage)
 
-    implementation project(':feature:corecomponent')
-    implementation project(':feature:splash')
-    implementation project(':feature:trainingmenu')
-    implementation project(':feature:trainingstarter')
-    implementation project(':feature:trainingresult')
-    implementation project(':feature:exammenu')
-    implementation project(':feature:examstarter')
-    implementation project(':feature:examresult')
-    implementation project(':feature:examhistory')
-    implementation project(':feature:question')
-    implementation project(':feature:material')
-    implementation project(':feature:support')
+    implementation project(Projects.Feature.corecomponent)
+    implementation project(Projects.Feature.splash)
+    implementation project(Projects.Feature.trainingmenu)
+    implementation project(Projects.Feature.trainingstarter)
+    implementation project(Projects.Feature.trainingresult)
+    implementation project(Projects.Feature.exammenu)
+    implementation project(Projects.Feature.examstarter)
+    implementation project(Projects.Feature.examresult)
+    implementation project(Projects.Feature.examhistory)
+    implementation project(Projects.Feature.question)
+    implementation project(Projects.Feature.material)
+    implementation project(Projects.Feature.support)
 
     implementation Deps.Dagger.hiltAndroid
     kapt Deps.Dagger.hiltAndroidCompiler
     androidTestImplementation Deps.Dagger.hiltAndroidTesting
     kaptAndroidTest Deps.Dagger.hiltAndroidCompiler
 
-    implementation 'com.github.hotchemi:android-rate:1.0.1'
+    implementation Deps.androidRate
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    debugImplementation Deps.leakCanary
 }
 
 task addAppLicenseTask {
