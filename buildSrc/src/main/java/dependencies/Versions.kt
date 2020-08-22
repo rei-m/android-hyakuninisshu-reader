@@ -15,11 +15,14 @@
  *
  */
 
-ext {
-    androidx_espresso_version = '3.2.0'
-}
+package dependencies
 
-androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_espresso_version"
-androidTestImplementation "androidx.test.espresso:espresso-intents:$androidx_espresso_version"
-androidTestImplementation "androidx.test.ext:junit:1.1.1"
-androidTestImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+object Versions {
+    val targetSdkVersion = 29
+    val compileSdkVersion = 29
+    val minSdkVersion = 21
+
+    val versionCode = 4
+
+    val versionName = "1.0.3"
+}

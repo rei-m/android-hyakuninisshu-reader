@@ -15,13 +15,10 @@
  *
  */
 
-testImplementation 'androidx.test:core:1.0.0'
+package dependencies
 
-testImplementation 'androidx.test:runner:1.1.0'
-testImplementation 'androidx.test:rules:1.1.0'
-testImplementation 'androidx.test.ext:junit:1.1.1'
-
-testImplementation 'androidx.arch.core:core-testing:2.1.0'
-testImplementation 'org.assertj:assertj-core:3.16.1'
-testImplementation 'org.robolectric:robolectric:4.3.1'
-testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+object Packages {
+    const val applicationId = "net.hyakuninanki.reader"
+    const val applicationIdSuffix = ".debug"
+    const val versionNameSuffix = "d"
+}

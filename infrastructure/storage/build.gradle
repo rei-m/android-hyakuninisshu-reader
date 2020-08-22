@@ -1,3 +1,5 @@
+import dependencies.Deps
+
 /*
  * Copyright (c) 2020. Rei Matsushita.
  *
@@ -15,18 +17,29 @@
  *
  */
 
+import dependencies.Deps
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('gradle/android.gradle')
 
-apply from: rootProject.file('gradle/dependencies/dagger.gradle'), to: dependencies
-apply from: rootProject.file('gradle/dependencies/test.gradle'), to: dependencies
-
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlin_version"
+    implementation Deps.Kotlin.kotlinStdlibJdk7
+    implementation Deps.AndroidX.androidXAnnotation
 
-    implementation "androidx.annotation:annotation:$rootProject.androidx_annotation_version"
+    implementation Deps.Dagger.hiltAndroid
+    kapt Deps.Dagger.hiltAndroidCompiler
+    androidTestImplementation Deps.Dagger.hiltAndroidTesting
+    kaptAndroidTest Deps.Dagger.hiltAndroidCompiler
+
+    testImplementation Deps.AndroidX.Test.core
+    testImplementation Deps.AndroidX.Test.runner
+    testImplementation Deps.AndroidX.Test.rules
+    testImplementation Deps.AndroidX.Test.junit
+    testImplementation Deps.AndroidX.Arch.coreTesting
+    testImplementation Deps.AssertJ.core
+    testImplementation Deps.Robolectric.robolectric
+    testImplementation Deps.MockitoKotlin2.mockitokotlin2
 }

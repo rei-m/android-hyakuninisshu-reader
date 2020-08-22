@@ -14,13 +14,11 @@
  * limitations under the License.
  *
  */
-
-ext {
-    hilt_version = '2.28-alpha'
+plugins {
+    `kotlin-dsl`
 }
 
-implementation "com.google.dagger:hilt-android:$hilt_version"
-kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
-androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+repositories {
+    jcenter()
+    google()
+}
