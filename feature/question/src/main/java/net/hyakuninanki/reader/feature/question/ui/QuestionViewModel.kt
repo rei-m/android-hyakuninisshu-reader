@@ -19,6 +19,7 @@ package net.hyakuninanki.reader.feature.question.ui
 
 import android.content.Context
 import android.media.MediaPlayer
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -75,7 +76,7 @@ class QuestionViewModel(
     val isCorrectResId = state.map {
         val resId =
             if (it is QuestionState.Answered && it.isCorrect) R.drawable.check_correct else R.drawable.check_incorrect
-        context.getDrawable(resId)
+        ContextCompat.getDrawable(context, resId)
     }
 
     private val _isVisibleReplayButton = MutableLiveData(false)
@@ -135,6 +136,8 @@ class QuestionViewModel(
         state.removeObserver(stateObserver)
         mediaPlayer?.stop()
         mediaPlayer?.setOnCompletionListener(null)
+        mediaPlayer?.release()
+        mediaPlayer = null
         timer.cancel()
         store.dispose()
         super.onCleared()
