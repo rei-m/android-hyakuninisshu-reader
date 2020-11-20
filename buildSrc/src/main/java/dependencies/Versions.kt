@@ -22,7 +22,7 @@ object Versions {
     val compileSdkVersion = 29
     val minSdkVersion = 21
 
-    val versionCode = 5
+    val versionCode = 6
 
-    val versionName = "1.0.4"
+    val versionName = "1.0.5"
 }
