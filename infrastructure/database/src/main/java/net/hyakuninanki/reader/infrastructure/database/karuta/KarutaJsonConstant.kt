@@ -18,7 +18,7 @@
 package net.hyakuninanki.reader.infrastructure.database.karuta
 
 object KarutaJsonConstant {
-    const val KARUTA_VERSION = 1    // マスタを変えたらこれをver upする
+    const val KARUTA_VERSION = 2    // マスタを変えたらこれをver upする
 
     const val KEY_KARUTA_JSON_VERSION = "mtFju3hD6N"
 }
