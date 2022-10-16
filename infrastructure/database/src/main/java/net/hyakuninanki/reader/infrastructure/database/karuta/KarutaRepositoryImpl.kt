@@ -65,7 +65,7 @@ class KarutaRepositoryImpl(
     }
 
     override suspend fun findByNo(karutaNo: KarutaNo): Karuta = withContext(ioContext) {
-        database.karutaDao().findByNo(no = karutaNo.value).let { it.toModel() }
+        database.karutaDao().findByNo(no = karutaNo.value).toModel()
     }
 
     override suspend fun findAllWithCondition(

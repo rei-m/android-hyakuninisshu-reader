@@ -51,7 +51,7 @@ class ExamResultFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = ExamResultFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -70,12 +70,8 @@ class ExamResultFragment : Fragment() {
             val action = ExamResultFragmentDirections.actionExamResultPop()
             findNavController().navigate(action)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.materialMap.observe(viewLifecycleOwner, Observer {
+        viewModel.materialMap.observe(viewLifecycleOwner) {
             binding.viewResult.listener = object : ExamResultView.OnClickItemListener {
                 override fun onClick(karutaNo: Int) {
                     val material = it[karutaNo] ?: return
@@ -84,6 +80,6 @@ class ExamResultFragment : Fragment() {
                     findNavController().navigate(action)
                 }
             }
-        })
+        }
     }
 }
