@@ -43,7 +43,6 @@ dependencies {
     kapt Deps.AndroidX.Room.compiler
     androidTestImplementation Deps.AndroidX.Room.testing
 
-    implementation Deps.AndroidX.Lifecycle.extensions
     implementation Deps.AndroidX.Lifecycle.commonJava8
     implementation Deps.AndroidX.Lifecycle.liveDataKtx
 

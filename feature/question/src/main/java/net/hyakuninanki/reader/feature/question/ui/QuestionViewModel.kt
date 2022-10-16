@@ -46,7 +46,7 @@ class QuestionViewModel(
     dispatcher: Dispatcher,
     private val actionCreator: QuestionActionCreator,
     private val store: QuestionStore,
-    private val context: Context
+    context: Context
 ) : AbstractViewModel(dispatcher) {
 
     val question = store.question

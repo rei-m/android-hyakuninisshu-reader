@@ -44,7 +44,7 @@ class MaterialViewModel(
         }
         set(value) {
             dispatchAction { actionCreator.fetchMaterialList(value) }
-            handle.set<Int>(KEY_COLOR_FILTER, value.ordinal)
+            handle.set(KEY_COLOR_FILTER, value.ordinal)
         }
 
     init {
@@ -63,7 +63,7 @@ class MaterialViewModel(
         private val store: MaterialStore
     ) : AbstractSavedStateViewModelFactory(owner, null) {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(
+        override fun <T : ViewModel> create(
             key: String,
             modelClass: Class<T>,
             handle: SavedStateHandle

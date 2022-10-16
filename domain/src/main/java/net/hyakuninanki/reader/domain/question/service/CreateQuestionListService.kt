@@ -41,11 +41,11 @@ class CreateQuestionListService {
         choiceSize: Int
     ): List<Question> {
         if (allKarutaNoCollection.size != KarutaNo.MAX.value) {
-            throw IllegalArgumentException("allKarutaList is invalid");
+            throw IllegalArgumentException("allKarutaList is invalid")
         }
 
         if (targetKarutaNoCollection.size == 0) {
-            throw IllegalArgumentException("targetKarutaNoList is empty");
+            throw IllegalArgumentException("targetKarutaNoList is empty")
         }
 
         return targetKarutaNoCollection.asRandomized.mapIndexed { index, targetKarutaNo ->
@@ -65,6 +65,6 @@ class CreateQuestionListService {
             choices.add(correctPosition, targetKarutaNo)
 
             Question(QuestionId(), index + 1, choices, targetKarutaNo, Question.State.Ready)
-        };
+        }
     }
 }

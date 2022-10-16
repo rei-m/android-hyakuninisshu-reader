@@ -42,7 +42,7 @@ class ExamMenuFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = ExamMenuFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
@@ -63,15 +63,11 @@ class ExamMenuFragment : Fragment() {
             val action = ExamMenuFragmentDirections.actionExamMenuToExamHistory()
             findNavController().navigate(action)
         }
+        binding.viewModel = viewModel
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        binding.viewModel = viewModel
     }
 }

@@ -26,7 +26,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
-import net.hyakuninanki.reader.feature.support.BuildConfig
 import net.hyakuninanki.reader.feature.support.R
 import net.hyakuninanki.reader.feature.support.databinding.SupportFragmentBinding
 
@@ -39,9 +38,9 @@ class SupportFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // TODO: versionName 取れなくなったのでとりあえず
-        val versionName = getString(R.string.version, "1.0.5")
+        val versionName = getString(R.string.version, "1.0.6")
 
         _binding = SupportFragmentBinding.inflate(inflater, container, false)
         binding.textVersion.text = versionName

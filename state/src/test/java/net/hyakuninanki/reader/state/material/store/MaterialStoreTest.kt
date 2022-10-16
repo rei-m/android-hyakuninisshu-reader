@@ -51,7 +51,7 @@ class MaterialStoreTest {
     @Test
     fun initialState() {
         assertThat(store.materialList.value).isNull()
-        assertThat(store.isFailure.value).isFalse()
+        assertThat(store.isFailure.value).isFalse
     }
 
     @Test
@@ -59,13 +59,13 @@ class MaterialStoreTest {
         val value: List<Material> = listOf()
         dispatcher.dispatch(FetchMaterialListAction.Success(value))
         assertThat(store.materialList.value).isEqualTo(value)
-        assertThat(store.isFailure.value).isFalse()
+        assertThat(store.isFailure.value).isFalse
     }
 
     @Test
     fun state_receivedFailedFetchMaterialListAction() {
         dispatcher.dispatch(FetchMaterialListAction.Failure(RuntimeException()))
         assertThat(store.materialList.value).isNull()
-        assertThat(store.isFailure.value).isTrue()
+        assertThat(store.isFailure.value).isTrue
     }
 }

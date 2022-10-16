@@ -52,7 +52,7 @@ class ExamFinisherStoreTest {
     @Test
     fun initialState() {
         assertThat(store.onFinishEvent.value).isNull()
-        assertThat(store.isFailure.value).isFalse()
+        assertThat(store.isFailure.value).isFalse
     }
 
     @Test
@@ -69,13 +69,13 @@ class ExamFinisherStoreTest {
             )
         )
         assertThat(store.onFinishEvent.value).isInstanceOf(Event::class.java)
-        assertThat(store.isFailure.value).isFalse()
+        assertThat(store.isFailure.value).isFalse
     }
 
     @Test
     fun state_receivedFailedFinishExamAction() {
         dispatcher.dispatch(FinishExamAction.Failure(RuntimeException()))
         assertThat(store.onFinishEvent.value).isNull()
-        assertThat(store.isFailure.value).isTrue()
+        assertThat(store.isFailure.value).isTrue
     }
 }
