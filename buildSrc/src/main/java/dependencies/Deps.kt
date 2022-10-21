@@ -38,7 +38,7 @@ object Deps {
         object Firebase {
             const val analytics = "com.google.firebase:firebase-analytics:21.2.0"
             const val crashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:2.9.2"
-            const val crashlytics = "com.google.firebase:firebase-crashlytics:18.3.0"
+            const val crashlytics = "com.google.firebase:firebase-crashlytics:18.3.1"
         }
         object Android {
             object Gms {

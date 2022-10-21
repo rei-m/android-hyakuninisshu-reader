@@ -40,7 +40,7 @@ class SupportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // TODO: versionName 取れなくなったのでとりあえず
-        val versionName = getString(R.string.version, "1.0.6")
+        val versionName = getString(R.string.version, "1.0.7")
 
         _binding = SupportFragmentBinding.inflate(inflater, container, false)
         binding.textVersion.text = versionName
