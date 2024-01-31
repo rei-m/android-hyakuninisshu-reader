@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_question,
                 R.id.navigation_question_answer -> {
                     navView.visibility = View.GONE
-                    adViewObserver.hideAd(adViewContainer)
+                    adViewObserver.hideAd()
                 }
                 R.id.navigation_training_result,
                 R.id.navigation_exam_result,
