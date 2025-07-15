@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,16 +21,17 @@ import androidx.room.*
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaData
 import java.util.*
 
-
 @Entity(
     tableName = "karuta_question_table",
     indices = [Index("correct_karuta_no"), Index("no")],
-    foreignKeys = [ForeignKey(
-        entity = KarutaData::class,
-        parentColumns = arrayOf("no"),
-        childColumns = arrayOf("correct_karuta_no"),
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = KarutaData::class,
+            parentColumns = arrayOf("no"),
+            childColumns = arrayOf("correct_karuta_no"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
 )
 data class KarutaQuestionData(
     @PrimaryKey(autoGenerate = false) val id: String,
@@ -39,5 +40,5 @@ data class KarutaQuestionData(
     @ColumnInfo(name = "start_date") val startDate: Date?,
     @ColumnInfo(name = "selected_karuta_no") val selectedKarutaNo: Int?,
     @ColumnInfo(name = "is_correct") val isCorrect: Boolean?,
-    @ColumnInfo(name = "answer_time") val answerTime: Long?
+    @ColumnInfo(name = "answer_time") val answerTime: Long?,
 )

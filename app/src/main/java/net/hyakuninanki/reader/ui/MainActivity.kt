@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,38 +61,41 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavController() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_training_menu,
-                R.id.navigation_exam_menu,
-                R.id.navigation_material_list,
-                R.id.navigation_support
+        val appBarConfiguration =
+            AppBarConfiguration(
+                setOf(
+                    R.id.navigation_training_menu,
+                    R.id.navigation_exam_menu,
+                    R.id.navigation_material_list,
+                    R.id.navigation_support,
+                ),
             )
-        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
         val adViewContainer: FrameLayout = findViewById(R.id.ad_view_container)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.splash_fragment -> {
+                net.hyakuninanki.reader.feature.corecomponent.R.id.splash_fragment -> {
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     navView.visibility = View.GONE
                 }
-                R.id.navigation_training_starter,
-                R.id.navigation_training_re_starter,
-                R.id.navigation_exam_practice_training_starter,
-                R.id.navigation_exam_finisher,
-                R.id.navigation_question,
-                R.id.navigation_question_answer -> {
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_training_starter,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_training_re_starter,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_practice_training_starter,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_finisher,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_question,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_question_answer,
+                -> {
                     navView.visibility = View.GONE
                     adViewObserver.hideAd()
                 }
-                R.id.navigation_training_result,
-                R.id.navigation_exam_result,
-                R.id.navigation_exam_history,
-                R.id.navigation_material_detail,
-                R.id.navigation_material_detail_page -> {
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_training_result,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_result,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_history,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_material_detail,
+                net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_material_detail_page,
+                -> {
                     navView.visibility = View.GONE
                     adViewObserver.showAd(this, adViewContainer)
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,5 +27,5 @@ data class KarutaExamData(
     @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "took_exam_date") val tookExamDate: Date,
     @ColumnInfo(name = "total_question_count") val totalQuestionCount: Int,
-    @ColumnInfo(name = "average_answer_time") val averageAnswerTime: Float
+    @ColumnInfo(name = "average_answer_time") val averageAnswerTime: Float,
 )

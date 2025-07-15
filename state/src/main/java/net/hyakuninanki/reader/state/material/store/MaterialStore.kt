@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,25 +28,30 @@ import javax.inject.Inject
 /**
  * 資料の状態を管理する.
  */
-class MaterialStore @Inject constructor(dispatcher: Dispatcher) : Store() {
+class MaterialStore
+    @Inject
+    constructor(
+        dispatcher: Dispatcher,
+    ) : Store() {
+        private val _materialList = MutableLiveData<List<Material>?>()
+        val materialList: LiveData<List<Material>?> = _materialList
 
-    private val _materialList = MutableLiveData<List<Material>?>()
-    val materialList: LiveData<List<Material>?> = _materialList
+        private val _isFailure = MutableLiveData(false)
+        val isFailure: LiveData<Boolean> = _isFailure
 
-    private val _isFailure = MutableLiveData(false)
-    val isFailure: LiveData<Boolean> = _isFailure
-
-    init {
-        register(dispatcher.on(FetchMaterialListAction::class.java).subscribe {
-            when (it) {
-                is FetchMaterialListAction.Success -> {
-                    _materialList.value = it.materialList
-                    _isFailure.value = false
-                }
-                is FetchMaterialListAction.Failure -> {
-                    _isFailure.value = true
-                }
-            }
-        })
+        init {
+            register(
+                dispatcher.on(FetchMaterialListAction::class.java).subscribe {
+                    when (it) {
+                        is FetchMaterialListAction.Success -> {
+                            _materialList.value = it.materialList
+                            _isFailure.value = false
+                        }
+                        is FetchMaterialListAction.Failure -> {
+                            _isFailure.value = true
+                        }
+                    }
+                },
+            )
+        }
     }
-}

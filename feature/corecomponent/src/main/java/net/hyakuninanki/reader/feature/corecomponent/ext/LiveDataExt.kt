@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,9 @@ package net.hyakuninanki.reader.feature.corecomponent.ext
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Transformations
 
-fun <X, Y> LiveData<X>.map(transform: (X) -> Y): LiveData<Y> {
-    return Transformations.map(this, transform)
-}
-
-fun <A, B> LiveData<A>.combineLatest(b: LiveData<B>): LiveData<Pair<A, B>> {
-    return MediatorLiveData<Pair<A, B>>().apply {
+fun <A, B> LiveData<A>.combineLatest(b: LiveData<B>): LiveData<Pair<A, B>> =
+    MediatorLiveData<Pair<A, B>>().apply {
         var lastA: A? = null
         var lastB: B? = null
 
@@ -42,4 +37,3 @@ fun <A, B> LiveData<A>.combineLatest(b: LiveData<B>): LiveData<Pair<A, B>> {
             if (lastA != null && lastB != null) value = lastA!! to lastB!!
         }
     }
-}

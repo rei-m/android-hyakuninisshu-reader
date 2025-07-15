@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ class ExamPracticeTrainingStarterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = TrainingStarterFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -58,19 +58,26 @@ class ExamPracticeTrainingStarterFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
-        viewModel.onReadyEvent.observe(viewLifecycleOwner, EventObserver {
-            val action = ExamPracticeTrainingStarterFragmentDirections
-                .actionExamPracticeTrainingStarterToQuestion(
-                    questionId = it,
-                    inputSecond = InputSecondCondition.SHORT,
-                    displayMode = DisplayModeCondition.JIJIN,
-                    referer = Referer.Training
-                )
-            findNavController().navigate(action)
-        })
+        viewModel.onReadyEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val action =
+                    ExamPracticeTrainingStarterFragmentDirections
+                        .actionExamPracticeTrainingStarterToQuestion(
+                            questionId = it,
+                            inputSecond = InputSecondCondition.SHORT,
+                            displayMode = DisplayModeCondition.JIJIN,
+                            referer = Referer.Training,
+                        )
+                findNavController().navigate(action)
+            },
+        )
     }
 }

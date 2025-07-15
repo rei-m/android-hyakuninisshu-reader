@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,11 +31,12 @@ class CreateQuestionListServiceTest {
     class WhenSuccess : TestHelper {
         @Test
         fun execution() {
-            val actual = CreateQuestionListService()(
-                allKarutaNoCollection = allKarutaNoCollection,
-                targetKarutaNoCollection = KarutaNoCollection(listOf(KarutaNo(1))),
-                choiceSize = 9
-            )
+            val actual =
+                CreateQuestionListService()(
+                    allKarutaNoCollection = allKarutaNoCollection,
+                    targetKarutaNoCollection = KarutaNoCollection(listOf(KarutaNo(1))),
+                    choiceSize = 9,
+                )
             assertThat(actual.size).isEqualTo(1)
             assertThat(actual[0].no).isEqualTo(1)
             assertThat(actual[0].choiceList).contains(KarutaNo(1))
@@ -49,14 +50,15 @@ class CreateQuestionListServiceTest {
         @Test(expected = IllegalArgumentException::class)
         fun execution() {
             CreateQuestionListService()(
-                allKarutaNoCollection = KarutaNoCollection(
-                    allKarutaNoCollection.values.subList(
-                        0,
-                        99
-                    )
-                ),
+                allKarutaNoCollection =
+                    KarutaNoCollection(
+                        allKarutaNoCollection.values.subList(
+                            0,
+                            99,
+                        ),
+                    ),
                 targetKarutaNoCollection = KarutaNoCollection(listOf(KarutaNo(1))),
-                choiceSize = 9
+                choiceSize = 9,
             )
         }
     }
@@ -67,7 +69,7 @@ class CreateQuestionListServiceTest {
             CreateQuestionListService()(
                 allKarutaNoCollection = allKarutaNoCollection,
                 targetKarutaNoCollection = KarutaNoCollection(listOf()),
-                choiceSize = 9
+                choiceSize = 9,
             )
         }
     }
@@ -76,4 +78,3 @@ class CreateQuestionListServiceTest {
         private val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
     }
 }
-

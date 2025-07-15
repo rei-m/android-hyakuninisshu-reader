@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,17 +27,17 @@ import java.util.*
  */
 enum class DisplayModeCondition(
     val value: Int,
-    @param:StringRes private val resId: Int
+    @param:StringRes private val resId: Int,
 ) : SelectableItem {
     JIJIN(0, R.string.display_mode_jijin),
-    AITEJIN(1, R.string.display_mode_aitejin);
+    AITEJIN(1, R.string.display_mode_aitejin),
+    ;
 
     override fun label(res: Resources): String = res.getString(resId)
 
     companion object {
         operator fun get(ordinal: Int) = values()[ordinal]
-        fun random(): DisplayModeCondition {
-            return values()[(Date().time % 2).toInt()]
-        }
+
+        fun random(): DisplayModeCondition = values()[(Date().time % 2).toInt()]
     }
 }

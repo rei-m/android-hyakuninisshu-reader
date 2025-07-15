@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import net.hyakuninanki.reader.state.R
  */
 enum class RangeToCondition(
     val value: KarutaNo,
-    @param:StringRes private val resId: Int
+    @param:StringRes private val resId: Int,
 ) : SelectableItem {
     TEN(KarutaNo(10), R.string.training_range_10),
     TWENTY(KarutaNo(20), R.string.training_range_20),
@@ -38,7 +38,8 @@ enum class RangeToCondition(
     SEVENTY(KarutaNo(70), R.string.training_range_70),
     EIGHTY(KarutaNo(80), R.string.training_range_80),
     NINETY(KarutaNo(90), R.string.training_range_90),
-    ONE_HUNDRED(KarutaNo(100), R.string.training_range_100);
+    ONE_HUNDRED(KarutaNo(100), R.string.training_range_100),
+    ;
 
     override fun label(res: Resources): String = res.getString(resId)
 

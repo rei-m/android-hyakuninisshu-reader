@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,18 @@ import net.hyakuninanki.reader.state.material.model.Material
 /**
  * すべての資料を取得するアクション.
  */
-sealed class FetchMaterialListAction(override val error: Throwable? = null) : Action {
-
-    class Success(val materialList: List<Material>) : FetchMaterialListAction() {
+sealed class FetchMaterialListAction(
+    override val error: Throwable? = null,
+) : Action {
+    class Success(
+        val materialList: List<Material>,
+    ) : FetchMaterialListAction() {
         override fun toString() = "$name(materialList=$materialList)"
     }
 
-    class Failure(error: Throwable) : FetchMaterialListAction(error) {
+    class Failure(
+        error: Throwable,
+    ) : FetchMaterialListAction(error) {
         override fun toString() = "$name(error=$error)"
     }
 

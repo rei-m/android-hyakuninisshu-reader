@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ package net.hyakuninanki.reader.domain.karuta.model
  * 歌リポジトリ.
  */
 interface KarutaRepository {
-
     /**
      * 歌セットを初期化する.
      */
@@ -34,9 +33,7 @@ interface KarutaRepository {
      *
      * @return 歌
      */
-    suspend fun findByNo(
-        karutaNo: KarutaNo
-    ): Karuta
+    suspend fun findByNo(karutaNo: KarutaNo): Karuta
 
     /**
      * すべての歌のリストを取得する
@@ -59,7 +56,7 @@ interface KarutaRepository {
         fromNo: KarutaNo,
         toNo: KarutaNo,
         kimarijis: List<Kimariji>,
-        colors: List<KarutaColor>
+        colors: List<KarutaColor>,
     ): List<Karuta>
 
     /**
@@ -69,7 +66,5 @@ interface KarutaRepository {
      *
      * @return 条件に該当する歌のリスト
      */
-    suspend fun findAllWithNo(
-        karutaNoList: List<KarutaNo>
-    ): List<Karuta>
+    suspend fun findAllWithNo(karutaNoList: List<KarutaNo>): List<Karuta>
 }

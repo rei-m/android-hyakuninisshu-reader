@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,11 @@
 package net.hyakuninanki.reader.feature.support.ui
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
@@ -30,17 +30,16 @@ import net.hyakuninanki.reader.feature.support.R
 import net.hyakuninanki.reader.feature.support.databinding.SupportFragmentBinding
 
 class SupportFragment : Fragment() {
-
     private var _binding: SupportFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // TODO: versionName 取れなくなったのでとりあえず
-        val versionName = getString(R.string.version, "1.0.7")
+        val versionName = getString(R.string.version, "2.0.0")
 
         _binding = SupportFragmentBinding.inflate(inflater, container, false)
         binding.textVersion.text = versionName
@@ -48,17 +47,24 @@ class SupportFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonLicense.setOnClickListener {
             startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
         binding.buttonPrivacyPolicy.setOnClickListener {
-            findNavController().navigate(R.id.action_support_to_privacyPolicyDialog)
+            findNavController().navigate(net.hyakuninanki.reader.feature.corecomponent.R.id.action_support_to_privacyPolicyDialog)
         }
         binding.buttonReview.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.app_url)))
+            val intent =
+                Intent(
+                    Intent.ACTION_VIEW,
+                    getString(net.hyakuninanki.reader.feature.corecomponent.R.string.app_url).toUri(),
+                )
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             requireActivity().startActivity(intent)
         }

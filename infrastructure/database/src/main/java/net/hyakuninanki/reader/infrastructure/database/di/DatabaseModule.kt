@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,33 +39,29 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            AppDatabase.DB_NAME
-        ).build()
-    }
+    fun provideAppDatabase(
+        @ApplicationContext context: Context,
+    ): AppDatabase =
+        Room
+            .databaseBuilder(
+                context,
+                AppDatabase::class.java,
+                AppDatabase.DB_NAME,
+            ).build()
 
     @Provides
     @Singleton
     fun provideKarutaRepository(
         @ApplicationContext context: Context,
         storage: Storage,
-        appDatabase: AppDatabase
-    ): KarutaRepository {
-        return KarutaRepositoryImpl(context, storage, appDatabase)
-    }
+        appDatabase: AppDatabase,
+    ): KarutaRepository = KarutaRepositoryImpl(context, storage, appDatabase)
 
     @Provides
     @Singleton
-    fun provideExamRepository(appDatabase: AppDatabase): ExamRepository {
-        return ExamRepositoryImpl(appDatabase)
-    }
+    fun provideExamRepository(appDatabase: AppDatabase): ExamRepository = ExamRepositoryImpl(appDatabase)
 
     @Provides
     @Singleton
-    fun provideQuestionRepository(appDatabase: AppDatabase): QuestionRepository {
-        return QuestionRepositoryImpl(appDatabase)
-    }
+    fun provideQuestionRepository(appDatabase: AppDatabase): QuestionRepository = QuestionRepositoryImpl(appDatabase)
 }

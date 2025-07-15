@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ class TrainingResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = TrainingResultFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -57,13 +57,17 @@ class TrainingResultFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonRestart.setOnClickListener {
-            val action = TrainingResultFragmentDirections.actionTrainingResultToTrainingReStarter(
-                displayMode = args.displayMode,
-                inputSecond = args.inputSecond
-            )
+            val action =
+                TrainingResultFragmentDirections.actionTrainingResultToTrainingReStarter(
+                    displayMode = args.displayMode,
+                    inputSecond = args.inputSecond,
+                )
             findNavController().navigate(action)
         }
         binding.buttonBack.setOnClickListener {

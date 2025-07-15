@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,142 +37,148 @@ import javax.inject.Singleton
 import kotlin.NoSuchElementException
 
 @Singleton
-class ExamActionCreator @Inject constructor(
-    @ApplicationContext private val context: Context,
-    private val karutaRepository: KarutaRepository,
-    private val questionRepository: QuestionRepository,
-    private val examRepository: ExamRepository,
-    private val createQuestionListService: CreateQuestionListService
-) {
-    /**
-     * 力試しを開始する.
-     *
-     * @return StartExamAction
-     */
-    suspend fun start() = try {
-        val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
+class ExamActionCreator
+    @Inject
+    constructor(
+        @param:ApplicationContext private val context: Context,
+        private val karutaRepository: KarutaRepository,
+        private val questionRepository: QuestionRepository,
+        private val examRepository: ExamRepository,
+        private val createQuestionListService: CreateQuestionListService,
+    ) {
+        /**
+         * 力試しを開始する.
+         *
+         * @return StartExamAction
+         */
+        suspend fun start() =
+            try {
+                val allKarutaNoCollection = KarutaNoCollection(KarutaNo.LIST)
 
-        val targetKarutaList = karutaRepository.findAll()
+                val targetKarutaList = karutaRepository.findAll()
 
-        val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
+                val targetKarutaNoCollection = KarutaNoCollection(targetKarutaList.map { it.no })
 
-        val questionList = createQuestionListService(
-            allKarutaNoCollection,
-            targetKarutaNoCollection,
-            Question.CHOICE_SIZE
-        )
-
-        questionRepository.initialize(questionList)
-
-        StartExamAction.Success(questionList.first().id.value)
-    } catch (e: Exception) {
-        StartExamAction.Failure(e)
-    }
-
-    /**
-     * 力試しを終了して結果を登録する.
-     *
-     * @param now 力試しを終了した時間
-     *
-     * @return FinishExamAction
-     */
-    suspend fun finish(
-        now: Date = Date()
-    ) = try {
-        val questionCollection = questionRepository.findCollection()
-        val result = ExamResult(
-            questionCollection.resultSummary,
-            questionCollection.wrongKarutaNoCollection
-        )
-        val addedExamId = examRepository.add(result, now)
-        val examCollection = examRepository.findCollection()
-        examRepository.deleteList(examCollection.overflowed)
-
-        val averageAnswerTimeString = String.format(
-            Locale.JAPAN,
-            "%.2f",
-            result.resultSummary.averageAnswerSec
-        )
-
-        FinishExamAction.Success(
-            examResult = ExamResult(
-                id = addedExamId.value,
-                score = result.resultSummary.score,
-                averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
-                questionResultList = KarutaNo.LIST.map { karutaNo ->
-                    QuestionResult(
-                        karutaNo = karutaNo.value,
-                        karutaNoText = karutaNo.toText(context),
-                        isCorrect = !result.wrongKarutaNoCollection.contains(karutaNo)
+                val questionList =
+                    createQuestionListService(
+                        allKarutaNoCollection,
+                        targetKarutaNoCollection,
+                        Question.CHOICE_SIZE,
                     )
-                },
-                fromNowText = now.diffString(context, now)
-            )
-        )
-    } catch (e: Exception) {
-        FinishExamAction.Failure(e)
-    }
 
-    /**
-     * 最新の力試しの結果を取得する.
-     *
-     * @param now 現在時刻
-     *
-     * @return FetchRecentExamAction
-     */
-    suspend fun fetchRecentResult(
-        now: Date = Date()
-    ): FetchRecentExamResultAction {
-        try {
-            val recentExam =
-                examRepository.last() ?: return FetchRecentExamResultAction.Success(null)
-            return FetchRecentExamResultAction.Success(recentExam.toResult(context, now))
+                questionRepository.initialize(questionList)
 
-        } catch (e: Exception) {
-            return FetchRecentExamResultAction.Failure(e)
+                StartExamAction.Success(questionList.first().id.value)
+            } catch (e: Exception) {
+                StartExamAction.Failure(e)
+            }
+
+        /**
+         * 力試しを終了して結果を登録する.
+         *
+         * @param now 力試しを終了した時間
+         *
+         * @return FinishExamAction
+         */
+        suspend fun finish(now: Date = Date()) =
+            try {
+                val questionCollection = questionRepository.findCollection()
+                val result =
+                    ExamResult(
+                        questionCollection.resultSummary,
+                        questionCollection.wrongKarutaNoCollection,
+                    )
+                val addedExamId = examRepository.add(result, now)
+                val examCollection = examRepository.findCollection()
+                examRepository.deleteList(examCollection.overflowed)
+
+                val averageAnswerTimeString =
+                    String.format(
+                        Locale.JAPAN,
+                        "%.2f",
+                        result.resultSummary.averageAnswerSec,
+                    )
+
+                FinishExamAction.Success(
+                    examResult =
+                        ExamResult(
+                            id = addedExamId.value,
+                            score = result.resultSummary.score,
+                            averageAnswerSecText = context.getString(R.string.seconds, averageAnswerTimeString),
+                            questionResultList =
+                                KarutaNo.LIST.map { karutaNo ->
+                                    QuestionResult(
+                                        karutaNo = karutaNo.value,
+                                        karutaNoText = karutaNo.toText(context),
+                                        isCorrect = !result.wrongKarutaNoCollection.contains(karutaNo),
+                                    )
+                                },
+                            fromNowText = now.diffString(context, now),
+                        ),
+                )
+            } catch (e: Exception) {
+                FinishExamAction.Failure(e)
+            }
+
+        /**
+         * 最新の力試しの結果を取得する.
+         *
+         * @param now 現在時刻
+         *
+         * @return FetchRecentExamAction
+         */
+        suspend fun fetchRecentResult(now: Date = Date()): FetchRecentExamResultAction {
+            try {
+                val recentExam =
+                    examRepository.last() ?: return FetchRecentExamResultAction.Success(null)
+                return FetchRecentExamResultAction.Success(recentExam.toResult(context, now))
+            } catch (e: Exception) {
+                return FetchRecentExamResultAction.Failure(e)
+            }
         }
-    }
 
-    /**
-     * 指定した力試しの結果を取得する.
-     *
-     * @param id 力試しID
-     * @param now 現在時刻
-     *
-     * @return FetchExamResultAction
-     */
-    suspend fun fetchResult(
-        id: Long,
-        now: Date = Date()
-    ): FetchExamResultAction {
-        try {
-            val exam = examRepository.findById(ExamId(id))
-                ?: return FetchExamResultAction.Failure(NoSuchElementException())
-            return FetchExamResultAction.Success(
-                examResult = exam.toResult(context, now),
-                materialList = karutaRepository.findAll()
-                    .map { it.toMaterial(context) }
-            )
-        } catch (e: Exception) {
-            return FetchExamResultAction.Failure(e)
+        /**
+         * 指定した力試しの結果を取得する.
+         *
+         * @param id 力試しID
+         * @param now 現在時刻
+         *
+         * @return FetchExamResultAction
+         */
+        suspend fun fetchResult(
+            id: Long,
+            now: Date = Date(),
+        ): FetchExamResultAction {
+            try {
+                val exam =
+                    examRepository.findById(ExamId(id))
+                        ?: return FetchExamResultAction.Failure(NoSuchElementException())
+                return FetchExamResultAction.Success(
+                    examResult = exam.toResult(context, now),
+                    materialList =
+                        karutaRepository
+                            .findAll()
+                            .map { it.toMaterial(context) },
+                )
+            } catch (e: Exception) {
+                return FetchExamResultAction.Failure(e)
+            }
         }
-    }
 
-    /**
-     * すべての力試しの結果を取得する.
-     *
-     * @param now 現在時刻
-     *
-     * @return FetchAllExamResultAction
-     */
-    suspend fun fetchAllResult(
-        now: Date = Date()
-    ): FetchAllExamResultAction = try {
-        val examCollection = examRepository.findCollection()
-        FetchAllExamResultAction.Success(
-            examResultList = examCollection.all.map { it.toResult(context, now) }
-        )
-    } catch (e: Exception) {
-        FetchAllExamResultAction.Failure(e)
+        /**
+         * すべての力試しの結果を取得する.
+         *
+         * @param now 現在時刻
+         *
+         * @return FetchAllExamResultAction
+         */
+        suspend fun fetchAllResult(now: Date = Date()): FetchAllExamResultAction =
+            try {
+                val examCollection = examRepository.findCollection()
+                FetchAllExamResultAction.Success(
+                    examResultList = examCollection.all.map { it.toResult(context, now) },
+                )
+            } catch (e: Exception) {
+                FetchAllExamResultAction.Failure(e)
+            }
     }
-}

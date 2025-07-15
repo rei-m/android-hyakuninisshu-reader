@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ class ExamFinisherFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = ExamFinisherFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -55,14 +55,21 @@ class ExamFinisherFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.onFinishEvent.observe(viewLifecycleOwner, EventObserver {
-            val action = ExamFinisherFragmentDirections.actionExamFinisherToExamResult(
-                examId = it
-            )
-            findNavController().navigate(action)
-        })
+        viewModel.onFinishEvent.observe(
+            viewLifecycleOwner,
+            EventObserver {
+                val action =
+                    ExamFinisherFragmentDirections.actionExamFinisherToExamResult(
+                        examId = it,
+                    )
+                findNavController().navigate(action)
+            },
+        )
     }
 }

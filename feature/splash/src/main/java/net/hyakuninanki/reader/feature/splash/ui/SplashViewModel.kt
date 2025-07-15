@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,8 @@ import javax.inject.Inject
 class SplashViewModel(
     dispatcher: Dispatcher,
     actionCreator: ApplicationActionCreator,
-    private val store: ApplicationStore
+    private val store: ApplicationStore,
 ) : AbstractViewModel(dispatcher) {
-
     val onReadyEvent = store.onReadyEvent
 
     val isFailure = store.isFailure
@@ -44,16 +43,19 @@ class SplashViewModel(
         super.onCleared()
     }
 
-    class Factory @Inject constructor(
-        private val dispatcher: Dispatcher,
-        private val actionCreator: ApplicationActionCreator,
-        private val store: ApplicationStore
-    ) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = SplashViewModel(
-            dispatcher,
-            actionCreator,
-            store
-        ) as T
-    }
+    class Factory
+        @Inject
+        constructor(
+            private val dispatcher: Dispatcher,
+            private val actionCreator: ApplicationActionCreator,
+            private val store: ApplicationStore,
+        ) : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                SplashViewModel(
+                    dispatcher,
+                    actionCreator,
+                    store,
+                ) as T
+        }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import net.hyakuninanki.reader.state.training.model.*
 
-class TrainingMenuViewModel(private val handle: SavedStateHandle) : ViewModel() {
+class TrainingMenuViewModel(
+    private val handle: SavedStateHandle,
+) : ViewModel() {
     var rangeFrom: RangeFromCondition
         get() {
             val ordinal: Int = handle.get<Int>(KEY_RANGE_FROM) ?: RangeFromCondition.ONE.ordinal

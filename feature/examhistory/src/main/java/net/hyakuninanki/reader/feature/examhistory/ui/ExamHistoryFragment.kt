@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ class ExamHistoryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = ExamHistoryFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -55,13 +55,19 @@ class ExamHistoryFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerExamResultList.adapter = ExamResultListAdapter(requireContext(), listOf())
         binding.viewModel = viewModel
-        viewModel.resultList.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            (binding.recyclerExamResultList.adapter as ExamResultListAdapter).replaceData(it)
-        })
+        viewModel.resultList.observe(
+            viewLifecycleOwner,
+            Observer {
+                it ?: return@Observer
+                (binding.recyclerExamResultList.adapter as ExamResultListAdapter).replaceData(it)
+            },
+        )
     }
 }

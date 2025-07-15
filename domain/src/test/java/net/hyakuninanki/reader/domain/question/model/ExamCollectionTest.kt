@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,11 +55,12 @@ class ExamCollectionTest : TestHelper {
     class WhenExamNotHasWrong : TestHelper {
         @Test
         fun totalWrongKarutaNoCollection() {
-            val list = listOf(
-                createExam(
-                    wrongKarutaNoCollection = KarutaNoCollection(listOf())
+            val list =
+                listOf(
+                    createExam(
+                        wrongKarutaNoCollection = KarutaNoCollection(listOf()),
+                    ),
                 )
-            )
             val actual = ExamCollection(list).totalWrongKarutaNoCollection
             assertThat(actual).isEqualTo(KarutaNoCollection(listOf()))
         }
@@ -68,21 +69,25 @@ class ExamCollectionTest : TestHelper {
     class WhenExamHasWrong : TestHelper {
         @Test
         fun totalWrongKarutaNoCollection() {
-            val list = listOf(
-                createExam(
-                    wrongKarutaNoCollection = KarutaNoCollection(
-                        listOf(
-                            KarutaNo(1)
-                        )
-                    )
-                ), createExam(
-                    wrongKarutaNoCollection = KarutaNoCollection(
-                        listOf(
-                            KarutaNo(2)
-                        )
-                    )
+            val list =
+                listOf(
+                    createExam(
+                        wrongKarutaNoCollection =
+                            KarutaNoCollection(
+                                listOf(
+                                    KarutaNo(1),
+                                ),
+                            ),
+                    ),
+                    createExam(
+                        wrongKarutaNoCollection =
+                            KarutaNoCollection(
+                                listOf(
+                                    KarutaNo(2),
+                                ),
+                            ),
+                    ),
                 )
-            )
             val actual = ExamCollection(list).totalWrongKarutaNoCollection
             assertThat(actual).isEqualTo(KarutaNoCollection(listOf(KarutaNo(1), KarutaNo(2))))
         }

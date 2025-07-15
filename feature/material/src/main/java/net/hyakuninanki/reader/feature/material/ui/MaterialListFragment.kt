@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,9 @@ import net.hyakuninanki.reader.state.material.model.ColorFilter
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionListener {
+class MaterialListFragment :
+    Fragment(),
+    MaterialListAdapter.OnItemInteractionListener {
     @Inject
     lateinit var viewModelFactory: MaterialViewModel.Factory
 
@@ -44,7 +46,9 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
     private val viewModel by activityViewModels<MaterialViewModel> { viewModelFactory }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         _binding = MaterialListFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -53,8 +57,9 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
             adapter = MaterialListAdapter(requireContext(), listOf(), this@MaterialListFragment)
             addItemDecoration(
                 DividerItemDecoration(
-                    inflater.context, DividerItemDecoration.VERTICAL
-                )
+                    inflater.context,
+                    DividerItemDecoration.VERTICAL,
+                ),
             )
         }
 
@@ -66,40 +71,52 @@ class MaterialListFragment : Fragment(), MaterialListAdapter.OnItemInteractionLi
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         setUpOptionMenu()
-        viewModel.materialList.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            (binding.recyclerMaterialList.adapter as MaterialListAdapter).replaceData(it)
-        })
+        viewModel.materialList.observe(
+            viewLifecycleOwner,
+            Observer {
+                it ?: return@Observer
+                (binding.recyclerMaterialList.adapter as MaterialListAdapter).replaceData(it)
+            },
+        )
     }
 
     override fun onItemClicked(position: Int) {
-        val action = MaterialListFragmentDirections.actionMaterialListToMaterialDetail(
-            position = position
-        )
+        val action =
+            MaterialListFragmentDirections.actionMaterialListToMaterialDetail(
+                position = position,
+            )
         findNavController().navigate(action)
     }
 
     private fun setUpOptionMenu() {
         val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                for (colorFilter in ColorFilter.values()) {
-                    val menuItem =
-                        menu.add(Menu.NONE, colorFilter.ordinal, Menu.NONE, colorFilter.resId)
-                    menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
-                    menuItem.setOnMenuItemClickListener {
-                        viewModel.colorFilter = colorFilter
-                        false
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(
+                    menu: Menu,
+                    menuInflater: MenuInflater,
+                ) {
+                    for (colorFilter in ColorFilter.values()) {
+                        val menuItem =
+                            menu.add(Menu.NONE, colorFilter.ordinal, Menu.NONE, colorFilter.resId)
+                        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
+                        menuItem.setOnMenuItemClickListener {
+                            viewModel.colorFilter = colorFilter
+                            false
+                        }
                     }
                 }
-            }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return true
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = true
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED,
+        )
     }
 }

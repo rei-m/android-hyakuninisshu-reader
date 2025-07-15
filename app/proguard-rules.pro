@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
+# proguardFiles setting in build.gradle.kts.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
@@ -24,16 +24,9 @@
 -keepnames class net.hyakuninanki.reader.state.question.model.*
 -keepnames class net.hyakuninanki.reader.state.material.model.*
 
--keep class kotlin.reflect.jvm.internal.impl.builtins.BuiltInsLoaderImpl
-
--keep class kotlin.Metadata {
-    public <methods>;
+-keep class net.hyakuninanki.reader.infrastructure.database.karuta.* {
+    public *;
 }
--keepclassmembers class net.hyakuninanki.reader.infrastructure.database.karuta.* {
-  <init>(...);
-  <fields>;
-}
--keepclassmembers class net.hyakuninanki.reader.infrastructure.database.question.* {
-  <init>(...);
-  <fields>;
+-keep class net.hyakuninanki.reader.infrastructure.database.question.* {
+    public *;
 }
