@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,18 @@ import net.hyakuninanki.reader.state.core.Action
 /**
  * 力試しを開始するアクション.
  */
-sealed class StartExamAction(override val error: Throwable? = null) : Action {
-
-    class Success(val questionId: String) : StartExamAction() {
+sealed class StartExamAction(
+    override val error: Throwable? = null,
+) : Action {
+    class Success(
+        val questionId: String,
+    ) : StartExamAction() {
         override fun toString() = "$name(questionId=$questionId)"
     }
 
-    class Failure(e: Throwable) : StartExamAction(e) {
+    class Failure(
+        e: Throwable,
+    ) : StartExamAction(e) {
         override fun toString() = "$name(error=$error)"
     }
 

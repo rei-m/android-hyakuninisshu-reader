@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package net.hyakuninanki.reader.feature.examhistory.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.feature.corecomponent.ext.map
+import androidx.lifecycle.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
@@ -29,9 +29,8 @@ import javax.inject.Inject
 class ExamHistoryViewModel(
     dispatcher: Dispatcher,
     private val actionCreator: ExamActionCreator,
-    private val store: ExamHistoryStore
+    private val store: ExamHistoryStore,
 ) : AbstractViewModel(dispatcher) {
-
     val resultList = store.resultList
 
     val isVisibleProgress = store.resultList.map { it == null }
@@ -45,16 +44,19 @@ class ExamHistoryViewModel(
         super.onCleared()
     }
 
-    class Factory @Inject constructor(
-        private val dispatcher: Dispatcher,
-        private val actionCreator: ExamActionCreator,
-        private val store: ExamHistoryStore
-    ) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamHistoryViewModel(
-            dispatcher,
-            actionCreator,
-            store
-        ) as T
-    }
+    class Factory
+        @Inject
+        constructor(
+            private val dispatcher: Dispatcher,
+            private val actionCreator: ExamActionCreator,
+            private val store: ExamHistoryStore,
+        ) : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                ExamHistoryViewModel(
+                    dispatcher,
+                    actionCreator,
+                    store,
+                ) as T
+        }
 }

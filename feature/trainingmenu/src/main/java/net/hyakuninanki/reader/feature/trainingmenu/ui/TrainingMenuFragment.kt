@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ import net.hyakuninanki.reader.feature.trainingmenu.databinding.TrainingMenuFrag
 import net.hyakuninanki.reader.state.training.model.*
 
 class TrainingMenuFragment : Fragment() {
-
     private var _binding: TrainingMenuFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -41,7 +40,7 @@ class TrainingMenuFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = TrainingMenuFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -54,46 +53,51 @@ class TrainingMenuFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.dropdownRangeFrom.setUpDropDown(
-            RangeFromCondition.values().map { it.label(resources) }
+            RangeFromCondition.values().map { it.label(resources) },
         )
 
         binding.dropdownRangeTo.setUpDropDown(
-            RangeToCondition.values().map { it.label(resources) }
+            RangeToCondition.values().map { it.label(resources) },
         )
         binding.dropdownKimariji.setUpDropDown(
-            KimarijiCondition.values().map { it.label(resources) }
+            KimarijiCondition.values().map { it.label(resources) },
         )
         binding.dropdownColor.setUpDropDown(
-            ColorCondition.values().map { it.label(resources) }
+            ColorCondition.values().map { it.label(resources) },
         )
         binding.dropdownDisplayMode.setUpDropDown(
-            DisplayModeCondition.values().map { it.label(resources) }
+            DisplayModeCondition.values().map { it.label(resources) },
         )
         binding.dropdownInputSecond.setUpDropDown(
-            InputSecondCondition.values().map { it.label(resources) }
+            InputSecondCondition.values().map { it.label(resources) },
         )
 
         binding.buttonStartTraining.setOnClickListener {
             if (viewModel.rangeTo.ordinal < viewModel.rangeFrom.ordinal) {
-                Snackbar.make(
-                    binding.root,
-                    R.string.text_message_invalid_training_range,
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                Snackbar
+                    .make(
+                        binding.root,
+                        R.string.text_message_invalid_training_range,
+                        Snackbar.LENGTH_SHORT,
+                    ).show()
                 return@setOnClickListener
             }
 
-            val action = TrainingMenuFragmentDirections.actionTrainingMenuToTrainingStarter(
-                rangeFrom = viewModel.rangeFrom,
-                rangeTo = viewModel.rangeTo,
-                kimariji = viewModel.kimariji,
-                color = viewModel.color,
-                displayMode = viewModel.displayMode,
-                inputSecond = viewModel.inputSecond
-            )
+            val action =
+                TrainingMenuFragmentDirections.actionTrainingMenuToTrainingStarter(
+                    rangeFrom = viewModel.rangeFrom,
+                    rangeTo = viewModel.rangeTo,
+                    kimariji = viewModel.kimariji,
+                    color = viewModel.color,
+                    displayMode = viewModel.displayMode,
+                    inputSecond = viewModel.inputSecond,
+                )
             findNavController().navigate(action)
         }
 

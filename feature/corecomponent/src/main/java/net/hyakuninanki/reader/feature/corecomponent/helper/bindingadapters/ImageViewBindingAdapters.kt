@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,14 +19,18 @@ package net.hyakuninanki.reader.feature.corecomponent.helper.bindingadapters
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import net.hyakuninanki.reader.feature.corecomponent.helper.GlideApp
 
 @BindingAdapter("karutaSrc")
-fun setKarutaSrc(view: ImageView, resId: Int?) {
+fun setKarutaSrc(
+    view: ImageView,
+    resId: Int?,
+) {
     resId ?: return
 
-    GlideApp.with(view.context)
+    Glide
+        .with(view.context)
         .load(resId)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(view)

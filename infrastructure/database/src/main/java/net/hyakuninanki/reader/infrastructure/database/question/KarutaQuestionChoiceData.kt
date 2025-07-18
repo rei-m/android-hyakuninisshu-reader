@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,26 @@ package net.hyakuninanki.reader.infrastructure.database.question
 import androidx.room.*
 import net.hyakuninanki.reader.infrastructure.database.karuta.KarutaData
 
-
 @Entity(
     tableName = "karuta_question_choice_table",
     indices = [Index("karuta_question_id"), Index("karuta_no")],
-    foreignKeys = [ForeignKey(
-        entity = KarutaQuestionData::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("karuta_question_id"),
-        onDelete = ForeignKey.CASCADE
-    ), ForeignKey(
-        entity = KarutaData::class,
-        parentColumns = arrayOf("no"),
-        childColumns = arrayOf("karuta_no"),
-        onDelete = ForeignKey.CASCADE
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = KarutaQuestionData::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("karuta_question_id"),
+            onDelete = ForeignKey.CASCADE,
+        ), ForeignKey(
+            entity = KarutaData::class,
+            parentColumns = arrayOf("no"),
+            childColumns = arrayOf("karuta_no"),
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
 )
 data class KarutaQuestionChoiceData(
     @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "karuta_question_id") val karutaQuestionId: String,
     @ColumnInfo(name = "karuta_no") val karutaNo: Int,
-    @ColumnInfo(name = "order") val order: Int
+    @ColumnInfo(name = "order") val order: Int,
 )

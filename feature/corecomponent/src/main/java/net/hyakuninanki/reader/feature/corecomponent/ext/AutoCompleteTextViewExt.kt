@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,17 +26,18 @@ fun AutoCompleteTextView.setUpDropDown(itemList: List<String>) {
     inputType = InputType.TYPE_NULL
     keyListener = null
 
-    val adapter = DropdownSelectAdapter(
-        context,
-        R.layout.dropdown_menu_popup_item,
-        itemList
-    )
+    val adapter =
+        DropdownSelectAdapter(
+            context,
+            R.layout.dropdown_menu_popup_item,
+            itemList,
+        )
     setAdapter(adapter)
 }
 
 fun AutoCompleteTextView.setUp(
     initialValue: String,
-    onSelected: (position: Int) -> Unit
+    onSelected: (position: Int) -> Unit,
 ) {
     setText(initialValue, false)
 

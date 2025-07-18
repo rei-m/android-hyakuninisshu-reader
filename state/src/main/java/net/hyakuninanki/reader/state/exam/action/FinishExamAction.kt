@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,18 @@ import net.hyakuninanki.reader.state.exam.model.ExamResult
 /**
  * 力試しを完了するアクション.
  */
-sealed class FinishExamAction(override val error: Throwable? = null) : Action {
-
-    class Success(val examResult: ExamResult) : FinishExamAction() {
+sealed class FinishExamAction(
+    override val error: Throwable? = null,
+) : Action {
+    class Success(
+        val examResult: ExamResult,
+    ) : FinishExamAction() {
         override fun toString() = "$name(examResult=$examResult)"
     }
 
-    class Failure(e: Throwable) : FinishExamAction(e) {
+    class Failure(
+        e: Throwable,
+    ) : FinishExamAction(e) {
         override fun toString() = "$name(error=$error)"
     }
 

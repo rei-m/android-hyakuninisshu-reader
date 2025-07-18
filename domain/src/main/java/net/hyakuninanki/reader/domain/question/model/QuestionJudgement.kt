@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,5 +28,5 @@ import net.hyakuninanki.reader.domain.karuta.model.KarutaNo
  */
 data class QuestionJudgement(
     val karutaNo: KarutaNo,
-    val isCorrect: Boolean
+    val isCorrect: Boolean,
 ) : ValueObject

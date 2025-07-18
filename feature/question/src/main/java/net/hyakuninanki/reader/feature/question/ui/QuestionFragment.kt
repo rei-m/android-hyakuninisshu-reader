@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ class QuestionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = QuestionFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -65,19 +65,23 @@ class QuestionFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.layoutQuestionResult.setOnClickListener {
             val state = viewModel.state.value
             if (state is QuestionState.Answered) {
-                val action = QuestionFragmentDirections.actionQuestionToAnswer(
-                    nextQuestionId = state.nextQuestionId,
-                    correctKaruta = state.correctMaterial,
-                    displayMode = args.displayMode,
-                    inputSecond = args.inputSecond,
-                    referer = args.referer
-                )
+                val action =
+                    QuestionFragmentDirections.actionQuestionToAnswer(
+                        nextQuestionId = state.nextQuestionId,
+                        correctKaruta = state.correctMaterial,
+                        displayMode = args.displayMode,
+                        inputSecond = args.inputSecond,
+                        referer = args.referer,
+                    )
                 findNavController().navigate(action)
             }
         }

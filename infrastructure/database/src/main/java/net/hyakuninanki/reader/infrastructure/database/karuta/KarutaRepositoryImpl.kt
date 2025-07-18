@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ class KarutaRepositoryImpl(
     private val context: Context,
     private val storage: Storage,
     private val database: AppDatabase,
-    private val ioContext: CoroutineContext = Dispatchers.IO
+    private val ioContext: CoroutineContext = Dispatchers.IO,
 ) : KarutaRepository {
     @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun initialize() {
@@ -58,33 +58,41 @@ class KarutaRepositoryImpl(
 
                 storage.setInt(
                     KarutaJsonConstant.KEY_KARUTA_JSON_VERSION,
-                    KarutaJsonConstant.KARUTA_VERSION
+                    KarutaJsonConstant.KARUTA_VERSION,
                 )
             }
         }
     }
 
-    override suspend fun findByNo(karutaNo: KarutaNo): Karuta = withContext(ioContext) {
-        database.karutaDao().findByNo(no = karutaNo.value).toModel()
-    }
+    override suspend fun findByNo(karutaNo: KarutaNo): Karuta =
+        withContext(ioContext) {
+            database.karutaDao().findByNo(no = karutaNo.value).toModel()
+        }
 
     override suspend fun findAllWithCondition(
         fromNo: KarutaNo,
         toNo: KarutaNo,
         kimarijis: List<Kimariji>,
-        colors: List<KarutaColor>
-    ): List<Karuta> = withContext(ioContext) {
-        database.karutaDao().findAllWithCondition(fromNo = fromNo.value,
-            toNo = toNo.value,
-            kimarijis = kimarijis.map { it.value },
-            colors = colors.map { it.value }).map { it.toModel() }
-    }
+        colors: List<KarutaColor>,
+    ): List<Karuta> =
+        withContext(ioContext) {
+            database
+                .karutaDao()
+                .findAllWithCondition(
+                    fromNo = fromNo.value,
+                    toNo = toNo.value,
+                    kimarijis = kimarijis.map { it.value },
+                    colors = colors.map { it.value },
+                ).map { it.toModel() }
+        }
 
     override suspend fun findAllWithNo(karutaNoList: List<KarutaNo>): List<Karuta> =
         withContext(ioContext) {
-            database.karutaDao().findAllWithNo(
-                nos = karutaNoList.map { it.value }
-            ).map { it.toModel() }
+            database
+                .karutaDao()
+                .findAllWithNo(
+                    nos = karutaNoList.map { it.value },
+                ).map { it.toModel() }
         }
 
     override suspend fun findAll(): List<Karuta> =
@@ -116,11 +124,12 @@ fun KarutaData.toModel(): Karuta {
         imageNo = KarutaImageNo(imageNo),
         translation = translation,
         color = KarutaColor.forValue(color),
-        toriFuda = ToriFuda(
-            karutaNo = karutaNo,
-            firstLine = adjustedTorifuda.substring(0..4),
-            secondLine = adjustedTorifuda.substring(5..9),
-            thirdLine = adjustedTorifuda.substring(10..14)
-        )
+        toriFuda =
+            ToriFuda(
+                karutaNo = karutaNo,
+                firstLine = adjustedTorifuda.substring(0..4),
+                secondLine = adjustedTorifuda.substring(5..9),
+                thirdLine = adjustedTorifuda.substring(10..14),
+            ),
     )
 }

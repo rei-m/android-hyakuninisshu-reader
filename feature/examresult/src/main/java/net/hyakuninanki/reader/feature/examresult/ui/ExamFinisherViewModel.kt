@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package net.hyakuninanki.reader.feature.examresult.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.feature.corecomponent.ext.map
+import androidx.lifecycle.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
@@ -29,9 +29,8 @@ import javax.inject.Inject
 class ExamFinisherViewModel(
     dispatcher: Dispatcher,
     actionCreator: ExamActionCreator,
-    private val store: ExamFinisherStore
+    private val store: ExamFinisherStore,
 ) : AbstractViewModel(dispatcher) {
-
     val onFinishEvent = store.onFinishEvent
 
     val isFailure = store.isFailure
@@ -49,16 +48,19 @@ class ExamFinisherViewModel(
         super.onCleared()
     }
 
-    class Factory @Inject constructor(
-        private val dispatcher: Dispatcher,
-        private val actionCreator: ExamActionCreator,
-        private val store: ExamFinisherStore
-    ) : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamFinisherViewModel(
-            dispatcher,
-            actionCreator,
-            store
-        ) as T
-    }
+    class Factory
+        @Inject
+        constructor(
+            private val dispatcher: Dispatcher,
+            private val actionCreator: ExamActionCreator,
+            private val store: ExamFinisherStore,
+        ) : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                ExamFinisherViewModel(
+                    dispatcher,
+                    actionCreator,
+                    store,
+                ) as T
+        }
 }

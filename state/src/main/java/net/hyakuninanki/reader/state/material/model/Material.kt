@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,10 +61,9 @@ data class Material(
     val gokuKanji: String,
     val gokuKana: String,
     val translation: String,
-    @DrawableRes val imageResId: Int,
-    @RawRes val rawResId: Int
+    @param:DrawableRes val imageResId: Int,
+    @param:RawRes val rawResId: Int,
 ) : Parcelable {
-
     val kamiNoKuKanji: String = "$shokuKanji　$nikuKanji　$sankuKanji"
     val kamiNoKuKana: String = "$shokuKana　$nikuKana　$sankuKana"
     val shimoNoKuKanji: String = "$shikuKanji　$gokuKanji"
@@ -88,10 +87,13 @@ data class Material(
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readInt()
+        parcel.readInt(),
     )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
+    override fun writeToParcel(
+        parcel: Parcel,
+        flags: Int,
+    ) {
         parcel.writeInt(no)
         parcel.writeString(noTxt)
         parcel.writeInt(kimariji)
@@ -112,17 +114,11 @@ data class Material(
         parcel.writeInt(rawResId)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<Material> {
-        override fun createFromParcel(parcel: Parcel): Material {
-            return Material(parcel)
-        }
+        override fun createFromParcel(parcel: Parcel): Material = Material(parcel)
 
-        override fun newArray(size: Int): Array<Material?> {
-            return arrayOfNulls(size)
-        }
+        override fun newArray(size: Int): Array<Material?> = arrayOfNulls(size)
     }
 }

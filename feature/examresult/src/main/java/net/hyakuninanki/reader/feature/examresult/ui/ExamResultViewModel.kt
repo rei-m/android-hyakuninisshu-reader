@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package net.hyakuninanki.reader.feature.examresult.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import net.hyakuninanki.reader.feature.corecomponent.ext.map
+import androidx.lifecycle.map
 import net.hyakuninanki.reader.feature.corecomponent.ui.AbstractViewModel
 import net.hyakuninanki.reader.state.core.Dispatcher
 import net.hyakuninanki.reader.state.exam.action.ExamActionCreator
@@ -31,16 +31,16 @@ class ExamResultViewModel(
     private val examId: Long,
     dispatcher: Dispatcher,
     actionCreator: ExamActionCreator,
-    private val store: ExamResultStore
+    private val store: ExamResultStore,
 ) : AbstractViewModel(dispatcher) {
-
     val result = store.result
 
-    val materialMap = store.materialList.map {
-        val temp = hashMapOf<Int, Material>()
-        it?.forEach { material -> temp[material.no] = material }
-        return@map temp
-    }
+    val materialMap =
+        store.materialList.map {
+            val temp = hashMapOf<Int, Material>()
+            it?.forEach { material -> temp[material.no] = material }
+            return@map temp
+        }
 
     init {
         dispatchAction {
@@ -53,19 +53,22 @@ class ExamResultViewModel(
         super.onCleared()
     }
 
-    class Factory @Inject constructor(
-        private val dispatcher: Dispatcher,
-        private val actionCreator: ExamActionCreator,
-        private val store: ExamResultStore
-    ) : ViewModelProvider.Factory {
-        var examId: Long = -1
+    class Factory
+        @Inject
+        constructor(
+            private val dispatcher: Dispatcher,
+            private val actionCreator: ExamActionCreator,
+            private val store: ExamResultStore,
+        ) : ViewModelProvider.Factory {
+            var examId: Long = -1
 
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = ExamResultViewModel(
-            examId,
-            dispatcher,
-            actionCreator,
-            store
-        ) as T
-    }
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T =
+                ExamResultViewModel(
+                    examId,
+                    dispatcher,
+                    actionCreator,
+                    store,
+                ) as T
+        }
 }

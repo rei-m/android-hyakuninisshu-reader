@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,45 +26,42 @@ import androidx.room.Query
 interface KarutaDao {
     @Query(
         "SELECT * from karuta_table " +
-                "WHERE " +
-                "    `no` = :no"
+            "WHERE " +
+            "    `no` = :no",
     )
     fun findByNo(no: Int): KarutaData
 
     @Query(
         "SELECT * from karuta_table " +
-                "WHERE " +
-                "    `no` BETWEEN :fromNo AND :toNo " +
-                "AND kimariji IN (:kimarijis) " +
-                "AND color IN (:colors) " +
-                "ORDER BY " +
-                "    `no` ASC"
+            "WHERE " +
+            "    `no` BETWEEN :fromNo AND :toNo " +
+            "AND kimariji IN (:kimarijis) " +
+            "AND color IN (:colors) " +
+            "ORDER BY " +
+            "    `no` ASC",
     )
     fun findAllWithCondition(
         fromNo: Int,
         toNo: Int,
         kimarijis: List<Int>,
-        colors: List<String>
+        colors: List<String>,
     ): List<KarutaData>
 
     @Query(
         "SELECT * from karuta_table " +
-                "WHERE " +
-                "    `no` IN (:nos)" +
-                "ORDER BY " +
-                "    `no` ASC"
+            "WHERE " +
+            "    `no` IN (:nos)" +
+            "ORDER BY " +
+            "    `no` ASC",
     )
-    fun findAllWithNo(
-        nos: List<Int>
-    ): List<KarutaData>
+    fun findAllWithNo(nos: List<Int>): List<KarutaData>
 
     @Query(
         "SELECT * from karuta_table " +
-                "ORDER BY " +
-                "    `no` ASC"
+            "ORDER BY " +
+            "    `no` ASC",
     )
     fun findAll(): List<KarutaData>
-
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertKarutas(karutas: List<KarutaData>)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,7 +49,7 @@ class ExamResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = ExamResultFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -64,7 +63,10 @@ class ExamResultFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.buttonBack.setOnClickListener {
             val action = ExamResultFragmentDirections.actionExamResultPop()
@@ -72,14 +74,15 @@ class ExamResultFragment : Fragment() {
         }
         binding.viewModel = viewModel
         viewModel.materialMap.observe(viewLifecycleOwner) {
-            binding.viewResult.listener = object : ExamResultView.OnClickItemListener {
-                override fun onClick(karutaNo: Int) {
-                    val material = it[karutaNo] ?: return
-                    val action =
-                        ExamResultFragmentDirections.actionExamResultToMaterialDetailPage(material)
-                    findNavController().navigate(action)
+            binding.viewResult.listener =
+                object : ExamResultView.OnClickItemListener {
+                    override fun onClick(karutaNo: Int) {
+                        val material = it[karutaNo] ?: return
+                        val action =
+                            ExamResultFragmentDirections.actionExamResultToMaterialDetailPage(material)
+                        findNavController().navigate(action)
+                    }
                 }
-            }
         }
     }
 }

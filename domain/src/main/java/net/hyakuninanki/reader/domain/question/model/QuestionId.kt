@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,22 +28,25 @@ import java.util.*
  * @param value 値
  */
 data class QuestionId(
-    val value: String = UUID.randomUUID().toString()
-) : EntityId, Parcelable {
-
+    val value: String = UUID.randomUUID().toString(),
+) : EntityId,
+    Parcelable {
     override fun describeContents(): Int = 0
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
+    override fun writeToParcel(
+        dest: Parcel,
+        flags: Int,
+    ) {
         dest.writeString(this.value)
     }
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<QuestionId> = object : Parcelable.Creator<QuestionId> {
-            override fun createFromParcel(source: Parcel): QuestionId =
-                QuestionId(source.readString()!!)
+        val CREATOR: Parcelable.Creator<QuestionId> =
+            object : Parcelable.Creator<QuestionId> {
+                override fun createFromParcel(source: Parcel): QuestionId = QuestionId(source.readString()!!)
 
-            override fun newArray(size: Int): Array<QuestionId?> = arrayOfNulls(size)
-        }
+                override fun newArray(size: Int): Array<QuestionId?> = arrayOfNulls(size)
+            }
     }
 }

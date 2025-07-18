@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 package net.hyakuninanki.reader.infrastructure.database.karuta
 
 object KarutaJsonConstant {
-    const val KARUTA_VERSION = 2    // マスタを変えたらこれをver upする
+    const val KARUTA_VERSION = 3 // マスタを変えたらこれをver upする
 
     const val KEY_KARUTA_JSON_VERSION = "mtFju3hD6N"
 }

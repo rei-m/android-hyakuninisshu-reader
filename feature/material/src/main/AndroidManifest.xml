@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2020. Rei Matsushita.
+  ~ Copyright (c) 2025. Rei Matsushita.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,4 +16,5 @@
   ~
   -->
 
-<manifest package="net.hyakuninanki.reader.feature.material" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+</manifest>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,25 +23,27 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPreferencesStorage @Inject constructor(
-    @ApplicationContext appContext: Context
-) : Storage {
+class SharedPreferencesStorage
+    @Inject
+    constructor(
+        @ApplicationContext appContext: Context,
+    ) : Storage {
+        private val sharedPreferences =
+            appContext.getSharedPreferences(KEY_PREFERENCES, Context.MODE_PRIVATE)
 
-    private val sharedPreferences =
-        appContext.getSharedPreferences(KEY_PREFERENCES, Context.MODE_PRIVATE)
+        override fun setInt(
+            key: String,
+            value: Int,
+        ) {
+            with(sharedPreferences.edit()) {
+                putInt(key, value)
+                apply()
+            }
+        }
 
-    override fun setInt(key: String, value: Int) {
-        with(sharedPreferences.edit()) {
-            putInt(key, value)
-            apply()
+        override fun getInt(key: String): Int = sharedPreferences.getInt(key, 0)
+
+        companion object {
+            private const val KEY_PREFERENCES = "dse2QEKH9xdyNee"
         }
     }
-
-    override fun getInt(key: String): Int {
-        return sharedPreferences.getInt(key, 0)
-    }
-
-    companion object {
-        private const val KEY_PREFERENCES = "dse2QEKH9xdyNee"
-    }
-}

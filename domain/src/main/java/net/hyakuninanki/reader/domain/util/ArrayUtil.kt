@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,10 @@ import java.util.*
  * @param size 生成した配列から返却する数
  * @return ランダム順にIndexを格納した配列
  */
-internal fun generateRandomIndexArray(randomArraySize: Int, size: Int): IntArray {
-
+internal fun generateRandomIndexArray(
+    randomArraySize: Int,
+    size: Int,
+): IntArray {
     val randArray = IntArray(size)
     val conversion = SparseIntArray()
 

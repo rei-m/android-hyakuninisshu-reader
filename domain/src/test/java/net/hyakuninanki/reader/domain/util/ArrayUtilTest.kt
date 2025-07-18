@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,21 @@
  * limitations under the License.
  *
  */
-plugins {
-    `kotlin-dsl`
-}
 
-repositories {
-    gradlePluginPortal()
-    google()
-    mavenCentral()
+package net.hyakuninanki.reader.domain.util
+
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+
+@RunWith(RobolectricTestRunner::class)
+class ArrayUtilTest {
+    @Test
+    fun generateRandomIndexArray() {
+        val actual = generateRandomIndexArray(10, 4)
+        val firstValue = actual.first()
+        assertThat(actual.size).isEqualTo(4)
+        assertThat(actual.slice(1..actual.lastIndex)).doesNotContain(firstValue)
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,9 +43,10 @@ class Karuta(
     val imageNo: KarutaImageNo,
     val translation: String,
     val color: KarutaColor,
-    val toriFuda: ToriFuda
+    val toriFuda: ToriFuda,
 ) : AbstractEntity<KarutaId>(id) {
-    override fun toString(): String = """
+    override fun toString(): String =
+        """
         Karuta(
             no='$no',
             creator='$creator',

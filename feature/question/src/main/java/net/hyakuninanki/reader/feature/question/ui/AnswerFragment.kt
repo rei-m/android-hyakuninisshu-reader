@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ class AnswerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = AnswerFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -52,33 +52,39 @@ class AnswerFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.material = args.correctKaruta
         binding.existNextQuestion = args.nextQuestionId != null
         binding.buttonGoToNext.setOnClickListener {
             args.nextQuestionId?.let {
-                val displayMode = if (args.referer == Referer.Training) {
-                    args.displayMode
-                } else {
-                    DisplayModeCondition.random()
-                }
-                val action = AnswerFragmentDirections.actionAnswerToQuestion(
-                    questionId = it,
-                    displayMode = displayMode,
-                    inputSecond = args.inputSecond,
-                    referer = args.referer
-                )
+                val displayMode =
+                    if (args.referer == Referer.Training) {
+                        args.displayMode
+                    } else {
+                        DisplayModeCondition.random()
+                    }
+                val action =
+                    AnswerFragmentDirections.actionAnswerToQuestion(
+                        questionId = it,
+                        displayMode = displayMode,
+                        inputSecond = args.inputSecond,
+                        referer = args.referer,
+                    )
                 findNavController().navigate(action)
             }
         }
         binding.buttonGoToResult.setOnClickListener {
             when (args.referer) {
                 Referer.Training -> {
-                    val action = AnswerFragmentDirections.actionAnswerToTrainingResult(
-                        displayMode = args.displayMode,
-                        inputSecond = args.inputSecond
-                    )
+                    val action =
+                        AnswerFragmentDirections.actionAnswerToTrainingResult(
+                            displayMode = args.displayMode,
+                            inputSecond = args.inputSecond,
+                        )
                     findNavController().navigate(action)
                 }
                 Referer.Exam -> {
@@ -88,9 +94,10 @@ class AnswerFragment : Fragment() {
             }
         }
         binding.textMaterial.setOnClickListener {
-            val action = AnswerFragmentDirections.actionAnswerToMaterialDetailPage(
-                material = args.correctKaruta
-            )
+            val action =
+                AnswerFragmentDirections.actionAnswerToMaterialDetailPage(
+                    material = args.correctKaruta,
+                )
             findNavController().navigate(action)
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,109 +29,117 @@ import android.widget.TextView
 import net.hyakuninanki.reader.feature.examresult.R
 import net.hyakuninanki.reader.state.question.model.QuestionResult
 
-class ExamResultView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
-
-    init {
-        initialize(context)
-    }
-
-    var questionResultList: List<QuestionResult>? = null
-        set(value) {
-            field = value
-            questionResultList?.forEachIndexed { index, questionResult ->
-                with(findViewById<CellView>(cellViewIdList[index])) {
-                    setResult(questionResult.karutaNoText, questionResult.isCorrect)
-                    setOnClickListener {
-                        listener?.onClick(questionResult.karutaNo)
-                    }
-                }
-            }
-        }
-
-    var listener: OnClickItemListener? = null
-
-    interface OnClickItemListener {
-        fun onClick(karutaNo: Int)
-    }
-
-    private fun initialize(context: Context) {
-        orientation = VERTICAL
-        for (i in 0 until NUMBER_OF_KARUTA_ROW) {
-            addView(createRow(context, i))
-        }
-    }
-
-    private fun createRow(context: Context, rowIndex: Int): LinearLayout {
-
-        val linearLayout = LinearLayout(context).apply {
-            orientation = HORIZONTAL
-        }
-
-        val layoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
-
-        val currentRowTopIndex = rowIndex * NUMBER_OF_KARUTA_PER_ROW
-
-        for (i in 0 until NUMBER_OF_KARUTA_PER_ROW) {
-            val totalIndex = currentRowTopIndex + i
-            val cellView = CellView(context).apply {
-                id = cellViewIdList[totalIndex]
-                gravity = Gravity.CENTER
-            }
-            linearLayout.addView(cellView, layoutParams)
-        }
-
-        return linearLayout
-    }
-
-    inner class CellView @JvmOverloads constructor(
+class ExamResultView
+    @JvmOverloads
+    constructor(
         context: Context,
         attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
-    ) : RelativeLayout(context, attrs, defStyleAttr) {
-
+        defStyleAttr: Int = 0,
+    ) : LinearLayout(context, attrs, defStyleAttr) {
         init {
             initialize(context)
         }
 
-        private lateinit var textKarutaNo: TextView
+        var questionResultList: List<QuestionResult>? = null
+            set(value) {
+                field = value
+                questionResultList?.forEachIndexed { index, questionResult ->
+                    with(findViewById<CellView>(cellViewIdList[index])) {
+                        setResult(questionResult.karutaNoText, questionResult.isCorrect)
+                        setOnClickListener {
+                            listener?.onClick(questionResult.karutaNo)
+                        }
+                    }
+                }
+            }
 
-        private lateinit var imageCorrect: ImageView
+        var listener: OnClickItemListener? = null
 
-        private lateinit var imageIncorrect: ImageView
+        interface OnClickItemListener {
+            fun onClick(karutaNo: Int)
+        }
 
         private fun initialize(context: Context) {
-            val view = View.inflate(context, R.layout.view_karuta_exam_result_cell, this)
-            textKarutaNo = view.findViewById(R.id.text_karuta_no)
-            imageCorrect = view.findViewById(R.id.image_quiz_result_correct)
-            imageIncorrect = view.findViewById(R.id.image_quiz_result_incorrect)
+            orientation = VERTICAL
+            for (i in 0 until NUMBER_OF_KARUTA_ROW) {
+                addView(createRow(context, i))
+            }
         }
 
-        fun setResult(karutaNoText: String, isCorrect: Boolean) {
-            textKarutaNo.text = karutaNoText
-            if (isCorrect) {
-                imageCorrect.visibility = View.VISIBLE
-            } else {
-                imageIncorrect.visibility = View.VISIBLE
+        private fun createRow(
+            context: Context,
+            rowIndex: Int,
+        ): LinearLayout {
+            val linearLayout =
+                LinearLayout(context).apply {
+                    orientation = HORIZONTAL
+                }
+
+            val layoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+
+            val currentRowTopIndex = rowIndex * NUMBER_OF_KARUTA_PER_ROW
+
+            for (i in 0 until NUMBER_OF_KARUTA_PER_ROW) {
+                val totalIndex = currentRowTopIndex + i
+                val cellView =
+                    CellView(context).apply {
+                        id = cellViewIdList[totalIndex]
+                        gravity = Gravity.CENTER
+                    }
+                linearLayout.addView(cellView, layoutParams)
+            }
+
+            return linearLayout
+        }
+
+        inner class CellView
+            @JvmOverloads
+            constructor(
+                context: Context,
+                attrs: AttributeSet? = null,
+                defStyleAttr: Int = 0,
+            ) : RelativeLayout(context, attrs, defStyleAttr) {
+                init {
+                    initialize(context)
+                }
+
+                private lateinit var textKarutaNo: TextView
+
+                private lateinit var imageCorrect: ImageView
+
+                private lateinit var imageIncorrect: ImageView
+
+                private fun initialize(context: Context) {
+                    val view = View.inflate(context, R.layout.view_karuta_exam_result_cell, this)
+                    textKarutaNo = view.findViewById(R.id.text_karuta_no)
+                    imageCorrect = view.findViewById(R.id.image_quiz_result_correct)
+                    imageIncorrect = view.findViewById(R.id.image_quiz_result_incorrect)
+                }
+
+                fun setResult(
+                    karutaNoText: String,
+                    isCorrect: Boolean,
+                ) {
+                    textKarutaNo.text = karutaNoText
+                    if (isCorrect) {
+                        imageCorrect.visibility = View.VISIBLE
+                    } else {
+                        imageIncorrect.visibility = View.VISIBLE
+                    }
+                }
+            }
+
+        companion object {
+            private const val NUMBER_OF_KARUTA_PER_ROW = 5
+            private const val NUMBER_OF_CELL = 100
+            private const val NUMBER_OF_KARUTA_ROW = NUMBER_OF_CELL / NUMBER_OF_KARUTA_PER_ROW
+
+            private val cellViewIdList = IntArray(NUMBER_OF_CELL)
+
+            init {
+                for (i in 0 until NUMBER_OF_CELL) {
+                    cellViewIdList[i] = View.generateViewId()
+                }
             }
         }
     }
-
-    companion object {
-
-        private const val NUMBER_OF_KARUTA_PER_ROW = 5
-        private const val NUMBER_OF_CELL = 100
-        private const val NUMBER_OF_KARUTA_ROW = NUMBER_OF_CELL / NUMBER_OF_KARUTA_PER_ROW
-
-        private val cellViewIdList = IntArray(NUMBER_OF_CELL)
-
-        init {
-            for (i in 0 until NUMBER_OF_CELL) {
-                cellViewIdList[i] = View.generateViewId()
-            }
-        }
-    }
-}

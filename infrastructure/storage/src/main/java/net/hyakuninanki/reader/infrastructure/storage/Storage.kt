@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,10 @@
 package net.hyakuninanki.reader.infrastructure.storage
 
 interface Storage {
-    fun setInt(key: String, value: Int)
+    fun setInt(
+        key: String,
+        value: Int,
+    )
+
     fun getInt(key: String): Int
 }

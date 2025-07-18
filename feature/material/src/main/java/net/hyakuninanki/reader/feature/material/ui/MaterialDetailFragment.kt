@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ class MaterialDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = MaterialDetailFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -63,20 +63,26 @@ class MaterialDetailFragment : Fragment() {
         super.onDestroyView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.materialList.observe(viewLifecycleOwner, Observer {
-            it ?: return@Observer
-            (binding.pager.adapter as ScreenSlidePagerAdapter).replaceData(it)
-            if (savedInstanceState == null) {
-                binding.pager.setCurrentItem(args.position, false)
-            } else {
-                binding.pager.setCurrentItem(
-                    savedInstanceState.getInt(ARG_POSITION, args.position),
-                    false
-                )
-            }
-        })
+        viewModel.materialList.observe(
+            viewLifecycleOwner,
+            Observer {
+                it ?: return@Observer
+                (binding.pager.adapter as ScreenSlidePagerAdapter).replaceData(it)
+                if (savedInstanceState == null) {
+                    binding.pager.setCurrentItem(args.position, false)
+                } else {
+                    binding.pager.setCurrentItem(
+                        savedInstanceState.getInt(ARG_POSITION, args.position),
+                        false,
+                    )
+                }
+            },
+        )
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -86,11 +92,11 @@ class MaterialDetailFragment : Fragment() {
 
     private inner class ScreenSlidePagerAdapter(
         fragment: Fragment,
-        private var materialList: List<Material>
+        private var materialList: List<Material>,
     ) : FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = materialList.size
-        override fun createFragment(position: Int): Fragment =
-            MaterialDetailPageFragment.newInstance(materialList[position])
+
+        override fun createFragment(position: Int): Fragment = MaterialDetailPageFragment.newInstance(materialList[position])
 
         fun replaceData(materialList: List<Material>) {
             this.materialList = materialList

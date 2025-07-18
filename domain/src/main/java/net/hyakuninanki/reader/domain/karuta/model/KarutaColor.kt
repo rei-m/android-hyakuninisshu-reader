@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,19 +25,21 @@ import net.hyakuninanki.reader.domain.ValueObject
  * @param value 色の値
  */
 enum class KarutaColor(
-    val value: String
+    val value: String,
 ) : ValueObject {
     BLUE("blue"),
     PINK("pink"),
     YELLOW("yellow"),
     GREEN("green"),
-    ORANGE("orange");
+    ORANGE("orange"),
+    ;
 
     override fun toString(): String = "Color(value='$value')"
 
     companion object {
-        fun forValue(value: String): KarutaColor = values().find { it.value == value } ?: let {
-            throw AssertionError("no enum found. value is $value")
-        }
+        fun forValue(value: String): KarutaColor =
+            values().find { it.value == value } ?: let {
+                throw AssertionError("no enum found. value is $value")
+            }
     }
 }

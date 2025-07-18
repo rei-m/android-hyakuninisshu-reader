@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,21 +24,24 @@ import android.view.WindowManager
 import com.google.android.gms.ads.AdSize
 
 val Context.adHeight
-    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val metrics = windowManager.currentWindowMetrics
-        AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            this,
-            metrics.bounds.width()
-        ).getHeightInPixels(this)
-    } else {
-        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val display = windowManager.defaultDisplay
-        val outMetrics = DisplayMetrics()
-        display.getMetrics(outMetrics)
-        val density = outMetrics.density
-        val adWidthPixels = outMetrics.widthPixels.toFloat()
-        val adWidth = (adWidthPixels / density).toInt()
-        AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
-            .getHeightInPixels(this)
-    }
+    get() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val metrics = windowManager.currentWindowMetrics
+            AdSize
+                .getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+                    this,
+                    metrics.bounds.width(),
+                ).getHeightInPixels(this)
+        } else {
+            val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display = windowManager.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display.getMetrics(outMetrics)
+            val density = outMetrics.density
+            val adWidthPixels = outMetrics.widthPixels.toFloat()
+            val adWidth = (adWidthPixels / density).toInt()
+            AdSize
+                .getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+                .getHeightInPixels(this)
+        }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,29 +30,36 @@ import kotlin.coroutines.CoroutineContext
 
 class ExamRepositoryImpl(
     private val database: AppDatabase,
-    private val ioContext: CoroutineContext = Dispatchers.IO
+    private val ioContext: CoroutineContext = Dispatchers.IO,
 ) : ExamRepository {
-    override suspend fun add(examResult: ExamResult, tookExamDate: Date): ExamId =
+    override suspend fun add(
+        examResult: ExamResult,
+        tookExamDate: Date,
+    ): ExamId =
         withContext(ioContext) {
             return@withContext database.runInTransaction<Deferred<ExamId>> {
                 return@runInTransaction async {
-                    val karutaExamData = KarutaExamData(
-                        id = null,
-                        tookExamDate = tookExamDate,
-                        totalQuestionCount = examResult.resultSummary.totalQuestionCount,
-                        averageAnswerTime = examResult.resultSummary.averageAnswerSec
-                    )
+                    val karutaExamData =
+                        KarutaExamData(
+                            id = null,
+                            tookExamDate = tookExamDate,
+                            totalQuestionCount = examResult.resultSummary.totalQuestionCount,
+                            averageAnswerTime = examResult.resultSummary.averageAnswerSec,
+                        )
                     val karutaExamDataId = database.karutaExamDao().insert(karutaExamData)
-                    database.karutaExamWrongKarutaNoDao()
-                        .insert(examResult.wrongKarutaNoCollection.values.map {
-                            KarutaExamWrongKarutaNoData(
-                                id = null,
-                                karutaExamId = karutaExamDataId,
-                                karutaNo = it.value
-                            )
-                        })
+                    database
+                        .karutaExamWrongKarutaNoDao()
+                        .insert(
+                            examResult.wrongKarutaNoCollection.values.map {
+                                KarutaExamWrongKarutaNoData(
+                                    id = null,
+                                    karutaExamId = karutaExamDataId,
+                                    karutaNo = it.value,
+                                )
+                            },
+                        )
                     return@async ExamId(
-                        karutaExamDataId
+                        karutaExamDataId,
                     )
                 }
             }
@@ -60,16 +67,17 @@ class ExamRepositoryImpl(
 
     override suspend fun deleteList(list: List<Exam>) {
         withContext(ioContext) {
-            list.map {
-                KarutaExamData(
-                    id = it.id.value,
-                    tookExamDate = it.tookDate,
-                    totalQuestionCount = it.result.resultSummary.totalQuestionCount,
-                    averageAnswerTime = it.result.resultSummary.averageAnswerSec
-                )
-            }.let {
-                database.karutaExamDao().deleteExams(it)
-            }
+            list
+                .map {
+                    KarutaExamData(
+                        id = it.id.value,
+                        tookExamDate = it.tookDate,
+                        totalQuestionCount = it.result.resultSummary.totalQuestionCount,
+                        averageAnswerTime = it.result.resultSummary.averageAnswerSec,
+                    )
+                }.let {
+                    database.karutaExamDao().deleteExams(it)
+                }
         }
     }
 
@@ -101,49 +109,59 @@ class ExamRepositoryImpl(
                 }
             }
 
-            return@withContext karutaExamDataList.map { karutaExamData ->
-                val id = ExamId(karutaExamData.id!!)
-                val wrongKarutaNoCollection = KarutaNoCollection(
-                    wrongKarutaNoDataMap[karutaExamData.id] ?: listOf()
-                )
-                val resultSummary = QuestionResultSummary(
-                    totalQuestionCount = karutaExamData.totalQuestionCount,
-                    correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoCollection.size,
-                    averageAnswerSec = karutaExamData.averageAnswerTime
-                )
-                return@map Exam(
-                    id = id,
-                    tookDate = karutaExamData.tookExamDate,
-                    result = ExamResult(
-                        resultSummary = resultSummary,
-                        wrongKarutaNoCollection = wrongKarutaNoCollection
+            return@withContext karutaExamDataList
+                .map { karutaExamData ->
+                    val id = ExamId(karutaExamData.id!!)
+                    val wrongKarutaNoCollection =
+                        KarutaNoCollection(
+                            wrongKarutaNoDataMap[karutaExamData.id] ?: listOf(),
+                        )
+                    val resultSummary =
+                        QuestionResultSummary(
+                            totalQuestionCount = karutaExamData.totalQuestionCount,
+                            correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoCollection.size,
+                            averageAnswerSec = karutaExamData.averageAnswerTime,
+                        )
+                    return@map Exam(
+                        id = id,
+                        tookDate = karutaExamData.tookExamDate,
+                        result =
+                            ExamResult(
+                                resultSummary = resultSummary,
+                                wrongKarutaNoCollection = wrongKarutaNoCollection,
+                            ),
                     )
-                )
-            }.let {
-                ExamCollection(it)
-            }
+                }.let {
+                    ExamCollection(it)
+                }
         }
     }
 
     private fun dataToModel(karutaExamData: KarutaExamData): Exam {
-        val wrongKarutaNoDataList = database.karutaExamWrongKarutaNoDao().findAllWithExamId(
-            karutaExamId = karutaExamData.id!!
-        )
+        val wrongKarutaNoDataList =
+            database.karutaExamWrongKarutaNoDao().findAllWithExamId(
+                karutaExamId = karutaExamData.id!!,
+            )
         return Exam(
             id = ExamId(karutaExamData.id),
             tookDate = karutaExamData.tookExamDate,
-            result = ExamResult(
-                resultSummary = QuestionResultSummary(
-                    totalQuestionCount = karutaExamData.totalQuestionCount,
-                    correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
-                    averageAnswerSec = karutaExamData.averageAnswerTime
+            result =
+                ExamResult(
+                    resultSummary =
+                        QuestionResultSummary(
+                            totalQuestionCount = karutaExamData.totalQuestionCount,
+                            correctCount = karutaExamData.totalQuestionCount - wrongKarutaNoDataList.size,
+                            averageAnswerSec = karutaExamData.averageAnswerTime,
+                        ),
+                    wrongKarutaNoCollection =
+                        KarutaNoCollection(
+                            wrongKarutaNoDataList.map {
+                                KarutaNo(
+                                    it.karutaNo,
+                                )
+                            },
+                        ),
                 ),
-                wrongKarutaNoCollection = KarutaNoCollection(wrongKarutaNoDataList.map {
-                    KarutaNo(
-                        it.karutaNo
-                    )
-                })
-            )
         )
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Rei Matsushita.
+ * Copyright (c) 2025. Rei Matsushita.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,18 +25,19 @@ import androidx.fragment.app.DialogFragment
 import net.hyakuninanki.reader.feature.support.R
 
 class PrivacyPolicyDialogFragment : DialogFragment() {
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
         val activityContext = requireActivity()
 
-        val webView = WebView(activityContext).apply {
-            loadUrl(getString(R.string.url_policy))
-        }
+        val webView =
+            WebView(activityContext).apply {
+                loadUrl(getString(R.string.url_policy))
+            }
 
-        val builder = AlertDialog.Builder(activityContext)
-            .setPositiveButton(getString(R.string.action_back), null)
-            .setView(webView)
+        val builder =
+            AlertDialog
+                .Builder(activityContext)
+                .setPositiveButton(getString(net.hyakuninanki.reader.feature.corecomponent.R.string.action_back), null)
+                .setView(webView)
 
         return builder.create()
     }
