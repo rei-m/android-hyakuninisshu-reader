@@ -22,6 +22,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -48,6 +51,19 @@ class MainActivity : AppCompatActivity() {
         setupNavController()
 
         setupAd()
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.container)) { v, windowInsets ->
+            val bars = windowInsets.getInsets(
+                WindowInsetsCompat.Type.statusBars(),
+            )
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom,
+            )
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
@@ -80,25 +96,28 @@ class MainActivity : AppCompatActivity() {
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     navView.visibility = View.GONE
                 }
+
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_training_starter,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_training_re_starter,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_practice_training_starter,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_finisher,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_question,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_question_answer,
-                -> {
+                    -> {
                     navView.visibility = View.GONE
                     adViewObserver.hideAd()
                 }
+
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_training_result,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_result,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_exam_history,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_material_detail,
                 net.hyakuninanki.reader.feature.corecomponent.R.id.navigation_material_detail_page,
-                -> {
+                    -> {
                     navView.visibility = View.GONE
                     adViewObserver.showAd(this, adViewContainer)
                 }
+
                 else -> {
                     navView.visibility = View.VISIBLE
                     adViewObserver.showAd(this, adViewContainer)
