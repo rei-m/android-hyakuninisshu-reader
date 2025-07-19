@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.container)) { v, windowInsets ->
             val bars = windowInsets.getInsets(
-                WindowInsetsCompat.Type.statusBars(),
+                WindowInsetsCompat.Type.systemBars(),
             )
             v.updatePadding(
                 left = bars.left,
